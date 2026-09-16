@@ -5,7 +5,12 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: '/Trader-Dashboard/',
+    // GitHub Pages serves this app at a subpath (username.github.io/Trader-Dashboard/),
+    // so assets need that prefix there. Render (and any other host serving from its own
+    // domain root) needs plain '/' instead — otherwise every asset 404s and the page is
+    // blank. GH_PAGES_BUILD is set only by the GitHub Actions Pages workflow, never by
+    // Render's build command, so this correctly resolves per platform automatically.
+    base: process.env.GH_PAGES_BUILD === 'true' ? '/Trader-Dashboard/' : '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
