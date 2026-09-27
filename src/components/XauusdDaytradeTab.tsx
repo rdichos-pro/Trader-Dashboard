@@ -6,6 +6,7 @@ import {
   ArrowUpRight, 
   BarChart3,
   Bell, 
+  BookOpen,
   Calendar,
   Check, 
   CheckCircle2, 
@@ -821,12 +822,23 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                   className={`hidden md:flex py-2 px-3.5 rounded-lg text-xs font-bold transition-all items-center justify-center gap-1.5 ${
                     viewMode === 'split'
                       ? 'bg-amber-500 text-slate-950 shadow font-black'
-                      : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
                   }`}
                 >
                   <Sliders className="w-3.5 h-3.5" />
                   <span>Split View</span>
                 </button>
+
+                {onNavigateToTab && (
+                  <button
+                    onClick={() => onNavigateToTab('daily-log')}
+                    className="py-2 px-3 rounded-lg text-xs font-semibold bg-blue-900/40 hover:bg-blue-800/60 text-blue-300 border border-blue-700/50 flex items-center gap-1.5 transition-colors touch-manipulation"
+                    title="Open Trading Journal / Daily Log spreadsheet"
+                  >
+                    <BookOpen className="w-3.5 h-3.5 text-blue-400" />
+                    <span>Daily Log / Sheet</span>
+                  </button>
+                )}
               </div>
 
               {/* Entry Timeframe Controls */}

@@ -4,12 +4,12 @@ import { marketDataService } from './marketDataService';
 
 export const DEFAULT_RULES: SignalRuleConfig[] = [
   {
-    id: 'rule-ichimoku-master-entry',
-    name: '1D TK Crossover + 1HR Pure Ichimoku Confluence (8 Pillars)',
+    id: 'rule-stocks-master-confluence',
+    name: 'Stocks Confluence (1-HR + 4-HR + 1-DAY)',
     category: 'ichimoku_confluence',
     enabled: true,
     direction: 'BULLISH',
-    description: 'Strict 8-Pillar Confluence: 1D Tenkan-Kijun Cross (Macro) + 1HR 6-Rule Pure Ichimoku (TK Cross, Price > Cloud, TK > Cloud, Chikou[-26], Green Future Cloud, Kumo Clearance) + Volume Confirmation (RVOL >= 1.2x). Zero oscillators (no Stoch, no CCI). Exit strictly on 1HR chart below 1st closed bar after reversal cross.',
+    description: 'Triple-Timeframe Confluence for Stocks: 1-HR, 4-HR, 1-DAY all simultaneously conform: 1) Tenkan > Kijun; both above cloud, 2) CCI (40) > 100, 3) Stoch (12,3,3) Main > Signal; above 80. Entry on bar close. Stop loss at bottom of the bar close after Tenkan-Kijun crossover.',
     params: {
       tenkanPeriod: 9,
       kijunPeriod: 26,
@@ -17,13 +17,77 @@ export const DEFAULT_RULES: SignalRuleConfig[] = [
       stochPeriodK: 12,
       stochSmoothK: 3,
       stochPeriodD: 3,
-      stochThreshold: 50,
+      stochThreshold: 80,
       cciPeriod: 40,
-      cciThreshold: 50,
+      cciThreshold: 100,
       timeframe: '1HR',
       macroTimeframe: '1D',
       requireVolumeConfirmation: true,
       minRvol: 1.2,
+    },
+  },
+  {
+    id: 'rule-xauusd-triple-tf',
+    name: 'XAUUSD Scalp Confluence (1-MIN + 5-MIN + 15-MIN)',
+    category: 'ichimoku_confluence',
+    enabled: true,
+    direction: 'BULLISH',
+    description: 'Gold Scalp Confluence: 1-MIN, 5-MIN, 15-MIN simultaneously conform: 1) Tenkan > Kijun; both above cloud, 2) CCI (40) > 100, 3) Stoch (12,3,3) Main > Signal; above 80. Entry on bar close. Stop loss at bottom of the bar close after TK crossover.',
+    params: {
+      tenkanPeriod: 9,
+      kijunPeriod: 26,
+      senkouBPeriod: 52,
+      stochPeriodK: 12,
+      stochSmoothK: 3,
+      stochPeriodD: 3,
+      stochThreshold: 80,
+      cciPeriod: 40,
+      cciThreshold: 100,
+      timeframe: '1M',
+      macroTimeframe: '15M',
+      requireVolumeConfirmation: false,
+    },
+  },
+  {
+    id: 'rule-btcusd-triple-tf',
+    name: 'BTCUSD Crypto Scalp Confluence (1-MIN + 5-MIN + 15-MIN)',
+    category: 'ichimoku_confluence',
+    enabled: true,
+    direction: 'BULLISH',
+    description: 'Bitcoin Scalp Confluence: 1-MIN, 5-MIN, 15-MIN simultaneously conform: 1) Tenkan > Kijun; both above cloud, 2) CCI (40) > 100, 3) Stoch (12,3,3) Main > Signal; above 80. Stop loss at bottom of TK crossover bar close.',
+    params: {
+      tenkanPeriod: 9,
+      kijunPeriod: 26,
+      senkouBPeriod: 52,
+      stochPeriodK: 12,
+      stochSmoothK: 3,
+      stochPeriodD: 3,
+      stochThreshold: 80,
+      cciPeriod: 40,
+      cciThreshold: 100,
+      timeframe: '1M',
+      macroTimeframe: '15M',
+    },
+  },
+  {
+    id: 'rule-xagusd-triple-tf',
+    name: 'XAGUSD Silver Confluence (5-MIN + 15-MIN + 30-MIN)',
+    category: 'ichimoku_confluence',
+    enabled: true,
+    direction: 'BULLISH',
+    description: 'Silver Swing Confluence: 5-MIN, 15-MIN, 30-MIN simultaneously conform: 1) Tenkan > Kijun; both above cloud, 2) CCI (40) > 100, 3) Stoch (12,3,3) Main > Signal; above 80. Overcomes silver spread friction. Stop loss at bottom of TK crossover bar close.',
+    params: {
+      tenkanPeriod: 9,
+      kijunPeriod: 26,
+      senkouBPeriod: 52,
+      stochPeriodK: 12,
+      stochSmoothK: 3,
+      stochPeriodD: 3,
+      stochThreshold: 80,
+      cciPeriod: 40,
+      cciThreshold: 100,
+      timeframe: '5M',
+      macroTimeframe: '30M',
     },
   },
 ];
@@ -418,14 +482,31 @@ export function evaluateConfluenceDetails(
     trendActionAdvice = 'Scanning 1HR candles: Awaiting 8-pillar confluence entry or 1HR reversal cross exit.';
   }
 
+  // Stop Loss: bottom of the bar close after Tenkan-Kijun crossover
+  let tkCrossoverStopLoss = 0;
+  for (let i = closedIndex; i >= Math.max(1, closedIndex - 60); i--) {
+    const curr = candles[i];
+    const prev = candles[i - 1];
+    const currT = curr.tenkan ?? curr.close;
+    const currK = curr.kijun ?? curr.close;
+    const prevT = prev.tenkan ?? prev.close;
+    const prevK = prev.kijun ?? prev.close;
+    if (currT >= currK && prevT < prevK) {
+      tkCrossoverStopLoss = Math.min(curr.low, curr.close, curr.open);
+      break;
+    }
+  }
+
   // Backward-compatible fields
   const entryTkBullishCross = entry1hTkBullish;
   const entryTenkanAboveCloud = tenkan > cloudTop;
   const entryKijunAboveCloud = kijun > cloudTop;
   const entryChikouBullish = entry1hChikouBullish;
   const entryFutureCloudBullish = entry1hFutureCloudBullish;
-  const entryStochBullish = true;
-  const entryCciBullish = true;
+  const stochMin = ruleParams?.stochThreshold ?? 80;
+  const cciMin = ruleParams?.cciThreshold ?? 100;
+  const entryStochBullish = stochK > stochD && stochK > stochMin;
+  const entryCciBullish = cci > cciMin;
   const entryNoChopAboveCloud = entry1hKumoClearance;
   const entryPassedCount = totalPillarsPassed;
 
@@ -433,14 +514,14 @@ export function evaluateConfluenceDetails(
   const exitTenkanBelowCloud = tenkan < cloudBottom;
   const exitKijunBelowCloud = kijun < cloudBottom;
   const exitChikouBearish = closedClose < close26Ago;
-  const exitStochBearish = isExitTriggered;
-  const exitCciBearish = isExitTriggered;
+  const exitStochBearish = stochK < stochD && stochK < 20;
+  const exitCciBearish = cci < -100;
   const exitNoChopBelowCloud = isExitTriggered;
   const exitPassedCount = isExitTriggered ? 7 : hasReversalCross ? 4 : 0;
 
   const trendMet = entry1hTkBullish && entry1hPriceAboveCloud && entry1hTkAboveCloud;
-  const stochMet = true;
-  const cciMet = true;
+  const stochMet = entryStochBullish;
+  const cciMet = entryCciBullish;
   const conditionsPassedCount = totalPillarsPassed;
 
   const trendSummary = `1HR TK: T:$${tenkan.toFixed(2)} ${entry1hTkBullish ? '>=' : '<'} K:$${kijun.toFixed(2)} | Cloud:[$${cloudBottom.toFixed(2)}-$${cloudTop.toFixed(2)}]`;
@@ -450,8 +531,8 @@ export function evaluateConfluenceDetails(
   const futureCloudSummary = entry1hFutureCloudBullish
     ? `1HR Future Cloud Green: Span A ($${futureSenkouA.toFixed(2)}) > Span B ($${futureSenkouB.toFixed(2)})`
     : `1HR Future Cloud Red: Span A ($${futureSenkouA.toFixed(2)}) <= Span B ($${futureSenkouB.toFixed(2)})`;
-  const stochSummary = 'Oscillators removed (Pure Ichimoku Strategy)';
-  const cciSummary = 'Oscillators removed (Pure Ichimoku Strategy)';
+  const stochSummary = `Stoch (12,3,3): %K=${stochK.toFixed(1)} ${stochK > stochD ? '>' : '<='} %D=${stochD.toFixed(1)} (Threshold: >${stochMin})`;
+  const cciSummary = `CCI (40): ${cci.toFixed(1)} (Threshold: >${cciMin})`;
   const entrySummary = isMasterEntryTriggered
     ? '🎯 8/8 CONFLUENCE CONFIRMED: 1D TK Golden Cross + 1HR 6-Rule Pure Ichimoku + Volume'
     : `Awaiting Full Alignment (${totalPillarsPassed}/8 pillars)`;

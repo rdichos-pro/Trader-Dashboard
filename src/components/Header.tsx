@@ -19,7 +19,9 @@ import {
   TrendingUp, 
   Wallet, 
   X, 
-  Zap 
+  Zap,
+  BookOpen,
+  ExternalLink
 } from 'lucide-react';
 import { SignalAlert, TickerQuote } from '../types/trading';
 import { formatCurrency, formatPercent } from '../utils/formatters';
@@ -85,11 +87,12 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'watchlist', label: 'Watchlist', badge: universe.length },
     { id: 'scanner', label: 'Scanner' },
     { id: 'signals', label: 'Entry Signals', badge: alerts.length > 0 ? alerts.length : undefined },
+    { id: 'daily-log', label: 'Trading Journal / Daily Log', badge: 'Sheet', isSheet: true },
     { id: 'positions', label: 'Positions & Exits', badge: totalPositionsPnl.dollars !== 0 ? (totalPositionsPnl.dollars >= 0 ? `+${formatCurrency(totalPositionsPnl.dollars, 0)}` : formatCurrency(totalPositionsPnl.dollars, 0)) : undefined },
     { id: 'charts', label: 'Charts' },
     { id: 'news', label: 'News & Catalysts' },
     { id: 'backtest', label: 'Backtesting' },
-    { id: 'xauusd', label: 'XAUUSD Daytrade', badge: '5m / 30m', isGold: true },
+    { id: 'xauusd', label: 'XAUUSD Daytrade', badge: '1m / 5m / 15m', isGold: true },
     { id: 'paper', label: 'Paper Trading' },
   ];
 
@@ -267,6 +270,21 @@ export const Header: React.FC<HeaderProps> = ({
             title="Search Tickers"
           >
             <Search className="w-4 h-4" />
+          </button>
+
+          {/* Quick Daily Log / Google Sheet Button */}
+          <button
+            id="quick-daily-log-btn"
+            onClick={() => setActiveTab('daily-log')}
+            className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold shadow-md transition-colors ${
+              activeTab === 'daily-log'
+                ? 'bg-blue-600 text-white'
+                : 'bg-[#182338] hover:bg-[#202f4a] text-blue-300 border border-blue-500/30'
+            }`}
+            title="Open Trading Journal / Daily Log"
+          >
+            <BookOpen className="w-3.5 h-3.5 text-blue-400" />
+            <span>Daily Log</span>
           </button>
 
           {/* Quick Log Position */}

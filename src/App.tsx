@@ -29,6 +29,7 @@ import { PositionsTab } from './components/PositionsTab';
 import { ScannerTab } from './components/ScannerTab';
 import { WatchlistTab } from './components/WatchlistTab';
 import { XauusdDaytradeTab } from './components/XauusdDaytradeTab';
+import { DailyLogTab } from './components/DailyLogTab';
 
 import { DEFAULT_GLOBAL_EXIT_STRATEGY, evaluatePositionExits } from './services/exitRuleEngine';
 import { marketDataService } from './services/marketDataService';
@@ -1013,6 +1014,18 @@ export default function App() {
             onOpenNewPositionWithTicker={handleOpenNewPositionWithTicker}
             onNavigateToTab={setActiveTab}
             universe={universe}
+          />
+        )}
+
+        {/* Daily Log / Trading Journal Tab (Google Sheets Layout) */}
+        {activeTab === 'daily-log' && (
+          <DailyLogTab
+            universe={universe}
+            onSelectTicker={sym => {
+              setSelectedSymbol(sym);
+              setActiveTab('charts');
+            }}
+            onNavigateToTab={setActiveTab}
           />
         )}
 
