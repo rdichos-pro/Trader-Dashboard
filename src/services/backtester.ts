@@ -234,8 +234,11 @@ function executeBacktest(
         // Confluence Condition 5: Close > Cloud Top (No-chop breakout)
         const noChopMet = candle.close > cloudTop;
 
-        // Master Long Entry: ALL Ichimoku conditions strictly met simultaneously (Pure Ichimoku, No Stoch, No CCI)
-        const isMasterLongEntry = tkCrossMet && trendMet && chikouMet && futureCloudMet && noChopMet;
+        const isCci40Strategy = config.entryRuleIds.includes('rule-cci-40');
+        // If CCI (40) strategy selected: triggers on CCI (40) > 100 with bullish TK alignment & price above cloud
+        const isMasterLongEntry = isCci40Strategy
+          ? (cci !== undefined && cci > 100 && (tenkan >= kijun || candle.close > cloudTop))
+          : (tkCrossMet && trendMet && chikouMet && futureCloudMet && noChopMet);
 
         if (isMasterLongEntry) {
           const positionCapital = capital * (config.positionSizePct / 100);

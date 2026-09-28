@@ -115,23 +115,23 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
   return (
     <div className="space-y-4">
       {/* Top Controls Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#161B22] p-3.5 rounded-lg border border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 rounded-xl border border-[#E6DDCF] shadow-sm">
         {/* Add Ticker Form */}
         <form onSubmit={handleAdd} className="flex items-center gap-2 max-w-md w-full">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-500" />
+            <Search className="w-4 h-4 absolute left-3 top-2.5 text-[#78716C]" />
             <input
               type="text"
               placeholder="Add symbol (e.g. AMD, CRWD, SMCI)..."
               value={newTickerInput}
               onChange={e => setNewTickerInput(e.target.value)}
-              className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 font-mono uppercase"
+              className="w-full bg-[#FDFBF7] border border-[#E6DDCF] rounded-lg pl-9 pr-3 py-1.5 text-sm text-[#1C1917] placeholder-[#A8A29E] focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] font-mono uppercase"
             />
           </div>
           <button
             type="submit"
             id="add-ticker-btn"
-            className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs rounded-lg transition-colors flex items-center gap-1 shrink-0"
+            className="px-3.5 py-1.5 gold-gradient-btn text-[#1C1917] font-bold text-xs rounded-lg transition-all flex items-center gap-1 shrink-0 shadow-sm cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5" />
             Add
@@ -140,15 +140,15 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
 
         {/* Filter & Suggestions */}
         <div className="flex items-center gap-2 overflow-x-auto text-xs">
-          <span className="text-slate-500 font-medium whitespace-nowrap">Suggested:</span>
+          <span className="text-[#57534E] font-semibold whitespace-nowrap">Suggested:</span>
           {suggestedQuotes.map(sq => (
             <button
               key={sq.symbol}
               onClick={() => onAddToWatchlist(sq.symbol)}
-              className="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700/80 font-mono flex items-center gap-1 transition-colors"
+              className="px-2 py-1 bg-[#FDFBF7] hover:bg-[#F5EFEB] text-[#845306] rounded border border-[#E6DDCF] font-mono flex items-center gap-1 transition-colors font-semibold"
               title={`Add ${sq.symbol} (${sq.name})`}
             >
-              <Plus className="w-3 h-3 text-emerald-400" />
+              <Plus className="w-3 h-3 text-[#996515]" />
               {sq.symbol}
             </button>
           ))}
@@ -157,24 +157,24 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
 
       {/* Gotrade Mover Opportunities Banner */}
       {topGotradeMovers.length > 0 && (
-        <div className="bg-[#121620] p-3 rounded-lg border border-indigo-900/60 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+        <div className="bg-[#FFFDF7] p-3 rounded-xl border border-[#E6DDCF] flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs shadow-sm">
           <div className="flex items-center gap-2.5">
-            <div className="p-1.5 bg-indigo-950 border border-indigo-800 rounded text-indigo-400">
+            <div className="p-1.5 bg-[#FDF4DC] border border-[#F3DA90] rounded-lg text-[#845306]">
               <Compass className="w-4 h-4" />
             </div>
             <div>
-              <div className="flex items-center gap-2 font-bold text-white">
+              <div className="flex items-center gap-2 font-bold text-[#1C1917]">
                 <span>Gotrade Mover Opportunities</span>
-                <span className="text-[10px] bg-indigo-950 text-indigo-300 border border-indigo-800 px-1.5 py-0.2 rounded font-sans">
+                <span className="text-[10px] bg-[#FDF4DC] text-[#845306] border border-[#F3DA90] px-1.5 py-0.2 rounded font-sans font-semibold">
                   Cheaper &lt;$25
                 </span>
                 {autoAddMovers && (
-                  <span className="text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-800 px-1.5 py-0.2 rounded flex items-center gap-1 font-normal font-sans">
-                    <Sparkles className="w-2.5 h-2.5" /> Auto-Add Confluence Active
+                  <span className="text-[10px] bg-[#F5EFEB] text-[#7E5E14] border border-[#E6DDCF] px-1.5 py-0.2 rounded flex items-center gap-1 font-semibold font-sans">
+                    <Sparkles className="w-2.5 h-2.5 text-[#D4AF37]" /> Auto-Add Confluence Active
                   </span>
                 )}
               </div>
-              <div className="text-[11px] text-slate-400">
+              <div className="text-[11px] text-[#57534E]">
                 Early momentum stocks meeting &ge;60% technical confluence not yet in your watchlist:
               </div>
             </div>
@@ -184,18 +184,18 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
             {topGotradeMovers.map(mover => (
               <div
                 key={mover.symbol}
-                className="bg-[#0B0E14] border border-slate-800 px-2.5 py-1.5 rounded-lg flex items-center gap-2"
+                className="bg-white border border-[#E6DDCF] px-2.5 py-1.5 rounded-lg flex items-center gap-2 shadow-xs"
               >
                 <div className="font-mono">
-                  <span className="font-bold text-white">{mover.symbol}</span>
-                  <span className="text-slate-400 ml-1 font-semibold">${(mover.price ?? 0).toFixed(2)}</span>
+                  <span className="font-bold text-[#1C1917]">{mover.symbol}</span>
+                  <span className="text-[#57534E] ml-1 font-semibold">${(mover.price ?? 0).toFixed(2)}</span>
                 </div>
-                <span className="text-[10px] font-mono px-1 py-0.2 rounded bg-emerald-950 text-emerald-400 border border-emerald-900">
+                <span className="text-[10px] font-mono px-1 py-0.2 rounded bg-[#FDF4DC] text-[#845306] border border-[#F3DA90] font-bold">
                   {mover.confluenceScore}%
                 </span>
                 <button
                   onClick={() => onAddToWatchlist(mover.symbol)}
-                  className="p-1 bg-emerald-900/80 hover:bg-emerald-800 text-emerald-300 rounded text-[10px] flex items-center gap-0.5 font-sans"
+                  className="p-1 bg-[#F5EFEB] hover:bg-[#EFE8DC] text-[#7E5E14] rounded text-[10px] flex items-center gap-0.5 font-sans font-bold transition-colors cursor-pointer"
                   title="Add to Watchlist"
                 >
                   <Plus className="w-3 h-3" /> Add
@@ -204,7 +204,7 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
             ))}
             <button
               onClick={() => onNavigateToTab('scanner')}
-              className="text-xs text-indigo-400 hover:text-indigo-300 underline font-medium ml-1"
+              className="text-xs text-[#845306] hover:text-[#59410E] underline font-bold ml-1"
             >
               View All &rarr;
             </button>
@@ -213,13 +213,13 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
       )}
 
       {/* Watchlist Main Container */}
-      <div className="bg-[#161B22] rounded-lg border border-slate-800 overflow-hidden shadow-lg">
-        <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+      <div className="bg-white rounded-xl border border-[#E6DDCF] overflow-hidden shadow-sm">
+        <div className="px-4 py-3 border-b border-[#E6DDCF] flex items-center justify-between bg-[#F5EFEB]">
           <div className="flex items-center space-x-2">
-            <TrendingUp className="w-4 h-4 text-emerald-400" />
-            <h2 className="font-bold text-sm text-slate-100">Active Watchlist ({safeWatchlistQuotes.length})</h2>
+            <TrendingUp className="w-4 h-4 text-[#D4AF37]" />
+            <h2 className="font-bold text-sm text-[#1C1917]">Active Watchlist ({safeWatchlistQuotes.length})</h2>
           </div>
-          <div className="text-xs text-slate-400 font-mono">
+          <div className="text-xs text-[#57534E] font-mono">
             Auto-refreshing live ticks
           </div>
         </div>
@@ -227,21 +227,21 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
         {/* Desktop Table View (Hidden on mobile < md) */}
         <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="bg-[#0F1219] border-b border-slate-800 text-xs text-slate-400 font-semibold uppercase tracking-wider">
+            <thead className="bg-[#FDFBF7] border-b border-[#E6DDCF] text-xs text-[#57534E] font-semibold uppercase tracking-wider">
               <tr>
-                <th className="py-3 px-4 cursor-pointer hover:text-white" onClick={() => toggleSort('symbol')}>
-                  Ticker & Company {sortBy === 'symbol' && (sortOrder === 'asc' ? '↑' : '↓')}
+                <th className="py-3 px-4 cursor-pointer hover:text-[#1C1917]" onClick={() => toggleSort('symbol')}>
+                  Ticker &amp; Company {sortBy === 'symbol' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </th>
-                <th className="py-3 px-3 text-right cursor-pointer hover:text-white" onClick={() => toggleSort('price')}>
+                <th className="py-3 px-3 text-right cursor-pointer hover:text-[#1C1917]" onClick={() => toggleSort('price')}>
                   Price {sortBy === 'price' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </th>
-                <th className="py-3 px-3 text-right cursor-pointer hover:text-white" onClick={() => toggleSort('change')}>
+                <th className="py-3 px-3 text-right cursor-pointer hover:text-[#1C1917]" onClick={() => toggleSort('change')}>
                   4H Change {sortBy === 'change' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </th>
-                <th className="py-3 px-3 text-right cursor-pointer hover:text-white" onClick={() => toggleSort('volume')}>
+                <th className="py-3 px-3 text-right cursor-pointer hover:text-[#1C1917]" onClick={() => toggleSort('volume')}>
                   Volume / Avg {sortBy === 'volume' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </th>
-                <th className="py-3 px-3 text-center cursor-pointer hover:text-white" onClick={() => toggleSort('rvol')}>
+                <th className="py-3 px-3 text-center cursor-pointer hover:text-[#1C1917]" onClick={() => toggleSort('rvol')}>
                   RVOL {sortBy === 'rvol' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </th>
                 <th className="py-3 px-3 text-center">4H Range (L - H)</th>
@@ -251,10 +251,10 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 font-mono">
+            <tbody className="divide-y divide-[#EFE8DC] font-mono">
               {sortedQuotes.length === 0 ? (
                 <tr>
-                  <td colSpan={10} className="py-8 text-center text-slate-500 text-xs">
+                  <td colSpan={10} className="py-8 text-center text-[#78716C] text-xs">
                     Your watchlist is currently empty. Add tickers above to monitor live quotes.
                   </td>
                 </tr>
@@ -279,22 +279,22 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
                   return (
                     <tr 
                       key={quote.symbol} 
-                      className="hover:bg-slate-800/50 transition-colors group cursor-pointer bg-[#0B0E14]"
+                      className="hover:bg-[#FAF7F2] transition-colors group cursor-pointer bg-white"
                       onClick={() => onSelectTicker(quote.symbol)}
                     >
                       {/* Ticker & Name */}
                       <td className="py-3 px-4">
                         <div className="flex items-center space-x-2">
                           <div>
-                            <div className="font-bold text-white text-base tracking-wide flex items-center gap-1.5">
+                            <div className="font-bold text-[#1C1917] text-base tracking-wide flex items-center gap-1.5">
                               {quote.symbol}
                               {quote.rvol >= 2.0 && (
-                                <span className="text-[10px] font-sans px-1 py-0.2 bg-amber-950 text-amber-400 border border-amber-800 rounded font-semibold flex items-center gap-0.5" title="Relative Volume Spike > 2.0x">
-                                  <Flame className="w-2.5 h-2.5" /> High RVOL
+                                <span className="text-[10px] font-sans px-1.5 py-0.2 bg-[#FDF4DC] text-[#845306] border border-[#F3DA90] rounded font-semibold flex items-center gap-0.5" title="Relative Volume Spike > 2.0x">
+                                  <Flame className="w-2.5 h-2.5 text-[#D4AF37]" /> High RVOL
                                 </span>
                               )}
                             </div>
-                            <div className="text-xs font-sans text-slate-400 truncate max-w-[150px]">
+                            <div className="text-xs font-sans text-[#57534E] truncate max-w-[150px]">
                               {quote.name}
                             </div>
                           </div>
@@ -303,31 +303,31 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
 
                       {/* Price */}
                       <td className="py-3 px-3 text-right">
-                        <div className="font-bold text-slate-100 text-sm">
+                        <div className="font-bold text-[#1C1917] text-sm">
                           {formatCurrency(quote.price)}
                         </div>
-                        <div className="text-[11px] text-slate-500">
+                        <div className="text-[11px] text-[#78716C]">
                           Prev 4H: {formatCurrency(quote.previousClose)}
                         </div>
                       </td>
 
                       {/* 4H Change */}
                       <td className="py-3 px-3 text-right">
-                        <div className={`inline-flex items-center font-bold text-sm ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
+                        <div className={`inline-flex items-center font-bold text-sm ${isPositive ? 'text-emerald-700' : 'text-rose-700'}`}>
                           {isPositive ? <ArrowUpRight className="w-3.5 h-3.5 mr-0.5" /> : <ArrowDownRight className="w-3.5 h-3.5 mr-0.5" />}
                           {formatPercent(fourHourChangePct)}
                         </div>
-                        <div className={`text-xs ${isPositive ? 'text-emerald-500/80' : 'text-rose-500/80'}`}>
+                        <div className={`text-xs ${isPositive ? 'text-emerald-600' : 'text-rose-600'}`}>
                           {isPositive ? '+' : ''}{formatCurrency(fourHourChange)}
                         </div>
                       </td>
 
                       {/* Volume & 30D Avg */}
                       <td className="py-3 px-3 text-right">
-                        <div className="text-slate-200 text-xs font-medium">
+                        <div className="text-[#1C1917] text-xs font-medium">
                           {formatCompactNumber(quote.volume)}
                         </div>
-                        <div className="text-[11px] text-slate-500">
+                        <div className="text-[11px] text-[#78716C]">
                           Avg: {formatCompactNumber(quote.avgVolume30D)}
                         </div>
                       </td>
@@ -336,10 +336,10 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
                       <td className="py-3 px-3 text-center">
                         <span className={`px-2 py-0.5 rounded text-xs font-bold ${
                           (quote.rvol ?? 0) >= 2.0
-                            ? 'bg-amber-950 text-amber-300 border border-amber-700'
+                            ? 'bg-[#FDF4DC] text-[#845306] border border-[#F3DA90]'
                             : (quote.rvol ?? 0) >= 1.3
-                            ? 'bg-emerald-950 text-emerald-300 border border-emerald-800'
-                            : 'bg-slate-800 text-slate-400'
+                            ? 'bg-[#FAF7F2] text-[#7E5E14] border border-[#E6DDCF]'
+                            : 'bg-[#FDFBF7] text-[#57534E] border border-[#E6DDCF]'
                         }`}>
                           {(quote.rvol ?? 1.0).toFixed(2)}x
                         </span>
@@ -348,32 +348,32 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
                       {/* 4H Range Bar (L - H) */}
                       <td className="py-3 px-3 text-center">
                         <div className="w-28 mx-auto">
-                          <div className="flex justify-between text-[10px] text-slate-400 mb-1">
+                          <div className="flex justify-between text-[10px] text-[#78716C] mb-1">
                             <span>{formatCurrency(fourHourLow, 1)}</span>
                             <span>{formatCurrency(fourHourHigh, 1)}</span>
                           </div>
-                          <div className="h-1.5 bg-slate-800 rounded-full relative overflow-hidden">
+                          <div className="h-1.5 bg-[#F5EFEB] rounded-full relative overflow-hidden border border-[#E6DDCF]">
                             <div 
-                              className={`h-full rounded-full ${isPositive ? 'bg-emerald-500' : 'bg-rose-500'}`}
+                              className={`h-full rounded-full ${isPositive ? 'bg-gradient-to-r from-amber-400 to-[#D4AF37]' : 'bg-rose-500'}`}
                               style={{ width: `${clamped4HPos}%` }}
                             />
                           </div>
                         </div>
                       </td>
 
-                      {/* 4H Trend Sparkline (Cyan) */}
+                      {/* 4H Trend Sparkline (Gold/Warm) */}
                       <td className="py-3 px-3 text-center">
                         <div className="inline-flex flex-col items-center">
-                          <Sparkline data={spark4H} color="#06b6d4" width={76} height={24} />
-                          <span className="text-[9px] text-cyan-400/90 font-mono mt-0.5">4H (20p)</span>
+                          <Sparkline data={spark4H} color="#D4AF37" width={76} height={24} />
+                          <span className="text-[9px] text-[#845306] font-mono mt-0.5">4H (20p)</span>
                         </div>
                       </td>
 
-                      {/* 20D Trend Sparkline (Green/Macro) */}
+                      {/* 20D Trend Sparkline (Macro) */}
                       <td className="py-3 px-3 text-center">
                         <div className="inline-flex flex-col items-center">
-                          <Sparkline data={quote.sparkline} color="#10b981" isPositive={isPositive} width={76} height={24} />
-                          <span className="text-[9px] text-emerald-400/90 font-mono mt-0.5">20D Macro</span>
+                          <Sparkline data={quote.sparkline} color="#7E5E14" isPositive={isPositive} width={76} height={24} />
+                          <span className="text-[9px] text-[#57534E] font-mono mt-0.5">20D Macro</span>
                         </div>
                       </td>
 
@@ -381,16 +381,16 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
                       <td className="py-3 px-3 font-sans">
                         {quote.catalyst ? (
                           <div className="flex flex-col gap-0.5">
-                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800/80 w-fit">
-                              <Tag className="w-3 h-3" />
+                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#845306] bg-[#FDF4DC] px-2 py-0.5 rounded border border-[#F3DA90] w-fit">
+                              <Tag className="w-3 h-3 text-[#D4AF37]" />
                               {quote.catalyst.type.replace('_', ' ')}
                             </span>
-                            <span className="text-[10px] text-slate-400 truncate max-w-[170px]" title={quote.catalyst.headline}>
+                            <span className="text-[10px] text-[#78716C] truncate max-w-[170px]" title={quote.catalyst.headline}>
                               {quote.catalyst.headline}
                             </span>
                           </div>
                         ) : (
-                          <span className="text-xs text-slate-400">
+                          <span className="text-xs text-[#57534E]">
                             {quote.sector}
                           </span>
                         )}
@@ -405,15 +405,15 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
                               onSelectTicker(quote.symbol);
                               onNavigateToTab('charts');
                             }}
-                            className="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded transition-colors"
+                            className="p-1.5 bg-[#FDFBF7] hover:bg-[#F5EFEB] text-[#1C1917] rounded-lg transition-colors border border-[#E6DDCF] cursor-pointer"
                             title="Open Candlestick Chart"
                           >
-                            <CandlestickChart className="w-3.5 h-3.5 text-emerald-400" />
+                            <CandlestickChart className="w-3.5 h-3.5 text-[#D4AF37]" />
                           </button>
                           <button
                             id={`trade-btn-${quote.symbol}`}
                             onClick={() => onOpenNewPositionWithTicker(quote.symbol, quote.price)}
-                            className="p-1.5 bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-800 rounded transition-colors"
+                            className="p-1.5 gold-gradient-btn text-[#1C1917] rounded-lg transition-all shadow-sm cursor-pointer"
                             title="Log Position / Order"
                           >
                             <Plus className="w-3.5 h-3.5" />
@@ -421,7 +421,7 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
                           <button
                             id={`remove-wl-${quote.symbol}`}
                             onClick={() => onRemoveFromWatchlist(quote.symbol)}
-                            className="p-1.5 bg-slate-800 hover:bg-rose-950 text-slate-400 hover:text-rose-400 rounded transition-colors"
+                            className="p-1.5 bg-[#FDFBF7] hover:bg-rose-50 text-[#78716C] hover:text-rose-700 rounded-lg border border-[#E6DDCF] transition-colors cursor-pointer"
                             title="Remove from Watchlist"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -437,9 +437,9 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
         </div>
 
         {/* Mobile Responsive Card View (Visible only on mobile < md) */}
-        <div className="block md:hidden divide-y divide-slate-800/80 bg-[#0B0E14]">
+        <div className="block md:hidden divide-y divide-[#EFE8DC] bg-white">
           {sortedQuotes.length === 0 ? (
-            <div className="py-8 px-4 text-center text-slate-500 text-xs font-mono">
+            <div className="py-8 px-4 text-center text-[#78716C] text-xs font-mono">
               Your watchlist is empty. Search and add tickers above.
             </div>
           ) : (
@@ -454,39 +454,39 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
               return (
                 <div 
                   key={`mobile-${quote.symbol}`}
-                  className="p-3.5 hover:bg-slate-800/40 transition-colors space-y-3 cursor-pointer"
+                  className="p-3.5 hover:bg-[#FAF7F2] transition-colors space-y-3 cursor-pointer"
                   onClick={() => onSelectTicker(quote.symbol)}
                 >
                   {/* Top Row: Symbol, Name, RVOL & Catalyst */}
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-base font-bold text-white font-mono tracking-wide">
+                        <span className="text-base font-bold text-[#1C1917] font-mono tracking-wide">
                           {quote.symbol}
                         </span>
-                        <span className="text-[10px] font-mono px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded border border-slate-700">
+                        <span className="text-[10px] font-mono px-1.5 py-0.5 bg-[#FAF7F2] text-[#845306] rounded border border-[#E6DDCF]">
                           {quote.marketCapCategory || 'EQUITY'}
                         </span>
                         {(quote.rvol ?? 0) >= 1.5 && (
-                          <span className="text-[10px] font-mono px-1.5 py-0.5 bg-amber-950 text-amber-300 border border-amber-800 rounded font-semibold flex items-center gap-0.5">
-                            <Flame className="w-2.5 h-2.5" /> {(quote.rvol ?? 1.0).toFixed(1)}x
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 bg-[#FDF4DC] text-[#845306] border border-[#F3DA90] rounded font-semibold flex items-center gap-0.5">
+                            <Flame className="w-2.5 h-2.5 text-[#D4AF37]" /> {(quote.rvol ?? 1.0).toFixed(1)}x
                           </span>
                         )}
                       </div>
-                      <div className="text-xs text-slate-400 font-sans truncate max-w-[200px]">
+                      <div className="text-xs text-[#57534E] font-sans truncate max-w-[200px]">
                         {quote.name}
                       </div>
                     </div>
 
                     {/* Price & 4H Change */}
                     <div className="text-right font-mono">
-                      <div className="text-base font-bold text-slate-100">
+                      <div className="text-base font-bold text-[#1C1917]">
                         {formatCurrency(quote.price)}
                       </div>
                       <div className={`text-xs font-semibold inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded ${
                         isPositive 
-                          ? 'text-emerald-400 bg-emerald-950/60 border border-emerald-800/60' 
-                          : 'text-rose-400 bg-rose-950/60 border border-rose-800/60'
+                          ? 'text-emerald-700 bg-emerald-50 border border-emerald-200' 
+                          : 'text-rose-700 bg-rose-50 border border-rose-200'
                       }`}>
                         {isPositive ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
                         {formatPercent(fourHourChangePct)}
@@ -496,34 +496,34 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
 
                   {/* Catalyst if present */}
                   {quote.catalyst && (
-                    <div className="text-xs bg-slate-900/90 p-2 rounded border border-slate-800 flex items-center gap-1.5 text-slate-300 font-sans">
-                      <Tag className="w-3 h-3 text-emerald-400 shrink-0" />
+                    <div className="text-xs bg-[#FDF4DC] p-2 rounded-lg border border-[#F3DA90] flex items-center gap-1.5 text-[#845306] font-sans">
+                      <Tag className="w-3 h-3 text-[#D4AF37] shrink-0" />
                       <span className="truncate">{quote.catalyst.headline}</span>
                     </div>
                   )}
 
-                  {/* Sparklines Grid: 4H Trend (Cyan) & 20D Trend (Emerald) */}
-                  <div className="grid grid-cols-2 gap-2 bg-[#121620] p-2.5 rounded-lg border border-slate-800/80">
+                  {/* Sparklines Grid: 4H Trend (Gold) & 20D Trend (Macro) */}
+                  <div className="grid grid-cols-2 gap-2 bg-[#FDFBF7] p-2.5 rounded-xl border border-[#E6DDCF]">
                     {/* 4H Sparkline */}
-                    <div className="flex flex-col items-center justify-center p-1 bg-slate-900/60 rounded border border-slate-800/50">
-                      <div className="text-[10px] text-cyan-400 font-mono font-medium mb-1">
+                    <div className="flex flex-col items-center justify-center p-1 bg-white rounded-lg border border-[#E6DDCF]">
+                      <div className="text-[10px] text-[#845306] font-mono font-medium mb-1">
                         4H TREND (20 Periods)
                       </div>
-                      <Sparkline data={spark4H} color="#06b6d4" width={110} height={26} />
+                      <Sparkline data={spark4H} color="#D4AF37" width={110} height={26} />
                     </div>
 
                     {/* 20D Sparkline */}
-                    <div className="flex flex-col items-center justify-center p-1 bg-slate-900/60 rounded border border-slate-800/50">
-                      <div className="text-[10px] text-emerald-400 font-mono font-medium mb-1">
+                    <div className="flex flex-col items-center justify-center p-1 bg-white rounded-lg border border-[#E6DDCF]">
+                      <div className="text-[10px] text-[#57534E] font-mono font-medium mb-1">
                         20D TREND (Daily)
                       </div>
-                      <Sparkline data={quote.sparkline} color="#10b981" isPositive={isPositive} width={110} height={26} />
+                      <Sparkline data={quote.sparkline} color="#7E5E14" isPositive={isPositive} width={110} height={26} />
                     </div>
                   </div>
 
                   {/* Mobile Action Buttons Bar */}
                   <div className="flex items-center justify-between pt-1 font-sans" onClick={e => e.stopPropagation()}>
-                    <div className="text-[11px] text-slate-500 font-mono">
+                    <div className="text-[11px] text-[#78716C] font-mono">
                       Vol: {formatCompactNumber(quote.volume)}
                     </div>
                     <div className="flex items-center gap-1.5">
@@ -533,15 +533,15 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
                           onSelectTicker(quote.symbol);
                           onNavigateToTab('charts');
                         }}
-                        className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded font-medium flex items-center gap-1 transition-colors"
+                        className="px-2.5 py-1.5 bg-[#FDFBF7] hover:bg-[#F5EFEB] text-[#1C1917] text-xs rounded-lg border border-[#E6DDCF] font-medium flex items-center gap-1 transition-colors"
                       >
-                        <CandlestickChart className="w-3.5 h-3.5 text-cyan-400" />
+                        <CandlestickChart className="w-3.5 h-3.5 text-[#D4AF37]" />
                         Chart
                       </button>
                       <button
                         id={`mob-trade-btn-${quote.symbol}`}
                         onClick={() => onOpenNewPositionWithTicker(quote.symbol, quote.price)}
-                        className="px-2.5 py-1.5 bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-800 text-xs rounded font-medium flex items-center gap-1 transition-colors"
+                        className="px-2.5 py-1.5 gold-gradient-btn text-[#1C1917] text-xs rounded-lg font-bold flex items-center gap-1 transition-all shadow-sm"
                       >
                         <Plus className="w-3.5 h-3.5" />
                         Trade
@@ -549,7 +549,7 @@ export const WatchlistTab: React.FC<WatchlistTabProps> = ({
                       <button
                         id={`mob-remove-wl-${quote.symbol}`}
                         onClick={() => onRemoveFromWatchlist(quote.symbol)}
-                        className="p-1.5 bg-slate-800 hover:bg-rose-950 text-slate-400 hover:text-rose-400 rounded transition-colors"
+                        className="p-1.5 bg-[#FDFBF7] hover:bg-rose-50 text-[#78716C] hover:text-rose-700 rounded-lg border border-[#E6DDCF] transition-colors"
                         title="Remove from Watchlist"
                       >
                         <Trash2 className="w-3.5 h-3.5" />

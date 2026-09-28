@@ -21,35 +21,40 @@ export interface IndicatorBar {
   stochK: number;
   stochD: number;
   cci: number;
-  // 6 Pure Ichimoku Rules (Bullish / Buy)
+  // Ichimoku + Momentum Confluence Rules (Bullish / Buy)
   f1_tkCross: boolean;          // 1. Tenkan-sen >= Kijun-sen (Golden Cross)
   f2_priceAboveCloud: boolean;  // 2. Price (Close) > Cloud Top (Kumo Breakout)
   f3_tkAboveCloud: boolean;     // 3. Tenkan & Kijun > Cloud Top (Bullish Zone)
   f4_chikouBullish: boolean;    // 4. Chikou Macro Uptrend (Close > Close[-26])
   f5_futureCloudGreen: boolean; // 5. Future Kumo Green (Future Senkou A >= Senkou B)
   f6_kumoClearance: boolean;    // 6. Clean Kumo Clearance / No-Chop (Low >= Cloud Bottom)
+  f7_cciBullish: boolean;       // 7. CCI (40) > 100 (Momentum expansion)
+  f8_stochBullish: boolean;     // 8. Stoch (12,3,3) %K > %D & %K > 80 (Overbought continuation)
   // Backward compatibility aliases
   f7_noChopAboveCloud: boolean; // Alias for f2_priceAboveCloud / f6_kumoClearance
-  f8_notOverbought: boolean;    // Pure Ichimoku (always true)
-  f5_stochBullish: boolean;     // Pure Ichimoku (always true)
-  f6_cciBullish: boolean;       // Pure Ichimoku (always true)
-  passedFiltersCount: number;   // 0 to 6 pure Ichimoku rules
-  isFullBullish: boolean;       // All 6 Ichimoku rules passed
+  f8_notOverbought: boolean;    // Alias
+  f5_stochBullish: boolean;     // Stoch (12,3,3) %K > %D & %K > 80
+  f6_cciBullish: boolean;       // CCI (40) > 100
+  passedFiltersCount: number;   // 0 to 8 entry rules
+  isFullBullish: boolean;       // All rules passed
 
-  // 6 Pure Ichimoku Rules (Bearish / Sell / Short)
+  // Bearish / Sell / Short Rules
   sf1_tkDeathCross: boolean;    // 1. Tenkan-sen <= Kijun-sen (Death Cross)
   sf2_priceBelowCloud: boolean; // 2. Price (Close) < Cloud Bottom (Kumo Breakdown)
   sf3_tkBelowCloud: boolean;    // 3. Tenkan & Kijun < Cloud Bottom (Bearish Zone)
   sf4_chikouBearish: boolean;   // 4. Chikou Macro Downtrend (Close < Close[-26])
   sf5_futureCloudRed: boolean;  // 5. Future Kumo Red (Future Senkou A < Senkou B)
   sf6_kumoClearance: boolean;   // 6. Clean Kumo Clearance below Cloud (High <= Cloud Top)
+  sf7_cciBearish: boolean;      // 7. CCI (40) < -100
+  sf8_stochBearish: boolean;    // 8. Stoch (12,3,3) %K < %D & %K < 20
   // Backward compatibility aliases
   sf7_noChopBelowCloud: boolean;// Alias for sf2_priceBelowCloud
-  sf8_notOversold: boolean;     // Pure Ichimoku (always true)
-  sf5_stochBearish: boolean;    // Pure Ichimoku (always true)
-  sf6_cciBearish: boolean;      // Pure Ichimoku (always true)
-  passedSellFiltersCount: number; // 0 to 6 pure Ichimoku rules
-  isFullBearish: boolean;       // All 6 Ichimoku rules passed
+  sf8_notOversold: boolean;     // Alias
+  sf5_stochBearish: boolean;    // Stoch (12,3,3) %K < %D & %K < 20
+  sf6_cciBearish: boolean;      // CCI (40) < -100
+  passedSellFiltersCount: number; // 0 to 8 sell rules
+  isFullBearish: boolean;       // All sell rules passed
+  crossoverBarStopLoss?: number;// Stop loss at bottom/top of bar close after TK crossover
 
   // Consolidation / Chop status
   isInsideCloud: boolean;       // Close >= CloudBottom && Close <= CloudTop
@@ -106,15 +111,23 @@ export interface MultiTimeframeConfluenceState {
   filtersTrendPassed: number;
   filtersTrendSellPassed: number;
   
-  // Multi-Timeframe Combined Confluence (Buy): 1D TK Cross (1) + 1HR Ichimoku (6) = 7 Pillars
-  totalPillarsPassed: number; // 0 to 7 (or 0-16 for legacy)
-  dualBullishSync: boolean;   // 1D TK Cross + 1HR 6/6 rules
+  // Multi-Timeframe Combined Confluence (Buy): 1D TK Cross (1) + 1HR Ichimoku (6) + CCI(40) (1) + Stoch(12,3,3) (1) = 9 Pillars
+  totalPillarsPassed: number; // 0 to 9
+  dualBullishSync: boolean;   // 1D TK Cross + 1HR 6/6 rules + CCI + Stoch
   alignmentScore: number;     // 0 - 100%
 
-  // Multi-Timeframe Combined Confluence (Sell): 1D TK Death Cross (1) + 1HR Bearish Ichimoku (6) = 7 Pillars
-  totalSellPillarsPassed: number; // 0 to 7
-  dualBearishSync: boolean;   // 1D TK Death Cross + 1HR 6/6 bearish rules
+  // Multi-Timeframe Combined Confluence (Sell): 1D TK Death Cross (1) + 1HR Bearish Ichimoku (6) + CCI(40) (1) + Stoch(12,3,3) (1) = 9 Pillars
+  totalSellPillarsPassed: number; // 0 to 9
+  dualBearishSync: boolean;   // 1D TK Death Cross + 1HR 6/6 bearish rules + CCI + Stoch
   sellAlignmentScore: number; // 0 - 100%
+
+  // Momentum Indicators & Strategy Stop Loss
+  entryCciBullish: boolean;
+  entryStochBullish: boolean;
+  sellCciBearish: boolean;
+  sellStochBearish: boolean;
+  tkCrossoverStopLoss: number;
+  tkCrossoverShortStopLoss: number;
 
   alignmentStatus: 
     | 'DUAL_MASTER_BUY'        // 1D TK Cross + 1HR 6/6 Ichimoku: Peak statistical edge
@@ -315,9 +328,9 @@ export function enrichCandlesWithIndicatorsFull(candles: Candle[]): IndicatorBar
   const closes = candles.map(c => c.close);
 
   const ichimoku = calculateIchimoku(highs, lows, closes, 9, 26, 52, 26);
-  // Stoch 14, 3, 3 and CCI 20 close match standard TradingView indicator settings (as seen on chart)
-  const stoch = calculateStochastic(highs, lows, closes, 14, 3, 3);
-  const cci = calculateCCI(highs, lows, closes, 20);
+  // Stoch (12, 3, 3) and CCI (40) strictly matching strategy rules
+  const stoch = calculateStochastic(highs, lows, closes, 12, 3, 3);
+  const cci = calculateCCI(highs, lows, closes, 40);
 
   const result: IndicatorBar[] = [];
 
@@ -336,7 +349,7 @@ export function enrichCandlesWithIndicatorsFull(candles: Candle[]): IndicatorBar
     const sd = stoch.stochD[i] ?? 50;
     const cc = cci[i] ?? 0;
 
-    // 6 Pure Ichimoku Rules (Bullish / Buy)
+    // 8 Confluence Rules (Bullish / Buy):
     // 1. Tenkan-sen >= Kijun-sen (Golden Cross)
     const f1 = tVal >= kVal;
     // 2. Price (Close) > Cloud Top (Kumo Breakout)
@@ -350,11 +363,15 @@ export function enrichCandlesWithIndicatorsFull(candles: Candle[]): IndicatorBar
     const f5 = futA >= futB;
     // 6. Clean Kumo Clearance / No-Chop (Low >= Cloud Bottom)
     const f6 = c.low >= cBot;
+    // 7. CCI (40) > 100
+    const f_cci = cc > 100;
+    // 8. Stoch (12,3,3) Main > Signal & > 80
+    const f_stoch = sk > sd && sk > 80;
 
-    // Pure Ichimoku Count: 0 to 6
-    const count = (f1 ? 1 : 0) + (f2 ? 1 : 0) + (f3 ? 1 : 0) + (f4 ? 1 : 0) + (f5 ? 1 : 0) + (f6 ? 1 : 0);
+    // Total Buy Confluence Count: 0 to 8
+    const count = (f1 ? 1 : 0) + (f2 ? 1 : 0) + (f3 ? 1 : 0) + (f4 ? 1 : 0) + (f5 ? 1 : 0) + (f6 ? 1 : 0) + (f_cci ? 1 : 0) + (f_stoch ? 1 : 0);
 
-    // 6 Pure Ichimoku Rules (Bearish / Sell / Short)
+    // 8 Confluence Rules (Bearish / Sell / Short):
     // 1. Tenkan-sen <= Kijun-sen (Death Cross)
     const sf1 = tVal <= kVal;
     // 2. Price (Close) < Cloud Bottom (Kumo Breakdown)
@@ -367,15 +384,36 @@ export function enrichCandlesWithIndicatorsFull(candles: Candle[]): IndicatorBar
     const sf5 = futA < futB;
     // 6. Clean Kumo Breakdown Clearance (High <= Cloud Top)
     const sf6 = c.high <= cTop;
+    // 7. CCI (40) < -100
+    const sf_cci = cc < -100;
+    // 8. Stoch (12,3,3) Main < Signal & < 20
+    const sf_stoch = sk < sd && sk < 20;
 
-    // Pure Ichimoku Sell Count: 0 to 6
-    const sellCount = (sf1 ? 1 : 0) + (sf2 ? 1 : 0) + (sf3 ? 1 : 0) + (sf4 ? 1 : 0) + (sf5 ? 1 : 0) + (sf6 ? 1 : 0);
+    // Total Sell Confluence Count: 0 to 8
+    const sellCount = (sf1 ? 1 : 0) + (sf2 ? 1 : 0) + (sf3 ? 1 : 0) + (sf4 ? 1 : 0) + (sf5 ? 1 : 0) + (sf6 ? 1 : 0) + (sf_cci ? 1 : 0) + (sf_stoch ? 1 : 0);
 
     const isInsideCloud = c.close >= cBot && c.close <= cTop;
-    const isConsolidation = isInsideCloud || (!f2 && !sf2) || (count < 4 && sellCount < 4);
+    const isConsolidation = isInsideCloud || (!f2 && !sf2) || (count < 5 && sellCount < 5);
 
-    const isFullBullish = count === 6;
-    const isFullBearish = sellCount === 6 || ((tVal < kVal) && (c.close < cBot) && sf4);
+    const isFullBullish = count === 8 || (count >= 6 && f1 && f2 && f3);
+    const isFullBearish = sellCount === 8 || (sellCount >= 6 && sf1 && sf2 && sf3);
+
+    // Calculate Stop Loss: Bottom/Top of the bar close after Tenkan-Kijun crossover
+    let crossoverBarStopLoss = f1 ? c.low : c.high;
+    for (let back = i; back >= Math.max(1, i - 30); back--) {
+      const currT = ichimoku.tenkan[back] ?? closes[back];
+      const currK = ichimoku.kijun[back] ?? closes[back];
+      const prevT = ichimoku.tenkan[back - 1] ?? closes[back - 1];
+      const prevK = ichimoku.kijun[back - 1] ?? closes[back - 1];
+      if (f1 && currT >= currK && prevT < prevK) {
+        crossoverBarStopLoss = candles[back].low;
+        break;
+      }
+      if (!f1 && currT <= currK && prevT > prevK) {
+        crossoverBarStopLoss = candles[back].high;
+        break;
+      }
+    }
 
     // Volume Confirmation: this bar's volume vs the trailing 20-bar average
     const volWindowStart = Math.max(0, i - 20);
@@ -415,10 +453,12 @@ export function enrichCandlesWithIndicatorsFull(candles: Candle[]): IndicatorBar
       f4_chikouBullish: f4,
       f5_futureCloudGreen: f5,
       f6_kumoClearance: f6,
+      f7_cciBullish: f_cci,
+      f8_stochBullish: f_stoch,
       f7_noChopAboveCloud: f2,
       f8_notOverbought: true,
-      f5_stochBullish: true,
-      f6_cciBullish: true,
+      f5_stochBullish: f_stoch,
+      f6_cciBullish: f_cci,
       passedFiltersCount: count,
       isFullBullish,
       sf1_tkDeathCross: sf1,
@@ -427,14 +467,17 @@ export function enrichCandlesWithIndicatorsFull(candles: Candle[]): IndicatorBar
       sf4_chikouBearish: sf4,
       sf5_futureCloudRed: sf5,
       sf6_kumoClearance: sf6,
+      sf7_cciBearish: sf_cci,
+      sf8_stochBearish: sf_stoch,
       sf7_noChopBelowCloud: sf2,
       sf8_notOversold: true,
-      sf5_stochBearish: true,
-      sf6_cciBearish: true,
+      sf5_stochBearish: sf_stoch,
+      sf6_cciBearish: sf_cci,
       passedSellFiltersCount: sellCount,
       isFullBearish,
       isInsideCloud,
       isConsolidation,
+      crossoverBarStopLoss,
       avgVolume20,
       rvol,
       volumeConfirmed,
@@ -547,6 +590,12 @@ export function evaluateMultiTimeframeConfluence(
       dualBearishSync: false,
       totalSellPillarsPassed: 0,
       sellAlignmentScore: 0,
+      entryCciBullish: false,
+      entryStochBullish: false,
+      sellCciBearish: false,
+      sellStochBearish: false,
+      tkCrossoverStopLoss: 2500,
+      tkCrossoverShortStopLoss: 2500,
       alignmentStatus: 'CHOP_CONSOLIDATION',
       alignmentScore: 0,
       guidance: 'Synchronizing multi-timeframe candle stream...',
@@ -602,18 +651,43 @@ export function evaluateMultiTimeframeConfluence(
     }
   }
 
-  // 2. 1HR Entry Timeframe: Pure Ichimoku Rules Evaluation
-  const p1h = closed1h.passedFiltersCount; // 0 to 6
-  const p1h_sell = closed1h.passedSellFiltersCount; // 0 to 6
+  // 2. 1HR Entry Timeframe: Ichimoku + Momentum Evaluation
+  const entryCciBullish = closed1h.f7_cciBullish ?? (closed1h.cci > 100);
+  const entryStochBullish = closed1h.f8_stochBullish ?? (closed1h.stochK > closed1h.stochD && closed1h.stochK > 80);
+  const sellCciBearish = closed1h.sf7_cciBearish ?? (closed1h.cci < -100);
+  const sellStochBearish = closed1h.sf8_stochBearish ?? (closed1h.stochK < closed1h.stochD && closed1h.stochK < 20);
 
-  // 3. Combined Confluence: 1D TK Crossover (1 Pillar) + 1HR Ichimoku Rules (6 Pillars) = 7 Pillars Total
-  const total = (dailyTkCross ? 1 : 0) + p1h; // 0 to 7 Buy
-  const totalSell = (dailyTkDeathCross ? 1 : 0) + p1h_sell; // 0 to 7 Sell
+  const p1h = (closed1h.f1_tkCross ? 1 : 0) + (closed1h.f2_priceAboveCloud ? 1 : 0) + (closed1h.f3_tkAboveCloud ? 1 : 0) + (closed1h.f4_chikouBullish ? 1 : 0) + (closed1h.f5_futureCloudGreen ? 1 : 0) + (closed1h.f6_kumoClearance ? 1 : 0);
+  const p1h_sell = (closed1h.sf1_tkDeathCross ? 1 : 0) + (closed1h.sf2_priceBelowCloud ? 1 : 0) + (closed1h.sf3_tkBelowCloud ? 1 : 0) + (closed1h.sf4_chikouBearish ? 1 : 0) + (closed1h.sf5_futureCloudRed ? 1 : 0) + (closed1h.sf6_kumoClearance ? 1 : 0);
 
-  const dualBullish = dailyTkCross && p1h === 6;
-  const dualBearish = dailyTkDeathCross && p1h_sell === 6;
+  // 3. Combined Confluence: 1D TK Crossover (1) + 1HR Ichimoku (6) + CCI(40) (1) + Stoch(12,3,3) (1) = 9 Pillars Total
+  const total = (dailyTkCross ? 1 : 0) + p1h + (entryCciBullish ? 1 : 0) + (entryStochBullish ? 1 : 0); // 0 to 9 Buy
+  const totalSell = (dailyTkDeathCross ? 1 : 0) + p1h_sell + (sellCciBearish ? 1 : 0) + (sellStochBearish ? 1 : 0); // 0 to 9 Sell
 
-  // Find the last completed 1HR bar that met full buy confluence (6/6 rules)
+  const dualBullish = dailyTkCross && p1h >= 5 && entryCciBullish && entryStochBullish;
+  const dualBearish = dailyTkDeathCross && p1h_sell >= 5 && sellCciBearish && sellStochBearish;
+
+  // Stop loss from bottom of bar close after Tenkan-Kijun crossover
+  let tkCrossoverStopLoss = closed1h.crossoverBarStopLoss ?? closed1h.low;
+  let tkCrossoverShortStopLoss = closed1h.crossoverBarStopLoss ?? closed1h.high;
+  for (let idx = closedIdx1h; idx >= 1; idx--) {
+    const bCurrent = barsEntry[idx];
+    const bPrior = barsEntry[idx - 1];
+    if (bCurrent.tenkan >= bCurrent.kijun && bPrior.tenkan < bPrior.kijun) {
+      tkCrossoverStopLoss = bCurrent.low;
+      break;
+    }
+  }
+  for (let idx = closedIdx1h; idx >= 1; idx--) {
+    const bCurrent = barsEntry[idx];
+    const bPrior = barsEntry[idx - 1];
+    if (bCurrent.tenkan <= bCurrent.kijun && bPrior.tenkan > bPrior.kijun) {
+      tkCrossoverShortStopLoss = bCurrent.high;
+      break;
+    }
+  }
+
+  // Find the last completed 1HR bar that met full buy confluence
   let lastConfluenceBarClose = closed1h.close;
   let hasConfluenceSetup = false;
   for (let idx = closedIdx1h; idx >= 0; idx--) {
@@ -624,7 +698,7 @@ export function evaluateMultiTimeframeConfluence(
     }
   }
 
-  // Find the last completed 1HR bar that met full sell confluence (6/6 rules)
+  // Find the last completed 1HR bar that met full sell confluence
   let lastSellConfluenceBarClose = closed1h.close;
   let hasSellConfluenceSetup = false;
   for (let idx = closedIdx1h; idx >= 0; idx--) {
@@ -805,6 +879,12 @@ export function evaluateMultiTimeframeConfluence(
     totalSellPillarsPassed: totalSell,
     dualBearishSync: dualBearish,
     sellAlignmentScore: sellScore,
+    entryCciBullish,
+    entryStochBullish,
+    sellCciBearish,
+    sellStochBearish,
+    tkCrossoverStopLoss: Number(tkCrossoverStopLoss.toFixed(2)),
+    tkCrossoverShortStopLoss: Number(tkCrossoverShortStopLoss.toFixed(2)),
     alignmentStatus: status,
     guidance,
     lastConfluenceBarClose,

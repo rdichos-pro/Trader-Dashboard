@@ -272,20 +272,45 @@ interface DailyLogTabProps {
   onNavigateToTab?: (tab: string) => void;
 }
 
+const DEFAULT_TARGET_SHEET_URL = 'https://docs.google.com/spreadsheets/d/15Kwam-w1aNMTl1T3yN_Dnht2NFh3i0s-_cO3-4_Ivh4/edit?usp=drivesdk';
+
 export const DailyLogTab: React.FC<DailyLogTabProps> = ({
   universe = [],
   onSelectTicker,
   onNavigateToTab,
 }) => {
-  // Active sheet tab: 'STOCKS' | 'XAUUSD_BTCUSD' | 'Trade Journal'
-  const [activeSheetTab, setActiveSheetTab] = useState<'STOCKS' | 'XAUUSD_BTCUSD' | 'Trade Journal'>('STOCKS');
+  // Active sheet tab: 'STOCKS' | 'XAUUSD_BTCUSD' | 'Trade Journal' | 'GOOGLE_SHEET_EMBED'
+  const [activeSheetTab, setActiveSheetTab] = useState<'STOCKS' | 'XAUUSD_BTCUSD' | 'Trade Journal' | 'GOOGLE_SHEET_EMBED'>('STOCKS');
 
-  // External Google Sheet Link configured by the user
+  // External Google Sheet Link configured by the user (defaults to user's sheet)
   const [googleSheetUrl, setGoogleSheetUrl] = useState<string>(() => {
-    return localStorage.getItem('trader_google_sheets_url') || 'https://docs.google.com/spreadsheets/d/1trading-journal-log/edit';
+    const saved = localStorage.getItem('trader_google_sheets_url');
+    // Ensure user's new sheet ID is used by default if not already set
+    if (!saved || !saved.includes('15Kwam-w1aNMTl1T3yN_Dnht2NFh3i0s-_cO3-4_Ivh4')) {
+      localStorage.setItem('trader_google_sheets_url', DEFAULT_TARGET_SHEET_URL);
+      return DEFAULT_TARGET_SHEET_URL;
+    }
+    return saved;
   });
   const [isEditingUrl, setIsEditingUrl] = useState<boolean>(false);
   const [tempUrl, setTempUrl] = useState<string>(googleSheetUrl);
+  const [hasCopiedUrl, setHasCopiedUrl] = useState<boolean>(false);
+
+  const handleCopyLink = () => {
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(googleSheetUrl);
+    } else {
+      // Fallback
+      const textArea = document.createElement('textarea');
+      textArea.value = googleSheetUrl;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+    }
+    setHasCopiedUrl(true);
+    setTimeout(() => setHasCopiedUrl(false), 2500);
+  };
 
   // Journal rows state
   const [stockRows, setStockRows] = useState<JournalRow[]>(() => {
@@ -549,39 +574,59 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
 
   return (
     <div className="space-y-4">
-      {/* Top Banner: Google Sheets Redirect & Link Integration */}
-      <div className="bg-[#10141D] border border-blue-900/40 rounded-xl p-4 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* Top Banner: Google Sheets Redirect & Link Integration with Coastal Elegance */}
+      <div className="bg-[#0b1e32] border border-[#1d436a] rounded-xl p-4 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-start md:items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500/20 to-cyan-500/20 border border-teal-500/40 flex items-center justify-center text-teal-300 shrink-0 shadow-sm shadow-teal-950">
             <BookOpen className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h2 className="text-base font-bold text-white tracking-wide">TRADING JOURNAL &amp; DAILY LOG</h2>
-              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-950 text-blue-300 border border-blue-800">
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#132e4d] text-teal-300 border border-teal-700/50">
                 Google Sheets Multi-Timeframe Matrix
               </span>
             </div>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-300 mt-0.5">
               Live spreadsheet tracker with 3-tier confluence checkboxes (☁️ Ichimoku, 📊 CCI 40, ⚡ Stoch 12,3,3) across 3 simultaneous timeframes.
             </p>
           </div>
         </div>
 
-        {/* Action Buttons: Open Google Sheets, Auto Evaluate, Add Stock */}
-        <div className="flex flex-wrap items-center gap-2.5">
+        {/* Action Buttons: Open Google Sheets, Copy Link, Auto Evaluate, Add Stock */}
+        <div className="flex flex-wrap items-center gap-2">
           {/* Clickable External Google Sheets Redirect Link */}
           <a
             href={googleSheetUrl}
             target="_blank"
             rel="noopener noreferrer"
             id="open-google-sheets-btn"
-            className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-all shadow-md hover:shadow-emerald-500/20 group"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white font-semibold text-xs transition-all shadow-md shadow-teal-950/40 group"
             title="Open your Google Sheets Trading Journal in a new browser tab"
           >
-            <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-teal-100" />
             <span>Open in Google Sheets</span>
           </a>
+
+          {/* Copy Link Button with instant feedback */}
+          <button
+            onClick={handleCopyLink}
+            id="copy-google-sheets-btn"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#0f263e] hover:bg-[#163654] text-teal-300 font-medium text-xs border border-[#1d436a] transition-all"
+            title="Copy Google Sheets direct link to clipboard"
+          >
+            {hasCopiedUrl ? (
+              <>
+                <Check className="w-3.5 h-3.5 text-teal-300 animate-in zoom-in" />
+                <span className="text-teal-300 font-bold">Copied!</span>
+              </>
+            ) : (
+              <>
+                <Copy className="w-3.5 h-3.5 text-slate-400" />
+                <span>Copy Link</span>
+              </>
+            )}
+          </button>
 
           {/* Edit Google Sheets URL */}
           <button
@@ -589,7 +634,7 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
               setTempUrl(googleSheetUrl);
               setIsEditingUrl(true);
             }}
-            className="p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white text-xs border border-slate-700 transition-colors"
+            className="p-2 rounded-lg bg-[#0f263e] hover:bg-[#163654] text-slate-300 hover:text-white text-xs border border-[#1d436a] transition-colors"
             title="Configure your Google Sheet link"
           >
             <LinkIcon className="w-4 h-4" />
@@ -599,7 +644,7 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
           <button
             onClick={handleAutoEvaluateLive}
             disabled={isEvaluatingLive}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-white font-medium text-xs transition-colors disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-sky-600/80 hover:bg-sky-600 text-white font-medium text-xs transition-colors disabled:opacity-50"
             title="Auto-scan live candles to populate Ichimoku, CCI & Stoch checkboxes"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isEvaluatingLive ? 'animate-spin' : ''}`} />
@@ -609,16 +654,16 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
           {/* Add Row Button */}
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-xs border border-slate-700 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#0f263e] hover:bg-[#163654] text-slate-200 font-medium text-xs border border-[#1d436a] transition-colors"
           >
-            <Plus className="w-3.5 h-3.5 text-emerald-400" />
+            <Plus className="w-3.5 h-3.5 text-teal-400" />
             <span>Add Row</span>
           </button>
 
           {/* Export CSV */}
           <button
             onClick={handleExportCsv}
-            className="p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white text-xs border border-slate-700 transition-colors"
+            className="p-2 rounded-lg bg-[#0f263e] hover:bg-[#163654] text-slate-300 hover:text-white text-xs border border-[#1d436a] transition-colors"
             title="Export this sheet tab to CSV"
           >
             <Download className="w-4 h-4" />
@@ -628,10 +673,10 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
 
       {/* URL Config Drawer Modal */}
       {isEditingUrl && (
-        <div className="bg-[#161B22] border border-blue-800/60 rounded-xl p-4 text-xs space-y-2.5 animate-in fade-in duration-150">
+        <div className="bg-[#0f263e] border border-teal-500/40 rounded-xl p-4 text-xs space-y-2.5 animate-in fade-in duration-150">
           <div className="flex items-center justify-between">
             <span className="font-semibold text-slate-200 flex items-center gap-1.5">
-              <LinkIcon className="w-4 h-4 text-blue-400" />
+              <LinkIcon className="w-4 h-4 text-teal-400" />
               Configure Your Google Sheets Trading Journal Link:
             </span>
             <button onClick={() => setIsEditingUrl(false)} className="text-slate-400 hover:text-white">
@@ -644,37 +689,48 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
               value={tempUrl}
               onChange={e => setTempUrl(e.target.value)}
               placeholder="https://docs.google.com/spreadsheets/d/your-sheet-id/edit"
-              className="flex-1 bg-[#0B0E14] border border-slate-700 rounded-lg px-3 py-2 text-white font-mono text-xs focus:outline-none focus:border-blue-500"
+              className="flex-1 bg-[#071524] border border-[#1d436a] rounded-lg px-3 py-2 text-white font-mono text-xs focus:outline-none focus:border-teal-400"
             />
             <button
               onClick={() => {
                 setGoogleSheetUrl(tempUrl);
                 setIsEditingUrl(false);
               }}
-              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-xs"
+              className="px-4 py-2 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white font-semibold rounded-lg text-xs"
             >
               Save Link
             </button>
+            <button
+              onClick={() => {
+                setTempUrl(DEFAULT_TARGET_SHEET_URL);
+                setGoogleSheetUrl(DEFAULT_TARGET_SHEET_URL);
+                setIsEditingUrl(false);
+              }}
+              className="px-3 py-2 bg-[#132e4d] hover:bg-[#193c66] text-teal-300 font-medium rounded-lg text-xs border border-teal-700/50"
+              title="Reset back to user's assigned Google Sheet link"
+            >
+              Reset to User Link
+            </button>
           </div>
-          <p className="text-[11px] text-slate-400">
-            Paste your Google Sheet link here. Clicking &quot;Open in Google Sheets&quot; anywhere in the app will launch this direct spreadsheet URL.
+          <p className="text-[11px] text-slate-300">
+            Current target: <span className="font-mono text-teal-300 select-all">{googleSheetUrl}</span>
           </p>
         </div>
       )}
 
       {/* Collapsible Strategy Rule Cards (Image 1 Specifications) */}
-      <div className="bg-[#161B22] border border-slate-800 rounded-xl overflow-hidden shadow-lg">
+      <div className="bg-[#0b1e32] border border-[#1d436a] rounded-xl overflow-hidden shadow-lg">
         <button
           onClick={() => setShowStrategyReference(!showStrategyReference)}
-          className="w-full flex items-center justify-between px-4 py-3 bg-[#131720] hover:bg-[#1a202c] text-left transition-colors border-b border-slate-800/80"
+          className="w-full flex items-center justify-between px-4 py-3 bg-[#081726] hover:bg-[#0e2742] text-left transition-colors border-b border-[#1d436a]"
         >
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-amber-400" />
-            <span className="text-xs font-bold text-slate-200 uppercase tracking-wider">
+            <span className="text-xs font-bold text-slate-100 uppercase tracking-wider">
               Strategy Reference Specifications (Updated Rules from User Brief)
             </span>
           </div>
-          <span className="text-xs text-blue-400 font-medium">
+          <span className="text-xs text-teal-400 font-medium">
             {showStrategyReference ? 'Hide Rules ▲' : 'Show Rules ▼'}
           </span>
         </button>
@@ -682,8 +738,8 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
         {showStrategyReference && (
           <div className="p-4 grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs font-sans">
             {/* Table 1: STRATEGY FOR XAUUSD / BTCUSD / XAGUSD */}
-            <div className="bg-[#0B0E14] border border-amber-900/30 rounded-lg p-3.5 space-y-2.5">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+            <div className="bg-[#071727] border border-amber-800/40 rounded-lg p-3.5 space-y-2.5">
+              <div className="flex items-center justify-between border-b border-[#1d436a] pb-2">
                 <span className="font-bold text-amber-400 uppercase tracking-wide flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-amber-400"></span>
                   STRATEGY for XAUUSD &amp; CRYPTO / METALS
@@ -694,14 +750,14 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-[11px]">
                   <thead>
-                    <tr className="border-b border-slate-800 text-slate-400">
+                    <tr className="border-b border-[#1d436a] text-slate-400">
                       <th className="py-1 px-2">INDICATOR</th>
                       <th className="py-1 px-2">TIMEFRAME</th>
                       <th className="py-1 px-2 text-emerald-400">BUY (LONG)</th>
                       <th className="py-1 px-2 text-rose-400">SELL (SHORT)</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60 font-mono">
+                  <tbody className="divide-y divide-[#1d436a]/60 font-mono">
                     <tr>
                       <td className="py-1.5 px-2 font-semibold text-slate-300">ICHIMOKU</td>
                       <td className="py-1.5 px-2 text-slate-400">1, 5, 15 MIN</td>
@@ -724,16 +780,16 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
                 </table>
               </div>
 
-              <div className="bg-amber-950/20 border border-amber-800/40 rounded p-2 text-[10px] text-amber-300">
+              <div className="bg-amber-950/30 border border-amber-800/40 rounded p-2 text-[10px] text-amber-200">
                 <strong>Execution &amp; SL:</strong> All rules must align simultaneously on candle close. Stop Loss placed at the <strong>bottom of the bar close after Tenkan-Kijun crossover</strong> (top for sell).
               </div>
             </div>
 
             {/* Table 2: STRATEGY FOR STOCKS */}
-            <div className="bg-[#0B0E14] border border-blue-900/30 rounded-lg p-3.5 space-y-2.5">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                <span className="font-bold text-blue-400 uppercase tracking-wide flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-blue-400"></span>
+            <div className="bg-[#071727] border border-cyan-800/40 rounded-lg p-3.5 space-y-2.5">
+              <div className="flex items-center justify-between border-b border-[#1d436a] pb-2">
+                <span className="font-bold text-cyan-300 uppercase tracking-wide flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
                   STRATEGY for STOCKS (EQUITIES)
                 </span>
                 <span className="text-[10px] text-slate-400 font-mono">Timeframes: 1-HR, 4-HR, 1-DAY</span>
@@ -742,14 +798,14 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-[11px]">
                   <thead>
-                    <tr className="border-b border-slate-800 text-slate-400">
+                    <tr className="border-b border-[#1d436a] text-slate-400">
                       <th className="py-1 px-2">INDICATOR</th>
                       <th className="py-1 px-2">TIMEFRAME</th>
                       <th className="py-1 px-2 text-emerald-400">BUY (LONG)</th>
                       <th className="py-1 px-2 text-rose-400">SELL (SHORT)</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60 font-mono">
+                  <tbody className="divide-y divide-[#1d436a]/60 font-mono">
                     <tr>
                       <td className="py-1.5 px-2 font-semibold text-slate-300">ICHIMOKU</td>
                       <td className="py-1.5 px-2 text-slate-400">1-HR, 4-HR, 1-DAY</td>
@@ -772,7 +828,7 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
                 </table>
               </div>
 
-              <div className="bg-blue-950/20 border border-blue-800/40 rounded p-2 text-[10px] text-blue-300">
+              <div className="bg-cyan-950/30 border border-cyan-800/40 rounded p-2 text-[10px] text-cyan-200">
                 <strong>Why Stoch &gt; 80?</strong> Overbought Stochastic confirms strong breakout momentum extension rather than weak counter-trend chop.
               </div>
             </div>
@@ -780,38 +836,38 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
         )}
       </div>
 
-      {/* Summary KPI Strip */}
+      {/* Summary KPI Strip with Coastal Elegance */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="bg-[#161B22] p-3 rounded-lg border border-slate-800">
-          <span className="text-[11px] text-slate-400 block font-medium">Logged Tickers</span>
+        <div className="bg-[#0f263e] p-3 rounded-xl border border-[#1d436a] shadow-sm">
+          <span className="text-[11px] text-slate-300 block font-medium">Logged Tickers</span>
           <div className="flex items-baseline gap-1 mt-1">
-            <span className="text-xl font-bold text-white">{activeRows.length}</span>
-            <span className="text-xs text-slate-500 font-mono">positions</span>
+            <span className="text-xl font-bold text-white font-mono">{activeRows.length}</span>
+            <span className="text-xs text-slate-400 font-mono">positions</span>
           </div>
         </div>
 
-        <div className="bg-[#161B22] p-3 rounded-lg border border-slate-800">
-          <span className="text-[11px] text-slate-400 block font-medium">Full 9/9 Confluence</span>
+        <div className="bg-[#0f263e] p-3 rounded-xl border border-[#1d436a] shadow-sm">
+          <span className="text-[11px] text-slate-300 block font-medium">Full 9/9 Confluence</span>
           <div className="flex items-baseline gap-1 mt-1">
-            <span className="text-xl font-bold text-emerald-400">{fullConfluenceRowsCount}</span>
-            <span className="text-xs text-slate-500 font-mono">/ {activeRows.length} aligned</span>
+            <span className="text-xl font-bold text-teal-300 font-mono">{fullConfluenceRowsCount}</span>
+            <span className="text-xs text-slate-400 font-mono">/ {activeRows.length} aligned</span>
           </div>
         </div>
 
-        <div className="bg-[#161B22] p-3 rounded-lg border border-slate-800">
-          <span className="text-[11px] text-slate-400 block font-medium">Total Cost Basis</span>
+        <div className="bg-[#0f263e] p-3 rounded-xl border border-[#1d436a] shadow-sm">
+          <span className="text-[11px] text-slate-300 block font-medium">Total Cost Basis</span>
           <div className="flex items-baseline gap-1 mt-1">
-            <span className="text-xl font-bold text-slate-200">{formatCurrency(totalInvested, 0)}</span>
+            <span className="text-xl font-bold text-slate-100 font-mono">{formatCurrency(totalInvested, 0)}</span>
           </div>
         </div>
 
-        <div className="bg-[#161B22] p-3 rounded-lg border border-slate-800">
-          <span className="text-[11px] text-slate-400 block font-medium">Live Unrealized P&amp;L</span>
+        <div className="bg-[#0f263e] p-3 rounded-xl border border-[#1d436a] shadow-sm">
+          <span className="text-[11px] text-slate-300 block font-medium">Live Unrealized P&amp;L</span>
           <div className="flex items-baseline gap-1 mt-1">
-            <span className={`text-xl font-bold ${totalUnrealizedPnl >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+            <span className={`text-xl font-bold font-mono ${totalUnrealizedPnl >= 0 ? 'text-teal-300' : 'text-rose-400'}`}>
               {totalUnrealizedPnl >= 0 ? '+' : ''}{formatCurrency(totalUnrealizedPnl, 0)}
             </span>
-            <span className={`text-xs font-mono ${totalUnrealizedPnl >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
+            <span className={`text-xs font-mono ${totalUnrealizedPnl >= 0 ? 'text-teal-400' : 'text-rose-400'}`}>
               ({formatPercent(totalPnlPct)})
             </span>
           </div>
@@ -819,90 +875,137 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
       </div>
 
       {/* Sheet View: Google Sheets Layout */}
-      <div className="bg-[#161B22] border border-slate-800 rounded-xl overflow-hidden shadow-2xl flex flex-col">
+      <div className="bg-[#0b1e32] border border-[#1d436a] rounded-xl overflow-hidden shadow-2xl flex flex-col">
         {/* Google Sheets Window Style Header Bar */}
-        <div className="px-4 py-2.5 bg-[#12161F] border-b border-slate-800 flex items-center justify-between text-xs">
+        <div className="px-4 py-2.5 bg-[#0f263e] border-b border-[#1d436a] flex items-center justify-between text-xs">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 text-slate-400 font-medium">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-              <span className="text-slate-200 font-semibold">TRADING JOURNAL</span>
-              <span className="text-slate-500 text-[10px]">• Autosaved to browser</span>
+            <div className="flex items-center gap-1.5 text-slate-300 font-medium">
+              <span className="w-2.5 h-2.5 rounded-full bg-teal-400"></span>
+              <span className="text-white font-semibold">TRADING JOURNAL</span>
+              <span className="text-teal-300/80 text-[10px] hidden sm:inline">• Autosaved to browser</span>
             </div>
           </div>
 
           {/* Active Date Header Editor */}
           <div className="flex items-center gap-2">
-            <span className="text-slate-400 text-[11px]">Active Log Date:</span>
+            <span className="text-slate-300 text-[11px]">Active Log Date:</span>
             <input
               type="text"
               value={activeDateHeader}
               onChange={e => setActiveDateHeader(e.target.value)}
-              className="bg-[#0B0E14] border border-slate-700 rounded px-2 py-0.5 text-blue-300 font-mono font-bold text-xs text-center w-28 focus:outline-none focus:border-blue-500"
+              className="bg-[#071524] border border-[#1d436a] rounded px-2 py-0.5 text-teal-300 font-mono font-bold text-xs text-center w-28 focus:outline-none focus:border-teal-400"
               title="Click to rename active date column header"
             />
           </div>
         </div>
 
-        {/* Spreadsheet Table Container or Trade Journal Overview */}
-        {activeSheetTab === 'Trade Journal' ? (
+        {/* Tab 1: Live Embedded Google Sheet Direct View */}
+        {activeSheetTab === 'GOOGLE_SHEET_EMBED' ? (
+          <div className="p-4 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-[#0f263e] rounded-xl border border-[#1d436a]">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-teal-400 animate-pulse"></span>
+                <span className="text-xs font-semibold text-white">Google Sheet Direct View</span>
+                <span className="text-[11px] text-teal-300 font-mono hidden md:inline truncate max-w-sm">({googleSheetUrl})</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleCopyLink}
+                  className="px-3 py-1.5 text-xs rounded-lg bg-[#132e4d] hover:bg-[#1a3d66] text-teal-200 border border-teal-700/50 flex items-center gap-1.5 transition-colors font-medium"
+                >
+                  {hasCopiedUrl ? <Check className="w-3.5 h-3.5 text-teal-300" /> : <Copy className="w-3.5 h-3.5 text-slate-400" />}
+                  <span>{hasCopiedUrl ? 'Copied URL!' : 'Copy Direct Link'}</span>
+                </button>
+                <a
+                  href={googleSheetUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 text-xs rounded-lg bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white font-semibold flex items-center gap-1.5 shadow-sm transition-all"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Open Full Window</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="w-full h-[620px] bg-[#071524] rounded-xl border border-[#1d436a] overflow-hidden relative shadow-inner">
+              <iframe
+                src={`${googleSheetUrl.split('/edit')[0]}/edit?rm=minimal`}
+                title="Google Sheets Live Document"
+                className="w-full h-full border-0"
+                allow="clipboard-write"
+              />
+            </div>
+          </div>
+        ) : activeSheetTab === 'Trade Journal' ? (
           <div className="p-6 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-[#0B0E14] border border-emerald-900/40 p-4 rounded-xl space-y-2">
-                <span className="text-xs text-slate-400 font-medium">Strategy Discipline Score</span>
+              <div className="bg-[#0f263e] border border-teal-800/40 p-4 rounded-xl space-y-2">
+                <span className="text-xs text-slate-300 font-medium">Strategy Discipline Score</span>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-black text-emerald-400">87.5%</span>
-                  <span className="text-xs text-emerald-500 font-mono">Disciplined</span>
+                  <span className="text-2xl font-black text-teal-300">87.5%</span>
+                  <span className="text-xs text-teal-400 font-mono">Disciplined</span>
                 </div>
-                <p className="text-[11px] text-slate-500">
+                <p className="text-[11px] text-slate-400">
                   7 of 8 trades respected full multi-timeframe bar-close confirmation. Only 1 premature entry flagged.
                 </p>
               </div>
 
-              <div className="bg-[#0B0E14] border border-blue-900/40 p-4 rounded-xl space-y-2">
-                <span className="text-xs text-slate-400 font-medium">Multi-Timeframe Alignment</span>
+              <div className="bg-[#0f263e] border border-sky-800/40 p-4 rounded-xl space-y-2">
+                <span className="text-xs text-slate-300 font-medium">Multi-Timeframe Alignment</span>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-black text-blue-400">{fullConfluenceRowsCount} / {activeRows.length}</span>
-                  <span className="text-xs text-blue-500 font-mono">Full 9/9 Passed</span>
+                  <span className="text-2xl font-black text-sky-300">{fullConfluenceRowsCount} / {activeRows.length}</span>
+                  <span className="text-xs text-sky-400 font-mono">Full 9/9 Passed</span>
                 </div>
-                <p className="text-[11px] text-slate-500">
+                <p className="text-[11px] text-slate-400">
                   Ichimoku + CCI(40) &gt; 100 + Stoch(12,3,3) &gt; 80 aligned across 1-HR, 4-HR and Daily timeframes.
                 </p>
               </div>
 
-              <div className="bg-[#0B0E14] border border-purple-900/40 p-4 rounded-xl space-y-2">
-                <span className="text-xs text-slate-400 font-medium">Direct Google Sheets Link</span>
+              <div className="bg-[#0f263e] border border-[#1d436a] p-4 rounded-xl space-y-2">
+                <span className="text-xs text-slate-300 font-medium">Direct Google Sheets Link</span>
                 <div className="flex items-center gap-2 pt-1">
                   <a
                     href={googleSheetUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs"
+                    onClick={() => {
+                      try { window.open(googleSheetUrl, '_blank', 'noopener,noreferrer'); } catch(e) {}
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white font-bold text-xs"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span>Launch Google Sheets</span>
                   </a>
+                  <button
+                    onClick={handleCopyLink}
+                    className="p-1.5 rounded-lg bg-[#132e4d] hover:bg-[#1a3d66] text-teal-300 border border-teal-700/50 text-xs"
+                    title="Copy direct link"
+                  >
+                    {hasCopiedUrl ? <Check className="w-3.5 h-3.5 text-teal-300" /> : <Copy className="w-3.5 h-3.5" />}
+                  </button>
                 </div>
-                <p className="text-[11px] text-slate-500">
-                  Configured destination: <span className="font-mono text-slate-400 truncate block max-w-xs">{googleSheetUrl}</span>
+                <p className="text-[11px] text-slate-400">
+                  Active sheet: <span className="font-mono text-teal-300 truncate block max-w-xs">{googleSheetUrl}</span>
                 </p>
               </div>
             </div>
 
             {/* Daily Execution Reflections & Log History */}
-            <div className="bg-[#0B0E14] border border-slate-800 rounded-xl p-4 space-y-3">
+            <div className="bg-[#0f263e] border border-[#1d436a] rounded-xl p-4 space-y-3">
               <h3 className="font-bold text-white text-sm flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-emerald-400" />
+                <Calendar className="w-4 h-4 text-teal-400" />
                 <span>Daily Trading Log &amp; Execution Reflections ({activeDateHeader})</span>
               </h3>
 
               <div className="space-y-2.5">
                 {stockRows.filter(r => r.notes.trim()).map(r => (
-                  <div key={r.id} className="p-3 rounded-lg bg-[#161B22] border border-slate-800 flex items-start justify-between gap-3">
+                  <div key={r.id} className="p-3 rounded-lg bg-[#0b1e32] border border-[#1d436a] flex items-start justify-between gap-3">
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-blue-300 text-xs">{r.ticker}</span>
-                        <span className="text-[10px] text-slate-500">{r.entryDate}</span>
-                        <span className="text-[10px] font-mono text-slate-400">Entry: ${r.entryPrice.toFixed(2)}</span>
+                        <span className="font-mono font-bold text-teal-300 text-xs">{r.ticker}</span>
+                        <span className="text-[10px] text-slate-400">{r.entryDate}</span>
+                        <span className="text-[10px] font-mono text-slate-300">Entry: ${r.entryPrice.toFixed(2)}</span>
                         {r.stopLossPrice && (
                           <span className="text-[10px] font-mono text-amber-400">SL: ${r.stopLossPrice.toFixed(2)}</span>
                         )}
@@ -911,15 +1014,15 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
                         r.noteColor === 'red' || r.notes.toLowerCase().includes("should've") || r.notes.toLowerCase().includes('pre-mature')
                           ? 'text-rose-400 font-semibold'
                           : r.noteColor === 'green' || r.notes.toLowerCase().includes('riding')
-                          ? 'text-emerald-400 font-medium'
-                          : 'text-slate-300'
+                          ? 'text-teal-300 font-medium'
+                          : 'text-slate-200'
                       }`}>
                         &ldquo;{r.notes}&rdquo;
                       </p>
                     </div>
 
                     <div className="text-right shrink-0">
-                      <span className="text-[10px] px-2 py-0.5 rounded font-mono font-semibold bg-slate-800 text-slate-300">
+                      <span className="text-[10px] px-2 py-0.5 rounded font-mono font-semibold bg-[#132e4d] text-teal-300 border border-teal-700/40">
                         {r.tf1.ichimoku && r.tf2.ichimoku && r.tf3.ichimoku ? '☁️ Ichi Sync' : '⚠️ Partial Ichi'}
                       </span>
                     </div>
@@ -933,26 +1036,26 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
           <table className="w-full text-left border-collapse select-text">
             {/* Table Header Row (Col A - H from screenshot) */}
             <thead>
-              <tr className="bg-[#1C2638] text-white border-b border-slate-700 text-xs font-bold font-mono uppercase tracking-wider">
-                <th className="py-2.5 px-3 border-r border-slate-700 w-32">STOCK</th>
-                <th className="py-2.5 px-3 border-r border-slate-700 w-24 text-right">AMOUNT</th>
-                <th className="py-2.5 px-3 border-r border-slate-700 w-24 text-right">ENTRY</th>
-                <th className="py-2.5 px-3 border-r border-slate-700 w-24 text-right">SL</th>
+              <tr className="bg-[#102a46] text-white border-b border-[#1e4870] text-xs font-bold font-mono uppercase tracking-wider">
+                <th className="py-2.5 px-3 border-r border-[#1e4870] w-32 text-teal-200">STOCK</th>
+                <th className="py-2.5 px-3 border-r border-[#1e4870] w-24 text-right text-slate-200">AMOUNT</th>
+                <th className="py-2.5 px-3 border-r border-[#1e4870] w-24 text-right text-slate-200">ENTRY</th>
+                <th className="py-2.5 px-3 border-r border-[#1e4870] w-24 text-right text-amber-300">SL</th>
                 {/* 3 Timeframe Columns */}
-                <th className="py-2.5 px-3 border-r border-slate-700 w-28 text-center bg-[#182a45]">
+                <th className="py-2.5 px-3 border-r border-[#1e4870] w-28 text-center bg-[#133252]">
                   {activeSheetTab === 'STOCKS' ? '1-HR' : '1-MIN'}
-                  <div className="text-[9px] font-normal text-blue-300 lowercase">ichi • cci • stoch</div>
+                  <div className="text-[9px] font-normal text-teal-200 lowercase">ichi • cci • stoch</div>
                 </th>
-                <th className="py-2.5 px-3 border-r border-slate-700 w-28 text-center bg-[#182a45]">
+                <th className="py-2.5 px-3 border-r border-[#1e4870] w-28 text-center bg-[#133252]">
                   {activeSheetTab === 'STOCKS' ? '4-HR' : '5-MIN'}
-                  <div className="text-[9px] font-normal text-blue-300 lowercase">ichi • cci • stoch</div>
+                  <div className="text-[9px] font-normal text-teal-200 lowercase">ichi • cci • stoch</div>
                 </th>
-                <th className="py-2.5 px-3 border-r border-slate-700 w-28 text-center bg-[#182a45]">
+                <th className="py-2.5 px-3 border-r border-[#1e4870] w-28 text-center bg-[#133252]">
                   {activeSheetTab === 'STOCKS' ? 'DAILY' : '15-MIN'}
-                  <div className="text-[9px] font-normal text-blue-300 lowercase">ichi • cci • stoch</div>
+                  <div className="text-[9px] font-normal text-teal-200 lowercase">ichi • cci • stoch</div>
                 </th>
                 {/* Date Notes Column Header (Col H: "27-Sep-26") */}
-                <th className="py-2.5 px-4 min-w-[280px] bg-[#1a2d4b] text-blue-200">
+                <th className="py-2.5 px-4 min-w-[280px] bg-[#122e4d] text-teal-200">
                   {activeDateHeader} (COMMENTS &amp; EXIT LOG)
                 </th>
                 <th className="py-2.5 px-2 w-16 text-center text-slate-400">ACTIONS</th>
@@ -974,108 +1077,108 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
                 return (
                   <React.Fragment key={row.id}>
                     {/* Primary Stock Row: Col A Header with Ticker Badge */}
-                    <tr className="bg-[#1b2230]/70 hover:bg-[#1f293d] transition-colors border-t-2 border-slate-700">
+                    <tr className="bg-[#0f263e]/85 hover:bg-[#163654] transition-colors border-t-2 border-[#1e4870]">
                       {/* Col A: STOCK */}
-                      <td className="py-2 px-3 border-r border-slate-800 font-bold text-white flex items-center justify-between">
+                      <td className="py-2 px-3 border-r border-[#1d436a] font-bold text-white flex items-center justify-between">
                         <span 
                           onClick={() => onSelectTicker && onSelectTicker(row.ticker)}
-                          className="cursor-pointer hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+                          className="cursor-pointer hover:text-teal-300 transition-colors flex items-center gap-1.5"
                         >
-                          <span className="text-sm font-black text-blue-300">{row.ticker}</span>
-                          <ArrowUpRight className="w-3 h-3 text-slate-500" />
+                          <span className="text-sm font-black text-teal-300">{row.ticker}</span>
+                          <ArrowUpRight className="w-3 h-3 text-slate-400" />
                         </span>
                         <span className="text-[10px] text-slate-400 font-normal">{row.entryDate}</span>
                       </td>
 
                       {/* Col B: AMOUNT */}
-                      <td className="py-2 px-3 border-r border-slate-800 text-right text-slate-200 font-semibold">
+                      <td className="py-2 px-3 border-r border-[#1d436a] text-right text-slate-200 font-semibold">
                         {row.amount.toFixed(2)}
                       </td>
 
                       {/* Col C: ENTRY */}
-                      <td className="py-2 px-3 border-r border-slate-800 text-right text-slate-200">
+                      <td className="py-2 px-3 border-r border-[#1d436a] text-right text-slate-200">
                         {formatCurrency(row.entryPrice)}
-                        <div className={`text-[10px] ${pnlDollars >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                        <div className={`text-[10px] ${pnlDollars >= 0 ? 'text-teal-300' : 'text-rose-400'}`}>
                           {pnlDollars >= 0 ? '+' : ''}{pnlDollars.toFixed(1)} ({formatPercent(pnlPct)})
                         </div>
                       </td>
 
                       {/* Col D: SL (Stop Loss) */}
-                      <td className="py-2 px-3 border-r border-slate-800 text-right">
+                      <td className="py-2 px-3 border-r border-[#1d436a] text-right">
                         <input
                           type="text"
                           defaultValue={row.stopLossPrice ? row.stopLossPrice.toFixed(2) : ''}
                           onBlur={e => handleUpdateSL(row.id, e.target.value)}
                           placeholder="—"
-                          className="bg-transparent text-right text-amber-400 font-mono w-16 focus:bg-[#0B0E14] focus:outline-none rounded px-1"
+                          className="bg-transparent text-right text-amber-400 font-mono w-16 focus:bg-[#071524] focus:outline-none rounded px-1"
                           title="Click to edit Stop Loss price"
                         />
                       </td>
 
                       {/* Col E: TF1 (1-HR) - Checkbox 1: ☁️ Ichimoku */}
-                      <td className="py-1 px-3 border-r border-slate-800 text-center bg-[#151c28]">
+                      <td className="py-1 px-3 border-r border-[#1d436a] text-center bg-[#0d2238]">
                         <button
                           onClick={() => handleToggleCheckbox(row.id, 'tf1', 'ichimoku')}
-                          className="inline-flex items-center justify-center p-1 rounded hover:bg-slate-700/60 transition-colors"
+                          className="inline-flex items-center justify-center p-1 rounded hover:bg-[#1a3d66] transition-colors"
                           title="Ichimoku: Tenkan > Kijun; both above cloud"
                         >
                           {row.tf1.ichimoku ? (
-                            <CheckSquare className="w-4 h-4 text-blue-400" />
+                            <CheckSquare className="w-4 h-4 text-teal-400" />
                           ) : (
-                            <Square className="w-4 h-4 text-slate-600" />
+                            <Square className="w-4 h-4 text-slate-500" />
                           )}
                         </button>
                       </td>
 
                       {/* Col F: TF2 (4-HR) - Checkbox 1: ☁️ Ichimoku */}
-                      <td className="py-1 px-3 border-r border-slate-800 text-center bg-[#151c28]">
+                      <td className="py-1 px-3 border-r border-[#1d436a] text-center bg-[#0d2238]">
                         <button
                           onClick={() => handleToggleCheckbox(row.id, 'tf2', 'ichimoku')}
-                          className="inline-flex items-center justify-center p-1 rounded hover:bg-slate-700/60 transition-colors"
+                          className="inline-flex items-center justify-center p-1 rounded hover:bg-[#1a3d66] transition-colors"
                           title="Ichimoku: Tenkan > Kijun; both above cloud"
                         >
                           {row.tf2.ichimoku ? (
-                            <CheckSquare className="w-4 h-4 text-blue-400" />
+                            <CheckSquare className="w-4 h-4 text-teal-400" />
                           ) : (
-                            <Square className="w-4 h-4 text-slate-600" />
+                            <Square className="w-4 h-4 text-slate-500" />
                           )}
                         </button>
                       </td>
 
                       {/* Col G: TF3 (DAILY) - Checkbox 1: ☁️ Ichimoku */}
-                      <td className="py-1 px-3 border-r border-slate-800 text-center bg-[#151c28]">
+                      <td className="py-1 px-3 border-r border-[#1d436a] text-center bg-[#0d2238]">
                         <button
                           onClick={() => handleToggleCheckbox(row.id, 'tf3', 'ichimoku')}
-                          className="inline-flex items-center justify-center p-1 rounded hover:bg-slate-700/60 transition-colors"
+                          className="inline-flex items-center justify-center p-1 rounded hover:bg-[#1a3d66] transition-colors"
                           title="Ichimoku: Tenkan > Kijun; both above cloud"
                         >
                           {row.tf3.ichimoku ? (
-                            <CheckSquare className="w-4 h-4 text-blue-400" />
+                            <CheckSquare className="w-4 h-4 text-teal-400" />
                           ) : (
-                            <Square className="w-4 h-4 text-slate-600" />
+                            <Square className="w-4 h-4 text-slate-500" />
                           )}
                         </button>
                       </td>
 
                       {/* Col H: Date Comments (Editable text matching screenshot) */}
-                      <td rowSpan={3} className="py-2 px-3 border-r border-slate-800 align-top bg-[#131924]">
+                      <td rowSpan={3} className="py-2 px-3 border-r border-[#1d436a] align-top bg-[#0b1e32]">
                         <textarea
                           rows={3}
                           value={row.notes}
                           onChange={e => handleUpdateNotes(row.id, e.target.value)}
                           placeholder="Log notes, pullback observation, exit triggers..."
-                          className={`w-full bg-transparent resize-none font-sans text-xs focus:bg-[#0B0E14] focus:outline-none rounded p-1.5 transition-colors ${
+                          className={`w-full bg-transparent resize-none font-sans text-xs focus:bg-[#071524] focus:outline-none rounded p-1.5 transition-colors ${
                             isRedNote
                               ? 'text-rose-400 font-semibold'
                               : isGreenNote
-                              ? 'text-emerald-400 font-medium'
-                              : 'text-slate-300'
+                              ? 'text-teal-300 font-medium'
+                              : 'text-slate-200'
                           }`}
                         />
                       </td>
 
                       {/* Actions */}
-                      <td rowSpan={3} className="py-2 px-2 text-center align-middle">
+                      <td rowSpan={3} className="py-2 px-2 text-center align-middle bg-[#0b1e32]">
                         <button
                           onClick={() => handleDeleteRow(row.id)}
                           className="p-1 text-slate-500 hover:text-rose-400 rounded transition-colors"
@@ -1087,24 +1190,24 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
                     </tr>
 
                     {/* Subrow 2: Indicator 2 (📊 CCI 40) Checkbox Row */}
-                    <tr className="bg-[#161d2a]/50 text-slate-400 hover:bg-[#1b2333]">
-                      <td className="py-0.5 px-3 border-r border-slate-800 text-[10px] text-slate-500 font-sans">
+                    <tr className="bg-[#0a1c2e]/60 text-slate-300 hover:bg-[#132e4d]">
+                      <td className="py-0.5 px-3 border-r border-[#1d436a] text-[10px] text-slate-400 font-sans">
                         📊 CCI (40) &gt; 100
                       </td>
-                      <td className="border-r border-slate-800"></td>
-                      <td className="border-r border-slate-800"></td>
-                      <td className="border-r border-slate-800"></td>
+                      <td className="border-r border-[#1d436a]"></td>
+                      <td className="border-r border-[#1d436a]"></td>
+                      <td className="border-r border-[#1d436a]"></td>
                       {/* TF1 CCI */}
-                      <td className="py-0.5 px-3 border-r border-slate-800 text-center bg-[#151c28]">
+                      <td className="py-0.5 px-3 border-r border-[#1d436a] text-center bg-[#0d2238]">
                         <button
                           onClick={() => handleToggleCheckbox(row.id, 'tf1', 'cci')}
-                          className="inline-flex items-center justify-center p-1 rounded hover:bg-slate-700/60 transition-colors"
+                          className="inline-flex items-center justify-center p-1 rounded hover:bg-[#1a3d66] transition-colors"
                           title="CCI (40) > 100"
                         >
                           {row.tf1.cci ? (
-                            <CheckSquare className="w-4 h-4 text-emerald-400" />
+                            <CheckSquare className="w-4 h-4 text-sky-400" />
                           ) : (
-                            <Square className="w-4 h-4 text-slate-600" />
+                            <Square className="w-4 h-4 text-slate-500" />
                           )}
                         </button>
                       </td>
@@ -1112,79 +1215,79 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
                       <td className="py-0.5 px-3 border-r border-slate-800 text-center bg-[#151c28]">
                         <button
                           onClick={() => handleToggleCheckbox(row.id, 'tf2', 'cci')}
-                          className="inline-flex items-center justify-center p-1 rounded hover:bg-slate-700/60 transition-colors"
+                          className="inline-flex items-center justify-center p-1 rounded hover:bg-[#1a3d66] transition-colors"
                           title="CCI (40) > 100"
                         >
                           {row.tf2.cci ? (
-                            <CheckSquare className="w-4 h-4 text-emerald-400" />
+                            <CheckSquare className="w-4 h-4 text-sky-400" />
                           ) : (
-                            <Square className="w-4 h-4 text-slate-600" />
+                            <Square className="w-4 h-4 text-slate-500" />
                           )}
                         </button>
                       </td>
                       {/* TF3 CCI */}
-                      <td className="py-0.5 px-3 border-r border-slate-800 text-center bg-[#151c28]">
+                      <td className="py-0.5 px-3 border-r border-[#1d436a] text-center bg-[#0d2238]">
                         <button
                           onClick={() => handleToggleCheckbox(row.id, 'tf3', 'cci')}
-                          className="inline-flex items-center justify-center p-1 rounded hover:bg-slate-700/60 transition-colors"
+                          className="inline-flex items-center justify-center p-1 rounded hover:bg-[#1a3d66] transition-colors"
                           title="CCI (40) > 100"
                         >
                           {row.tf3.cci ? (
-                            <CheckSquare className="w-4 h-4 text-emerald-400" />
+                            <CheckSquare className="w-4 h-4 text-sky-400" />
                           ) : (
-                            <Square className="w-4 h-4 text-slate-600" />
+                            <Square className="w-4 h-4 text-slate-500" />
                           )}
                         </button>
                       </td>
                     </tr>
 
                     {/* Subrow 3: Indicator 3 (⚡ STOCH 12,3,3) Checkbox Row */}
-                    <tr className="bg-[#161d2a]/50 text-slate-400 hover:bg-[#1b2333] border-b border-slate-800">
-                      <td className="py-0.5 px-3 border-r border-slate-800 text-[10px] text-slate-500 font-sans">
+                    <tr className="bg-[#0a1c2e]/60 text-slate-300 hover:bg-[#132e4d] border-b border-[#1d436a]">
+                      <td className="py-0.5 px-3 border-r border-[#1d436a] text-[10px] text-slate-400 font-sans">
                         ⚡ Stoch %K &gt; %D &amp; &gt; 80
                       </td>
-                      <td className="border-r border-slate-800"></td>
-                      <td className="border-r border-slate-800"></td>
-                      <td className="border-r border-slate-800"></td>
+                      <td className="border-r border-[#1d436a]"></td>
+                      <td className="border-r border-[#1d436a]"></td>
+                      <td className="border-r border-[#1d436a]"></td>
                       {/* TF1 Stoch */}
-                      <td className="py-0.5 px-3 border-r border-slate-800 text-center bg-[#151c28]">
+                      <td className="py-0.5 px-3 border-r border-[#1d436a] text-center bg-[#0d2238]">
                         <button
                           onClick={() => handleToggleCheckbox(row.id, 'tf1', 'stoch')}
-                          className="inline-flex items-center justify-center p-1 rounded hover:bg-slate-700/60 transition-colors"
+                          className="inline-flex items-center justify-center p-1 rounded hover:bg-[#1a3d66] transition-colors"
                           title="Stoch (12,3,3) Main > Signal; above 80"
                         >
                           {row.tf1.stoch ? (
-                            <CheckSquare className="w-4 h-4 text-amber-400" />
+                            <CheckSquare className="w-4 h-4 text-teal-400" />
                           ) : (
-                            <Square className="w-4 h-4 text-slate-600" />
+                            <Square className="w-4 h-4 text-slate-500" />
                           )}
                         </button>
                       </td>
                       {/* TF2 Stoch */}
-                      <td className="py-0.5 px-3 border-r border-slate-800 text-center bg-[#151c28]">
+                      <td className="py-0.5 px-3 border-r border-[#1d436a] text-center bg-[#0d2238]">
                         <button
                           onClick={() => handleToggleCheckbox(row.id, 'tf2', 'stoch')}
-                          className="inline-flex items-center justify-center p-1 rounded hover:bg-slate-700/60 transition-colors"
+                          className="inline-flex items-center justify-center p-1 rounded hover:bg-[#1a3d66] transition-colors"
                           title="Stoch (12,3,3) Main > Signal; above 80"
                         >
                           {row.tf2.stoch ? (
-                            <CheckSquare className="w-4 h-4 text-amber-400" />
+                            <CheckSquare className="w-4 h-4 text-teal-400" />
                           ) : (
-                            <Square className="w-4 h-4 text-slate-600" />
+                            <Square className="w-4 h-4 text-slate-500" />
                           )}
                         </button>
                       </td>
                       {/* TF3 Stoch */}
-                      <td className="py-0.5 px-3 border-r border-slate-800 text-center bg-[#151c28]">
+                      <td className="py-0.5 px-3 border-r border-[#1d436a] text-center bg-[#0d2238]">
                         <button
                           onClick={() => handleToggleCheckbox(row.id, 'tf3', 'stoch')}
-                          className="inline-flex items-center justify-center p-1 rounded hover:bg-slate-700/60 transition-colors"
+                          className="inline-flex items-center justify-center p-1 rounded hover:bg-[#1a3d66] transition-colors"
                           title="Stoch (12,3,3) Main > Signal; above 80"
                         >
                           {row.tf3.stoch ? (
-                            <CheckSquare className="w-4 h-4 text-amber-400" />
+                            <CheckSquare className="w-4 h-4 text-teal-400" />
                           ) : (
-                            <Square className="w-4 h-4 text-slate-600" />
+                            <Square className="w-4 h-4 text-slate-500" />
                           )}
                         </button>
                       </td>
@@ -1197,15 +1300,15 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
         </div>
       )}
 
-        {/* Google Sheets Bottom Tab Bar (Trade Journal | STOCKS | XAUUSD_BTCUSD) */}
-        <div className="bg-[#12161F] border-t border-slate-800 px-3 py-1.5 flex items-center justify-between text-xs select-none">
+        {/* Google Sheets Bottom Tab Bar (Trade Journal | STOCKS | XAUUSD_BTCUSD | Google Sheets Live) */}
+        <div className="bg-[#071727] border-t border-[#1d436a] px-3 py-1.5 flex items-center justify-between text-xs select-none">
           <div className="flex items-center space-x-1 overflow-x-auto">
             <button
               onClick={() => setActiveSheetTab('Trade Journal')}
-              className={`px-3 py-1.5 rounded-t font-semibold flex items-center gap-1.5 transition-colors ${
+              className={`px-3 py-1.5 rounded-t-lg font-semibold flex items-center gap-1.5 transition-colors ${
                 activeSheetTab === 'Trade Journal'
-                  ? 'bg-[#161B22] text-white border-t-2 border-emerald-500 shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                  ? 'bg-[#0f263e] text-white border-t-2 border-teal-400 shadow-sm'
+                  : 'text-slate-400 hover:text-teal-200 hover:bg-[#132e4d]'
               }`}
             >
               <span>Trade Journal</span>
@@ -1214,14 +1317,14 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
             <button
               id="sheet-tab-stocks"
               onClick={() => setActiveSheetTab('STOCKS')}
-              className={`px-3 py-1.5 rounded-t font-semibold flex items-center gap-1.5 transition-colors ${
+              className={`px-3 py-1.5 rounded-t-lg font-semibold flex items-center gap-1.5 transition-colors ${
                 activeSheetTab === 'STOCKS'
-                  ? 'bg-[#161B22] text-white border-t-2 border-blue-500 shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                  ? 'bg-[#0f263e] text-white border-t-2 border-teal-400 shadow-sm'
+                  : 'text-slate-400 hover:text-teal-200 hover:bg-[#132e4d]'
               }`}
             >
               <span>STOCKS</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded bg-blue-900/60 text-blue-300">
+              <span className="text-[10px] px-1.5 py-0.2 rounded bg-teal-950/80 text-teal-300 border border-teal-800/40">
                 {stockRows.length}
               </span>
             </button>
@@ -1229,20 +1332,33 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
             <button
               id="sheet-tab-xauusd-btcusd"
               onClick={() => setActiveSheetTab('XAUUSD_BTCUSD')}
-              className={`px-3 py-1.5 rounded-t font-semibold flex items-center gap-1.5 transition-colors ${
+              className={`px-3 py-1.5 rounded-t-lg font-semibold flex items-center gap-1.5 transition-colors ${
                 activeSheetTab === 'XAUUSD_BTCUSD'
-                  ? 'bg-[#161B22] text-white border-t-2 border-amber-500 shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                  ? 'bg-[#0f263e] text-white border-t-2 border-amber-400 shadow-sm'
+                  : 'text-slate-400 hover:text-amber-300 hover:bg-[#132e4d]'
               }`}
             >
               <span>XAUUSD_BTCUSD</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-900/60 text-amber-300">
+              <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-950/80 text-amber-300 border border-amber-800/40">
                 {metalsCryptoRows.length}
               </span>
             </button>
+
+            <button
+              id="sheet-tab-live-embed"
+              onClick={() => setActiveSheetTab('GOOGLE_SHEET_EMBED')}
+              className={`px-3 py-1.5 rounded-t-lg font-semibold flex items-center gap-1.5 transition-colors ${
+                activeSheetTab === 'GOOGLE_SHEET_EMBED'
+                  ? 'bg-[#0f263e] text-teal-300 border-t-2 border-teal-400 shadow-sm'
+                  : 'text-slate-400 hover:text-teal-200 hover:bg-[#132e4d]'
+              }`}
+            >
+              <ExternalLink className="w-3.5 h-3.5 text-teal-400" />
+              <span>Google Sheets (Live View)</span>
+            </button>
           </div>
 
-          <div className="flex items-center gap-3 text-slate-500 text-[11px] font-mono">
+          <div className="flex items-center gap-3 text-slate-400 text-[11px] font-mono">
             <span>3 checkboxes = ☁️ Ichi, 📊 CCI(40), ⚡ Stoch(12,3,3)</span>
           </div>
         </div>
@@ -1250,11 +1366,11 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
 
       {/* Add New Stock / Position Modal */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#161B22] border border-slate-700 rounded-xl p-5 w-full max-w-md space-y-4 shadow-2xl animate-in zoom-in-95 duration-150">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 bg-[#071524]/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#0f263e] border border-[#1d436a] rounded-xl p-5 w-full max-w-md space-y-4 shadow-2xl animate-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between border-b border-[#1d436a] pb-3">
               <h3 className="font-bold text-white text-sm flex items-center gap-2">
-                <Plus className="w-4 h-4 text-emerald-400" />
+                <Plus className="w-4 h-4 text-teal-400" />
                 Add Entry to {activeSheetTab} Log
               </h3>
               <button onClick={() => setIsAddModalOpen(false)} className="text-slate-400 hover:text-white">
@@ -1264,44 +1380,44 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="block text-slate-400 font-medium mb-1">Ticker / Asset Symbol</label>
+                <label className="block text-slate-300 font-medium mb-1">Ticker / Asset Symbol</label>
                 <input
                   type="text"
                   value={newTicker}
                   onChange={e => setNewTicker(e.target.value.toUpperCase())}
                   placeholder="e.g. AMD, NVDA, XAUUSD"
-                  className="w-full bg-[#0B0E14] border border-slate-700 rounded-lg px-3 py-2 text-white font-mono font-bold focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-[#071524] border border-[#1d436a] rounded-lg px-3 py-2 text-white font-mono font-bold focus:outline-none focus:border-teal-400"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1">Position Amount / Shares</label>
+                  <label className="block text-slate-300 font-medium mb-1">Position Amount / Shares</label>
                   <input
                     type="number"
                     step="0.01"
                     value={newAmount}
                     onChange={e => setNewAmount(e.target.value)}
                     placeholder="41.92"
-                    className="w-full bg-[#0B0E14] border border-slate-700 rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-[#071524] border border-[#1d436a] rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-teal-400"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 font-medium mb-1">Entry Price ($)</label>
+                  <label className="block text-slate-300 font-medium mb-1">Entry Price ($)</label>
                   <input
                     type="number"
                     step="0.01"
                     value={newEntryPrice}
                     onChange={e => setNewEntryPrice(e.target.value)}
                     placeholder="522.64"
-                    className="w-full bg-[#0B0E14] border border-slate-700 rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-[#071524] border border-[#1d436a] rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-teal-400"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-400 font-medium mb-1">
-                  Stop Loss ($) <span className="text-slate-500 text-[11px]">(bottom of crossover bar close)</span>
+                <label className="block text-slate-300 font-medium mb-1">
+                  Stop Loss ($) <span className="text-slate-400 text-[11px]">(bottom of crossover bar close)</span>
                 </label>
                 <input
                   type="number"
@@ -1309,32 +1425,32 @@ export const DailyLogTab: React.FC<DailyLogTabProps> = ({
                   value={newSlPrice}
                   onChange={e => setNewSlPrice(e.target.value)}
                   placeholder="Optional SL level"
-                  className="w-full bg-[#0B0E14] border border-slate-700 rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-[#071524] border border-[#1d436a] rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-teal-400"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 font-medium mb-1">Initial Daily Note / Comments</label>
+                <label className="block text-slate-300 font-medium mb-1">Initial Daily Note / Comments</label>
                 <input
                   type="text"
                   value={newNotes}
                   onChange={e => setNewNotes(e.target.value)}
                   placeholder="e.g. riding trend, possible pullback"
-                  className="w-full bg-[#0B0E14] border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-[#071524] border border-[#1d436a] rounded-lg px-3 py-2 text-white focus:outline-none focus:border-teal-400"
                 />
               </div>
             </div>
 
-            <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+            <div className="flex justify-end gap-2 pt-2 border-t border-[#1d436a]">
               <button
                 onClick={() => setIsAddModalOpen(false)}
-                className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs"
+                className="px-4 py-2 rounded-lg bg-[#071524] hover:bg-[#132e4d] text-slate-300 font-medium text-xs border border-[#1d436a]"
               >
                 Cancel
               </button>
               <button
                 onClick={handleAddNewRow}
-                className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs"
+                className="px-4 py-2 rounded-lg bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white font-semibold text-xs shadow-sm"
               >
                 Add to Spreadsheet
               </button>

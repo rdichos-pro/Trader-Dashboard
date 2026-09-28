@@ -42,7 +42,7 @@ export interface AvailableIndicator {
 export const TECHNICAL_INDICATORS: AvailableIndicator[] = [
   { id: 'IchimokuCloud@tv-basicstudies', label: 'Ichimoku Cloud (9, 26, 52, 26)', category: 'Trend', desc: 'Tenkan, Kijun, Senkou Span A/B multi-line cloud' },
   { id: 'Stochastic@tv-basicstudies', label: 'Stochastic (14, 3, 3)', category: 'Oscillator', desc: 'Stochastic %K & %D cycle oscillator' },
-  { id: 'CCI@tv-basicstudies', label: 'CCI (20)', category: 'Oscillator', desc: 'Commodity Channel Index momentum' },
+  { id: 'CCI@tv-basicstudies', label: 'CCI (40)', category: 'Oscillator', desc: 'Commodity Channel Index momentum (Period 40)' },
   { id: 'Volume@tv-basicstudies', label: 'Volume', category: 'Volume', desc: 'Trading volume bars' },
   { id: 'RSI@tv-basicstudies', label: 'RSI (14)', category: 'Oscillator', desc: 'Relative Strength Index momentum' },
   { id: 'EMA@tv-basicstudies', label: 'EMA', category: 'MA', desc: 'Exponential Moving Average' },
@@ -57,7 +57,7 @@ export const TECHNICAL_INDICATORS: AvailableIndicator[] = [
 ];
 
 export const INDICATOR_PRESETS = [
-  { name: 'Ichimoku + Momentum Strategy (Active)', studies: ['Volume@tv-basicstudies', 'IchimokuCloud@tv-basicstudies', 'Stochastic@tv-basicstudies', 'CCI@tv-basicstudies'] },
+  { name: 'CCI (40) + Ichimoku Strategy (Active)', studies: ['Volume@tv-basicstudies', 'IchimokuCloud@tv-basicstudies', 'Stochastic@tv-basicstudies', 'CCI@tv-basicstudies'] },
   { name: 'Standard (RSI + EMA + Vol)', studies: ['Volume@tv-basicstudies', 'RSI@tv-basicstudies', 'EMA@tv-basicstudies'] },
   { name: 'Trend Master (EMA + SMA + Supertrend)', studies: ['Volume@tv-basicstudies', 'EMA@tv-basicstudies', 'MASimple@tv-basicstudies', 'Supertrend@tv-basicstudies'] },
   { name: 'Momentum Scalp (VWAP + MACD + RSI)', studies: ['Volume@tv-basicstudies', 'VWAP@tv-basicstudies', 'MACD@tv-basicstudies', 'RSI@tv-basicstudies'] },

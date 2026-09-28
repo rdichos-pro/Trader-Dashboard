@@ -172,18 +172,20 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
   return (
     <div className="space-y-4">
       {/* Scanner Header & Quick Strategy Presets */}
-      <div className="bg-[#161B22] p-4 rounded-lg border border-slate-800 space-y-3">
+      <div className="bg-white p-4 rounded-xl border border-[#E6DDCF] space-y-3 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
-            <Filter className="w-5 h-5 text-emerald-400" />
+            <div className="w-8 h-8 rounded-lg bg-[#FDF4DC] border border-[#F3DA90] flex items-center justify-center text-[#845306]">
+              <Filter className="w-4 h-4 text-[#996515]" />
+            </div>
             <div>
-              <h2 className="text-base font-bold text-slate-100">Stock Scanner & Liquid Universe</h2>
-              <p className="text-xs text-slate-400">Filter liquid names by Volume, Relative Volume (RVOL), Price Move, Market Cap & Catalysts</p>
+              <h2 className="text-base font-bold text-[#1C1917]">Stock Scanner & Liquid Universe</h2>
+              <p className="text-xs text-[#57534E]">Filter liquid names by Volume, Relative Volume (RVOL), Price Move, Market Cap & Catalysts</p>
             </div>
           </div>
           <button
             onClick={() => applyPreset('all')}
-            className="text-xs text-slate-400 hover:text-slate-200 flex items-center gap-1 self-start sm:self-auto"
+            className="text-xs text-[#845306] hover:text-[#59410E] flex items-center gap-1 self-start sm:self-auto transition-colors font-semibold cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" /> Reset Filters
           </button>
@@ -191,7 +193,7 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
 
         {/* Strategy Presets */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
-          <span className="text-slate-500 font-semibold uppercase tracking-wider text-[11px] shrink-0">Presets:</span>
+          <span className="text-[#57534E] font-semibold uppercase tracking-wider text-[11px] shrink-0">Presets:</span>
           {[
             { key: 'all', label: 'All Liquid Stocks' },
             { key: 'gotrade_movers', label: '🎯 Gotrade Cheap Movers (<$25)' },
@@ -203,10 +205,10 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
             <button
               key={preset.key}
               onClick={() => applyPreset(preset.key)}
-              className={`px-3 py-1.5 rounded-lg border font-medium whitespace-nowrap transition-colors ${
+              className={`px-3 py-1.5 rounded-lg border font-medium whitespace-nowrap transition-colors cursor-pointer ${
                 selectedPreset === preset.key
-                  ? 'bg-emerald-950 border-emerald-700 text-emerald-300 font-semibold'
-                  : 'bg-[#0B0E14]/60 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
+                  ? 'gold-gradient-btn text-[#1C1917] border-[#C59B27] font-bold shadow-xs'
+                  : 'bg-[#FDFBF7] border-[#E6DDCF] text-[#57534E] hover:text-[#1C1917] hover:border-[#D4AF37]'
               }`}
             >
               {preset.label}
@@ -216,14 +218,14 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
       </div>
 
       {/* Filter Parameters Grid */}
-      <div className="bg-[#161B22]/60 p-4 rounded-lg border border-slate-800 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+      <div className="bg-[#FDFBF7] p-4 rounded-xl border border-[#E6DDCF] grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs shadow-xs">
         {/* Min Avg Volume */}
         <div>
-          <label className="text-slate-400 font-medium block mb-1">Min 30D Avg Volume</label>
+          <label className="text-[#57534E] font-semibold block mb-1">Min 30D Avg Volume</label>
           <select
             value={filters.minAvgVolume}
             onChange={e => setFilters({ ...filters, minAvgVolume: Number(e.target.value) })}
-            className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg p-2 text-slate-200 focus:border-emerald-500 font-mono"
+            className="w-full bg-white border border-[#E6DDCF] rounded-lg p-2 text-[#1C1917] focus:border-[#D4AF37] font-mono focus:ring-1 focus:ring-[#D4AF37]"
           >
             <option value={100000}>100K+ (All)</option>
             <option value={500000}>500K+ (Liquid)</option>
@@ -235,11 +237,11 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
 
         {/* Min Relative Volume (RVOL) */}
         <div>
-          <label className="text-slate-400 font-medium block mb-1">Min RVOL (Today vs 30D)</label>
+          <label className="text-[#57534E] font-semibold block mb-1">Min RVOL (Today vs 30D)</label>
           <select
             value={filters.minRvol}
             onChange={e => setFilters({ ...filters, minRvol: Number(e.target.value) })}
-            className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg p-2 text-slate-200 focus:border-emerald-500 font-mono"
+            className="w-full bg-white border border-[#E6DDCF] rounded-lg p-2 text-[#1C1917] focus:border-[#D4AF37] font-mono focus:ring-1 focus:ring-[#D4AF37]"
           >
             <option value={0}>Any RVOL</option>
             <option value={1.2}>1.2x+ (Active)</option>
@@ -251,11 +253,11 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
 
         {/* % Price Change */}
         <div>
-          <label className="text-slate-400 font-medium block mb-1">Min % Price Move</label>
+          <label className="text-[#57534E] font-semibold block mb-1">Min % Price Move</label>
           <select
             value={filters.minChangePct}
             onChange={e => setFilters({ ...filters, minChangePct: Number(e.target.value) })}
-            className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg p-2 text-slate-200 focus:border-emerald-500 font-mono"
+            className="w-full bg-white border border-[#E6DDCF] rounded-lg p-2 text-[#1C1917] focus:border-[#D4AF37] font-mono focus:ring-1 focus:ring-[#D4AF37]"
           >
             <option value={-100}>Any Change</option>
             <option value={0}>Green (&gt; 0%)</option>
@@ -268,11 +270,11 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
 
         {/* Market Cap */}
         <div>
-          <label className="text-slate-400 font-medium block mb-1">Market Cap Range</label>
+          <label className="text-[#57534E] font-semibold block mb-1">Market Cap Range</label>
           <select
             value={filters.marketCapCategory}
             onChange={e => setFilters({ ...filters, marketCapCategory: e.target.value as MarketCapCategory })}
-            className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg p-2 text-slate-200 focus:border-emerald-500 font-mono"
+            className="w-full bg-white border border-[#E6DDCF] rounded-lg p-2 text-[#1C1917] focus:border-[#D4AF37] font-mono focus:ring-1 focus:ring-[#D4AF37]"
           >
             <option value="ALL">All Market Caps</option>
             <option value="MICRO">Micro (&lt; $300M)</option>
@@ -285,37 +287,37 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
 
         {/* Price Range */}
         <div>
-          <label className="text-slate-400 font-medium block mb-1">Price Min / Max</label>
+          <label className="text-[#57534E] font-semibold block mb-1">Price Min / Max</label>
           <div className="flex items-center gap-1 font-mono">
             <input
               type="number"
               placeholder="Min $"
               value={filters.priceMin}
               onChange={e => setFilters({ ...filters, priceMin: Number(e.target.value) })}
-              className="w-1/2 bg-[#0B0E14] border border-slate-800 rounded-lg p-2 text-slate-200 text-xs"
+              className="w-1/2 bg-white border border-[#E6DDCF] rounded-lg p-2 text-[#1C1917] text-xs focus:border-[#D4AF37]"
             />
             <input
               type="number"
               placeholder="Max $"
               value={filters.priceMax}
               onChange={e => setFilters({ ...filters, priceMax: Number(e.target.value) })}
-              className="w-1/2 bg-[#0B0E14] border border-slate-800 rounded-lg p-2 text-slate-200 text-xs"
+              className="w-1/2 bg-white border border-[#E6DDCF] rounded-lg p-2 text-[#1C1917] text-xs focus:border-[#D4AF37]"
             />
           </div>
         </div>
 
         {/* Catalyst Flag */}
         <div>
-          <label className="text-slate-400 font-medium block mb-1">Catalysts Only</label>
+          <label className="text-[#57534E] font-semibold block mb-1">Catalysts Only</label>
           <button
             onClick={() => setFilters({ ...filters, catalystRequired: !filters.catalystRequired })}
-            className={`w-full py-2 px-3 rounded-lg border font-medium flex items-center justify-center gap-1.5 transition-colors ${
+            className={`w-full py-2 px-3 rounded-lg border font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
               filters.catalystRequired
-                ? 'bg-emerald-900/60 border-emerald-600 text-emerald-300 font-semibold'
-                : 'bg-[#0B0E14] border-slate-800 text-slate-400'
+                ? 'bg-[#FDF4DC] border-[#F3DA90] text-[#845306] font-bold shadow-xs'
+                : 'bg-white border-[#E6DDCF] text-[#57534E] hover:text-[#1C1917]'
             }`}
           >
-            <Tag className="w-3.5 h-3.5" />
+            <Tag className="w-3.5 h-3.5 text-[#D4AF37]" />
             {filters.catalystRequired ? 'Catalyst Active' : 'Any Stocks'}
           </button>
         </div>
@@ -324,26 +326,26 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
       {/* ========================================================================= */}
       {/* GOTRADE MOVER AUTO-DISCOVERY & CONFLUENCE SCANNER */}
       {/* ========================================================================= */}
-      <div className="bg-[#161B22] p-4 rounded-lg border border-indigo-900/60 shadow-xl space-y-3 relative overflow-hidden">
+      <div className="bg-[#FFFDF7] p-4 rounded-xl border border-[#E6DDCF] shadow-sm space-y-3 relative overflow-hidden">
         {/* Glow accent */}
-        <div className="absolute top-0 right-0 w-80 h-32 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-80 h-32 bg-[#D4AF37]/5 rounded-full blur-3xl pointer-events-none" />
 
         {/* Header and Controls */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 relative z-10">
           <div className="flex items-start space-x-3">
-            <div className="p-2 bg-indigo-950/80 border border-indigo-800 rounded-lg text-indigo-400 mt-0.5">
+            <div className="p-2 bg-[#FDF4DC] border border-[#F3DA90] rounded-lg text-[#845306] mt-0.5">
               <Compass className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-base font-bold text-white flex items-center gap-1.5">
-                  Gotrade Mover Auto-Discovery & Confluence
+                <h3 className="text-base font-bold text-[#1C1917] flex items-center gap-1.5">
+                  Gotrade Mover Auto-Discovery &amp; Confluence
                 </h3>
-                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-750">
+                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-[#FDF4DC] text-[#845306] border border-[#F3DA90]">
                   Cheaper Entry Points
                 </span>
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[#57534E]">
                 Surfaces high-momentum, low-priced stocks even if they are not in your watchlist yet, verifying 4H technical confluence so you can catch early breakouts at lower costs.
               </p>
             </div>
@@ -352,33 +354,33 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
           {/* Controls: Price Filter, Non-Watchlist toggle, Auto-Add toggle & Refresh */}
           <div className="flex flex-wrap items-center gap-2 text-xs">
             {/* Price filter */}
-            <div className="flex items-center bg-[#0B0E14] border border-slate-800 rounded-lg p-0.5">
+            <div className="flex items-center bg-white border border-[#E6DDCF] rounded-lg p-0.5">
               <button
                 onClick={() => setMoverMaxPrice(10)}
-                className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors ${
+                className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-colors cursor-pointer ${
                   moverMaxPrice === 10
-                    ? 'bg-indigo-900/80 text-white font-semibold'
-                    : 'text-slate-400 hover:text-slate-200'
+                    ? 'gold-gradient-btn text-[#1C1917]'
+                    : 'text-[#57534E] hover:text-[#1C1917]'
                 }`}
               >
                 &lt; $10
               </button>
               <button
                 onClick={() => setMoverMaxPrice(25)}
-                className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors ${
+                className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-colors cursor-pointer ${
                   moverMaxPrice === 25
-                    ? 'bg-indigo-900/80 text-white font-semibold'
-                    : 'text-slate-400 hover:text-slate-200'
+                    ? 'gold-gradient-btn text-[#1C1917]'
+                    : 'text-[#57534E] hover:text-[#1C1917]'
                 }`}
               >
                 &lt; $25
               </button>
               <button
                 onClick={() => setMoverMaxPrice(100)}
-                className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors ${
+                className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-colors cursor-pointer ${
                   moverMaxPrice === 100
-                    ? 'bg-indigo-900/80 text-white font-semibold'
-                    : 'text-slate-400 hover:text-slate-200'
+                    ? 'gold-gradient-btn text-[#1C1917]'
+                    : 'text-[#57534E] hover:text-[#1C1917]'
                 }`}
               >
                 All
@@ -388,10 +390,10 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
             {/* Non-watchlist only toggle */}
             <button
               onClick={() => setMoverOnlyNonWatchlist(!moverOnlyNonWatchlist)}
-              className={`px-2.5 py-1 rounded-lg border text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1 rounded-lg border text-xs font-semibold transition-colors cursor-pointer ${
                 moverOnlyNonWatchlist
-                  ? 'bg-indigo-950 border-indigo-700 text-indigo-300'
-                  : 'bg-[#0B0E14] border-slate-800 text-slate-400 hover:text-slate-200'
+                  ? 'bg-[#FDF4DC] border-[#F3DA90] text-[#845306]'
+                  : 'bg-white border-[#E6DDCF] text-[#57534E] hover:text-[#1C1917]'
               }`}
             >
               Non-Watchlist Only
@@ -401,14 +403,14 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
             {onToggleAutoAddMovers && (
               <button
                 onClick={() => onToggleAutoAddMovers(!autoAddMovers)}
-                className={`px-2.5 py-1 rounded-lg border text-xs font-medium flex items-center gap-1.5 transition-colors ${
+                className={`px-2.5 py-1 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
                   autoAddMovers
-                    ? 'bg-emerald-950 border-emerald-700 text-emerald-300'
-                    : 'bg-[#0B0E14] border-slate-800 text-slate-400'
+                    ? 'bg-[#FDF4DC] border-[#F3DA90] text-[#845306]'
+                    : 'bg-white border-[#E6DDCF] text-[#57534E]'
                 }`}
                 title="Automatically adds any non-watchlist stock that achieves >=75% confluence to your watchlist"
               >
-                <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
                 <span>Auto-Add Confluence: {autoAddMovers ? 'ON' : 'OFF'}</span>
               </button>
             )}
@@ -417,7 +419,7 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
             <button
               onClick={handleScanMoversNow}
               disabled={isScanningMovers}
-              className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-sm"
+              className="px-2.5 py-1 gold-gradient-btn text-[#1C1917] rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm cursor-pointer disabled:opacity-50"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isScanningMovers ? 'animate-spin' : ''}`} />
               <span>Scan Movers</span>
@@ -560,22 +562,22 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
       </div>
 
       {/* Results Count & Table */}
-      <div className="bg-[#161B22] rounded-lg border border-slate-800 overflow-hidden shadow-lg">
-        <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
-          <div className="text-sm font-semibold text-slate-100 flex items-center gap-2">
+      <div className="bg-white rounded-xl border border-[#E6DDCF] overflow-hidden shadow-sm">
+        <div className="px-4 py-3 border-b border-[#E6DDCF] flex items-center justify-between bg-[#F5EFEB]">
+          <div className="text-sm font-semibold text-[#1C1917] flex items-center gap-2">
             <span>Scanner Results</span>
-            <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full font-mono">
+            <span className="text-xs bg-[#FDF4DC] text-[#845306] border border-[#F3DA90] px-2 py-0.5 rounded-full font-mono font-bold">
               {filteredQuotes.length} matches
             </span>
           </div>
-          <div className="text-xs text-slate-500 font-mono">
-            Sorted by Relative Volume & Price Momentum
+          <div className="text-xs text-[#57534E] font-mono">
+            Sorted by Relative Volume &amp; Price Momentum
           </div>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm font-mono">
-            <thead className="bg-[#0B0E14]/70 border-b border-slate-800 text-xs text-slate-400 font-semibold uppercase tracking-wider">
+            <thead className="bg-[#FDFBF7] border-b border-[#E6DDCF] text-xs text-[#57534E] font-semibold uppercase tracking-wider">
               <tr>
                 <th className="py-3 px-4">Ticker</th>
                 <th className="py-3 px-3 text-right">Price</th>
@@ -588,10 +590,10 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-[#EFE8DC]">
               {filteredQuotes.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="py-8 text-center text-slate-500 text-xs">
+                  <td colSpan={9} className="py-8 text-center text-[#78716C] text-xs">
                     No stocks matching these criteria. Try lowering the RVOL threshold or broadening market cap.
                   </td>
                 </tr>
@@ -603,32 +605,32 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
                   return (
                     <tr 
                       key={quote.symbol} 
-                      className="hover:bg-slate-800/40 transition-colors group cursor-pointer"
+                      className="hover:bg-[#FAF7F2] transition-colors group cursor-pointer bg-white"
                       onClick={() => onSelectTicker(quote.symbol)}
                     >
                       {/* Ticker & Name */}
                       <td className="py-3 px-4">
-                        <div className="font-bold text-white text-base flex items-center gap-1.5">
+                        <div className="font-bold text-[#1C1917] text-base flex items-center gap-1.5">
                           {quote.symbol}
                           {quote.rvol >= 2.0 && (
-                            <span className="text-[10px] font-sans px-1 py-0.2 bg-amber-950 text-amber-400 border border-amber-800 rounded font-semibold flex items-center gap-0.5">
-                              <Flame className="w-2.5 h-2.5" /> High RVOL
+                            <span className="text-[10px] font-sans px-1.5 py-0.2 bg-[#FDF4DC] text-[#845306] border border-[#F3DA90] rounded font-semibold flex items-center gap-0.5">
+                              <Flame className="w-2.5 h-2.5 text-[#D4AF37]" /> High RVOL
                             </span>
                           )}
                         </div>
-                        <div className="text-xs font-sans text-slate-400 truncate max-w-[140px]">
+                        <div className="text-xs font-sans text-[#57534E] truncate max-w-[140px]">
                           {quote.name}
                         </div>
                       </td>
 
                       {/* Price */}
-                      <td className="py-3 px-3 text-right font-bold text-slate-100">
+                      <td className="py-3 px-3 text-right font-bold text-[#1C1917]">
                         {formatCurrency(quote.price)}
                       </td>
 
                       {/* % Change */}
                       <td className="py-3 px-3 text-right">
-                        <div className={`inline-flex items-center font-bold text-sm ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
+                        <div className={`inline-flex items-center font-bold text-sm ${isPositive ? 'text-emerald-700' : 'text-rose-700'}`}>
                           {isPositive ? <ArrowUpRight className="w-3.5 h-3.5 mr-0.5" /> : <ArrowDownRight className="w-3.5 h-3.5 mr-0.5" />}
                           {formatPercent(quote.changePercent)}
                         </div>
@@ -638,10 +640,10 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
                       <td className="py-3 px-3 text-center">
                         <span className={`px-2 py-0.5 rounded text-xs font-bold ${
                           quote.rvol >= 2.0
-                            ? 'bg-amber-950 text-amber-300 border border-amber-700'
+                            ? 'bg-[#FDF4DC] text-[#845306] border border-[#F3DA90]'
                             : quote.rvol >= 1.3
-                            ? 'bg-emerald-950 text-emerald-300 border border-emerald-800'
-                            : 'bg-slate-800 text-slate-400'
+                            ? 'bg-[#FAF7F2] text-[#7E5E14] border border-[#E6DDCF]'
+                            : 'bg-[#FDFBF7] text-[#57534E] border border-[#E6DDCF]'
                         }`}>
                           {quote.rvol.toFixed(2)}x
                         </span>
@@ -649,39 +651,39 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
 
                       {/* Volume */}
                       <td className="py-3 px-3 text-right">
-                        <div className="text-slate-200 text-xs font-medium">
+                        <div className="text-[#1C1917] text-xs font-medium">
                           {formatCompactNumber(quote.volume)}
                         </div>
-                        <div className="text-[11px] text-slate-500">
+                        <div className="text-[11px] text-[#78716C]">
                           Avg: {formatCompactNumber(quote.avgVolume30D)}
                         </div>
                       </td>
 
                       {/* Market Cap */}
-                      <td className="py-3 px-3 text-right text-slate-300 text-xs">
+                      <td className="py-3 px-3 text-right text-[#57534E] text-xs">
                         {formatCompactNumber(quote.marketCap)}
-                        <span className="text-[10px] text-slate-500 block font-sans">{quote.marketCapCategory}</span>
+                        <span className="text-[10px] text-[#78716C] block font-sans">{quote.marketCapCategory}</span>
                       </td>
 
                       {/* Sparkline */}
                       <td className="py-3 px-3 text-center">
-                        <Sparkline data={quote.sparkline} isPositive={isPositive} width={75} />
+                        <Sparkline data={quote.sparkline} isPositive={isPositive} width={75} color="#D4AF37" />
                       </td>
 
                       {/* Catalyst / Sector */}
                       <td className="py-3 px-3 font-sans">
                         {quote.catalyst ? (
                           <div className="flex flex-col gap-0.5">
-                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800 w-fit">
-                              <Tag className="w-2.5 h-2.5" />
+                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#845306] bg-[#FDF4DC] px-2 py-0.5 rounded border border-[#F3DA90] w-fit">
+                              <Tag className="w-2.5 h-2.5 text-[#D4AF37]" />
                               {quote.catalyst.type.replace('_', ' ')}
                             </span>
-                            <span className="text-[10px] text-slate-400 truncate max-w-[170px]" title={quote.catalyst.headline}>
+                            <span className="text-[10px] text-[#78716C] truncate max-w-[170px]" title={quote.catalyst.headline}>
                               {quote.catalyst.headline}
                             </span>
                           </div>
                         ) : (
-                          <span className="text-xs text-slate-400">
+                          <span className="text-xs text-[#57534E]">
                             {quote.sector}
                           </span>
                         )}
@@ -696,16 +698,16 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
                               onSelectTicker(quote.symbol);
                               onNavigateToTab('charts');
                             }}
-                            className="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded transition-colors"
+                            className="p-1.5 bg-[#FDFBF7] hover:bg-[#F5EFEB] text-[#1C1917] rounded-lg transition-colors border border-[#E6DDCF] cursor-pointer"
                             title="Open Candlestick Chart"
                           >
-                            <CandlestickChart className="w-3.5 h-3.5 text-emerald-400" />
+                            <CandlestickChart className="w-3.5 h-3.5 text-[#D4AF37]" />
                           </button>
                           
                           <button
                             id={`scanner-trade-${quote.symbol}`}
                             onClick={() => onOpenNewPositionWithTicker(quote.symbol, quote.price)}
-                            className="p-1.5 bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-800 rounded transition-colors"
+                            className="p-1.5 gold-gradient-btn text-[#1C1917] rounded-lg transition-all shadow-sm cursor-pointer"
                             title="Log Position / Paper Trade"
                           >
                             <Plus className="w-3.5 h-3.5" />
@@ -715,14 +717,14 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
                             <button
                               id={`scanner-add-wl-${quote.symbol}`}
                               onClick={() => onAddToWatchlist(quote.symbol)}
-                              className="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-xs flex items-center gap-1 transition-colors"
+                              className="px-2 py-1 bg-[#FDFBF7] hover:bg-[#F5EFEB] text-[#845306] rounded-lg text-xs flex items-center gap-1 transition-colors border border-[#E6DDCF] font-bold cursor-pointer"
                               title="Add to Watchlist"
                             >
                               + Watch
                             </button>
                           ) : (
-                            <span className="text-[10px] text-emerald-400 px-1.5 py-0.5 rounded bg-emerald-950/60 border border-emerald-900 flex items-center gap-0.5">
-                              <Check className="w-3 h-3" /> Watching
+                            <span className="text-[10px] text-[#845306] px-1.5 py-0.5 rounded bg-[#FDF4DC] border border-[#F3DA90] flex items-center gap-0.5 font-bold">
+                              <Check className="w-3 h-3 text-[#845306]" /> Watching
                             </span>
                           )}
                         </div>

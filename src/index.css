@@ -1,15 +1,114 @@
 @import "tailwindcss";
 
+@theme {
+  --color-cream-canvas: #FAF7F2;
+  --color-cream-surface: #F5EFEB;
+  --color-cream-card: #FFFFFF;
+  --color-cream-card-subtle: #FDFBF7;
+  --color-cream-border: #E6DDCF;
+  --color-cream-border-subtle: #EFE8DC;
+  
+  --color-gold-50: #FFFDF5;
+  --color-gold-100: #FDF4DC;
+  --color-gold-200: #F9E5A8;
+  --color-gold-300: #F2D270;
+  --color-gold-400: #E5C158;
+  --color-gold-500: #D4AF37;
+  --color-gold-600: #C59B27;
+  --color-gold-700: #A27B18;
+  --color-gold-800: #7E5E14;
+  --color-gold-900: #59410E;
+  
+  --color-charcoal-900: #1C1917;
+  --color-charcoal-800: #292524;
+  --color-charcoal-700: #44403C;
+  --color-charcoal-600: #57534E;
+  --color-charcoal-500: #78716C;
+  --color-charcoal-400: #A8A29E;
+  --color-charcoal-300: #D6D3D1;
+  --color-charcoal-200: #E7E5E4;
+  --color-charcoal-100: #F5F5F4;
+}
+
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #FAF7F2;
+    color: #1C1917;
   }
   code, kbd, samp, pre {
     font-family: 'JetBrains Mono', monospace;
   }
 }
 
-/* Ensure TradingView advanced chart widget and iframe occupy full allocated container height */
+/* Luxury Cream & Gold Ambient Atmosphere */
+.cream-gold-canvas {
+  background: radial-gradient(ellipse 90% 60% at 50% -10%, #F5EFEB 0%, #FAF7F2 50%, #F3ECE0 100%);
+}
+
+.cream-card {
+  background: #FFFFFF;
+  border: 1px solid #E6DDCF;
+  box-shadow: 0 4px 20px -4px rgba(78, 59, 23, 0.06);
+}
+
+.cream-card-subtle {
+  background: #FDFBF7;
+  border: 1px solid #EFE8DC;
+}
+
+.cream-card-interactive {
+  background: #FFFFFF;
+  border: 1px solid #E6DDCF;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cream-card-interactive:hover {
+  background: #FFFDF9;
+  border-color: #D4AF37;
+  box-shadow: 0 8px 24px -4px rgba(212, 175, 55, 0.16);
+}
+
+.gold-gradient-btn {
+  background: linear-gradient(135deg, #E5C158 0%, #D4AF37 50%, #C59B27 100%);
+  color: #1C1917;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(197, 155, 39, 0.25);
+  transition: all 0.2s ease;
+}
+.gold-gradient-btn:hover {
+  background: linear-gradient(135deg, #F2D270 0%, #E5C158 50%, #D4AF37 100%);
+  box-shadow: 0 4px 14px rgba(197, 155, 39, 0.35);
+  transform: translateY(-0.5px);
+}
+
+.gold-badge {
+  background: #FDF4DC;
+  color: #845306;
+  border: 1px solid #F3DA90;
+}
+
+.gold-border-glow {
+  border-color: #D4AF37;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+}
+
+/* Custom Cream & Gold Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #D8CEBE;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+/* TradingView widget overrides */
 .tradingview-widget-container {
   display: flex !important;
   flex-direction: column !important;
@@ -31,4 +130,3 @@
   border: none !important;
   display: block !important;
 }
-

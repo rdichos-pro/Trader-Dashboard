@@ -101,43 +101,45 @@ export const Header: React.FC<HeaderProps> = ({
   const qqqQuote = universe.find(u => u.symbol === 'QQQ') || { price: 486.20, change: 5.80, changePercent: 1.21 };
   const iwmQuote = universe.find(u => u.symbol === 'IWM') || { price: 221.50, change: -0.65, changePercent: -0.29 };
 
+  const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/15Kwam-w1aNMTl1T3yN_Dnht2NFh3i0s-_cO3-4_Ivh4/edit?usp=drivesdk';
+
   return (
-    <header className="border-b border-slate-800 bg-[#0F1219] shrink-0 z-40 sticky top-0">
+    <header className="border-b border-[#E6DDCF] bg-[#FDFBF7]/95 backdrop-blur-md shrink-0 z-40 sticky top-0 shadow-sm">
       {/* Top Banner: Market Status & Indices Bar */}
-      <div className="flex items-center justify-between px-3 sm:px-6 py-1.5 bg-[#0B0E14] border-b border-slate-800/60 text-[11px] font-mono">
+      <div className="flex items-center justify-between px-3 sm:px-6 py-1.5 bg-[#F5EFEB] border-b border-[#E6DDCF] text-[11px] font-mono">
         <div className="flex items-center space-x-3 overflow-x-auto no-scrollbar">
           <div
-            className={`flex items-center space-x-1.5 whitespace-nowrap ${isLiveDataConnected ? 'text-emerald-500' : 'text-amber-500'}`}
+            className={`flex items-center space-x-1.5 whitespace-nowrap ${isLiveDataConnected ? 'text-emerald-700' : 'text-[#996515]'}`}
             title={isLiveDataConnected ? 'Connected to a live Finnhub/Yahoo backend feed' : 'No backend connected — all prices, charts, and signals here are simulated, not real market data'}
           >
-            <span className={`w-2 h-2 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.5)] animate-pulse ${isLiveDataConnected ? 'bg-emerald-500' : 'bg-amber-500'}`}></span>
-            <span className="font-bold">{isLiveDataConnected ? 'FINNHUB LIVE 4H' : 'SIMULATED DATA'}</span>
+            <span className={`w-2 h-2 rounded-full shadow-[0_0_8px_rgba(212,175,55,0.6)] animate-pulse ${isLiveDataConnected ? 'bg-emerald-600' : 'bg-[#D4AF37]'}`}></span>
+            <span className="font-bold tracking-wider">{isLiveDataConnected ? 'FINNHUB LIVE 4H' : 'SIMULATED DATA'}</span>
           </div>
 
-          <div className="h-3 w-px bg-slate-700 hidden sm:block"></div>
+          <div className="h-3 w-px bg-[#E6DDCF] hidden sm:block"></div>
 
           {/* Indices */}
-          <div className="flex items-center space-x-3 text-slate-500 whitespace-nowrap">
-            <div className="flex items-center space-x-1 cursor-pointer hover:text-slate-300" onClick={() => handleSelectSymbol('SPY')}>
-              <span className="text-slate-400 font-semibold">SPY</span>
+          <div className="flex items-center space-x-3 text-[#57534E] whitespace-nowrap">
+            <div className="flex items-center space-x-1 cursor-pointer hover:text-[#996515] transition-colors" onClick={() => handleSelectSymbol('SPY')}>
+              <span className="text-[#1C1917] font-bold">SPY</span>
               <span>{formatCurrency(spyQuote.price)}</span>
-              <span className={spyQuote.change >= 0 ? 'text-emerald-400' : 'text-rose-400'}>
+              <span className={spyQuote.change >= 0 ? 'text-emerald-700 font-semibold' : 'text-rose-700 font-semibold'}>
                 {formatPercent(spyQuote.changePercent)}
               </span>
             </div>
 
-            <div className="flex items-center space-x-1 cursor-pointer hover:text-slate-300" onClick={() => handleSelectSymbol('QQQ')}>
-              <span className="text-slate-400 font-semibold">QQQ</span>
+            <div className="flex items-center space-x-1 cursor-pointer hover:text-[#996515] transition-colors" onClick={() => handleSelectSymbol('QQQ')}>
+              <span className="text-[#1C1917] font-bold">QQQ</span>
               <span>{formatCurrency(qqqQuote.price)}</span>
-              <span className={qqqQuote.change >= 0 ? 'text-emerald-400' : 'text-rose-400'}>
+              <span className={qqqQuote.change >= 0 ? 'text-emerald-700 font-semibold' : 'text-rose-700 font-semibold'}>
                 {formatPercent(qqqQuote.changePercent)}
               </span>
             </div>
 
-            <div className="hidden md:flex items-center space-x-1 cursor-pointer hover:text-slate-300" onClick={() => handleSelectSymbol('IWM')}>
-              <span className="text-slate-400 font-semibold">IWM</span>
+            <div className="hidden md:flex items-center space-x-1 cursor-pointer hover:text-[#996515] transition-colors" onClick={() => handleSelectSymbol('IWM')}>
+              <span className="text-[#1C1917] font-bold">IWM</span>
               <span>{formatCurrency(iwmQuote.price)}</span>
-              <span className={iwmQuote.change >= 0 ? 'text-emerald-400' : 'text-rose-400'}>
+              <span className={iwmQuote.change >= 0 ? 'text-emerald-700 font-semibold' : 'text-rose-700 font-semibold'}>
                 {formatPercent(iwmQuote.changePercent)}
               </span>
             </div>
@@ -148,13 +150,13 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="text-right whitespace-nowrap">
             {activeMode === 'PAPER_TRADING' ? (
               <>
-                <span className="text-slate-500 uppercase text-[9px] block sm:inline sm:mr-1">Paper</span>
-                <span className="text-white font-bold text-xs sm:text-sm">{formatCurrency(paperBalance, 0)}</span>
+                <span className="text-[#78716C] uppercase text-[9px] block sm:inline sm:mr-1">Paper</span>
+                <span className="text-[#1C1917] font-bold text-xs sm:text-sm font-mono">{formatCurrency(paperBalance, 0)}</span>
               </>
             ) : (
               <>
-                <span className="text-slate-500 uppercase text-[9px] block sm:inline sm:mr-1">Live P&amp;L</span>
-                <span className={`font-bold text-xs sm:text-sm ${totalPositionsPnl.dollars >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                <span className="text-[#78716C] uppercase text-[9px] block sm:inline sm:mr-1">Live P&amp;L</span>
+                <span className={`font-bold text-xs sm:text-sm font-mono ${totalPositionsPnl.dollars >= 0 ? 'text-emerald-700' : 'text-rose-700'}`}>
                   {totalPositionsPnl.dollars >= 0 ? '+' : ''}{formatCurrency(totalPositionsPnl.dollars, 0)}
                 </span>
               </>
@@ -171,28 +173,35 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             id="mobile-menu-toggle-btn"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 md:hidden text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700 rounded-lg transition-colors"
+            className="p-2 md:hidden text-[#44403C] hover:text-[#1C1917] bg-[#F5EFEB] hover:bg-[#EFE8DC] border border-[#E6DDCF] rounded-lg transition-colors"
             title="Toggle Navigation Menu"
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
 
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-emerald-500 rounded flex items-center justify-center text-slate-900 font-bold text-xs">T</div>
-            <span className="font-bold text-white tracking-tight">
-              T-DASH <span className="text-slate-500 font-medium text-[10px] ml-1 uppercase tracking-widest hidden sm:inline">v1.0</span>
-            </span>
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 bg-gradient-to-br from-[#E5C158] via-[#D4AF37] to-[#C59B27] rounded-lg flex items-center justify-center text-[#1C1917] font-black text-xs shadow-md shadow-amber-900/15">
+              T
+            </div>
+            <div>
+              <span className="font-bold text-[#1C1917] tracking-tight flex items-center gap-1.5 text-sm sm:text-base">
+                T-DASH
+                <span className="text-[#845306] font-mono text-[10px] uppercase tracking-wider hidden sm:inline px-1.5 py-0.5 rounded bg-[#FDF4DC] border border-[#F3DA90] font-bold">
+                  Gold &amp; Cream
+                </span>
+              </span>
+            </div>
           </div>
 
           {/* Mode Switcher Pill */}
-          <div className="bg-[#0B0E14] p-0.5 rounded border border-slate-800 flex items-center text-[10px] uppercase font-bold tracking-wider">
+          <div className="bg-[#F5EFEB] p-0.5 rounded-lg border border-[#E6DDCF] flex items-center text-[10px] uppercase font-bold tracking-wider">
             <button
               id="mode-live-tracker"
               onClick={() => setActiveMode('LIVE_TRACKER')}
-              className={`px-2.5 py-1 rounded transition-colors flex items-center gap-1 ${
+              className={`px-2.5 py-1 rounded-md transition-all flex items-center gap-1 ${
                 activeMode === 'LIVE_TRACKER'
-                  ? 'bg-slate-800 text-white'
-                  : 'text-slate-500 hover:text-slate-300'
+                  ? 'bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#1C1917] shadow-sm font-black'
+                  : 'text-[#78716C] hover:text-[#1C1917]'
               }`}
             >
               Live
@@ -200,10 +209,10 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               id="mode-paper-trading"
               onClick={() => setActiveMode('PAPER_TRADING')}
-              className={`px-2.5 py-1 rounded transition-colors flex items-center gap-1 ${
+              className={`px-2.5 py-1 rounded-md transition-all flex items-center gap-1 ${
                 activeMode === 'PAPER_TRADING'
-                  ? 'bg-slate-800 text-white'
-                  : 'text-slate-500 hover:text-slate-300'
+                  ? 'bg-gradient-to-r from-[#E5C158] to-[#D4AF37] text-[#1C1917] shadow-sm font-black'
+                  : 'text-[#78716C] hover:text-[#1C1917]'
               }`}
             >
               Paper
@@ -214,7 +223,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Global Search Bar */}
         <div className="relative flex-1 max-w-md hidden md:block">
           <div className="relative">
-            <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
+            <Search className="w-4 h-4 absolute left-3 top-2.5 text-[#78716C]" />
             <input
               type="text"
               placeholder="Search ticker (e.g. NVDA, TSLA, PLTR, ASTS)..."
@@ -224,34 +233,34 @@ export const Header: React.FC<HeaderProps> = ({
                 setIsSearchOpen(true);
               }}
               onFocus={() => setIsSearchOpen(true)}
-              className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg pl-9 pr-4 py-1.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+              className="w-full bg-[#FFFFFF] border border-[#E6DDCF] rounded-lg pl-9 pr-4 py-1.5 text-sm text-[#1C1917] placeholder-[#A8A29E] focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
             />
           </div>
 
           {/* Search Dropdown */}
           {isSearchOpen && filteredUniverse.length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-[#161B22] border border-slate-800 rounded-lg shadow-xl overflow-hidden z-50 max-h-80 overflow-y-auto">
-              <div className="p-2 border-b border-slate-800 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+            <div className="absolute top-full left-0 right-0 mt-1 bg-[#FFFFFF] border border-[#E6DDCF] rounded-lg shadow-2xl overflow-hidden z-50 max-h-80 overflow-y-auto">
+              <div className="p-2 border-b border-[#E6DDCF] text-[11px] font-semibold text-[#845306] uppercase tracking-wider bg-[#FDF4DC]">
                 Matching Tickers ({filteredUniverse.length})
               </div>
               {filteredUniverse.map(quote => (
                 <div
                   key={quote.symbol}
                   onClick={() => handleSelectSymbol(quote.symbol)}
-                  className="px-3 py-2 hover:bg-slate-800/80 cursor-pointer flex items-center justify-between text-sm transition-colors"
+                  className="px-3 py-2 hover:bg-[#FAF7F2] cursor-pointer flex items-center justify-between text-sm transition-colors border-b border-[#EFE8DC]/60"
                 >
                   <div className="flex items-center space-x-3">
-                    <span className="font-bold text-white font-mono">{quote.symbol}</span>
-                    <span className="text-slate-400 text-xs truncate max-w-[160px]">{quote.name}</span>
+                    <span className="font-bold text-[#1C1917] font-mono">{quote.symbol}</span>
+                    <span className="text-[#78716C] text-xs truncate max-w-[160px]">{quote.name}</span>
                     {quote.catalyst && (
-                      <span className="text-[10px] bg-emerald-950 text-emerald-400 px-1.5 py-0.5 rounded border border-emerald-800">
+                      <span className="text-[10px] bg-[#FDF4DC] text-[#845306] px-1.5 py-0.5 rounded border border-[#F3DA90]">
                         {quote.catalyst.type}
                       </span>
                     )}
                   </div>
                   <div className="text-right font-mono">
-                    <div className="text-slate-100 font-semibold">{formatCurrency(quote.price)}</div>
-                    <div className={`text-xs ${quote.change >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                    <div className="text-[#1C1917] font-semibold">{formatCurrency(quote.price)}</div>
+                    <div className={`text-xs ${quote.change >= 0 ? 'text-emerald-700 font-bold' : 'text-rose-700 font-bold'}`}>
                       {formatPercent(quote.changePercent)}
                     </div>
                   </div>
@@ -266,24 +275,37 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Mobile Search Toggle */}
           <button
             onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="p-2 md:hidden bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg transition-colors"
+            className="p-2 md:hidden bg-[#F5EFEB] hover:bg-[#EFE8DC] border border-[#E6DDCF] text-[#1C1917] rounded-lg transition-colors"
             title="Search Tickers"
           >
             <Search className="w-4 h-4" />
           </button>
 
-          {/* Quick Daily Log / Google Sheet Button */}
+          {/* Direct Sheets Link Button (Requested by User) */}
+          <a
+            href={GOOGLE_SHEET_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            id="header-open-sheets-btn"
+            className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-[#D4AF37] to-[#C59B27] hover:from-[#E5C158] hover:to-[#D4AF37] text-[#1C1917] shadow-sm border border-[#C59B27] transition-all hover:scale-[1.02]"
+            title="Open Trading Journal directly in Google Sheets"
+          >
+            <ExternalLink className="w-3.5 h-3.5 text-[#1C1917]" />
+            <span>Google Sheets</span>
+          </a>
+
+          {/* Quick Daily Log Button */}
           <button
             id="quick-daily-log-btn"
             onClick={() => setActiveTab('daily-log')}
-            className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold shadow-md transition-colors ${
+            className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold shadow-sm transition-colors ${
               activeTab === 'daily-log'
-                ? 'bg-blue-600 text-white'
-                : 'bg-[#182338] hover:bg-[#202f4a] text-blue-300 border border-blue-500/30'
+                ? 'bg-[#1C1917] text-[#D4AF37]'
+                : 'bg-[#F5EFEB] hover:bg-[#EFE8DC] text-[#7E5E14] border border-[#E6DDCF]'
             }`}
             title="Open Trading Journal / Daily Log"
           >
-            <BookOpen className="w-3.5 h-3.5 text-blue-400" />
+            <BookOpen className="w-3.5 h-3.5 text-[#B8860B]" />
             <span>Daily Log</span>
           </button>
 
@@ -291,9 +313,9 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             id="quick-log-position-btn"
             onClick={onOpenNewPosition}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-lg shadow-md transition-colors"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-[#D4AF37] to-[#C59B27] hover:from-[#E5C158] hover:to-[#D4AF37] text-[#1C1917] text-xs font-bold rounded-lg shadow-sm transition-all"
           >
-            <Plus className="w-3.5 h-3.5" />
+            <Plus className="w-3.5 h-3.5 text-[#1C1917]" />
             Log Position
           </button>
 
@@ -302,12 +324,12 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               id="alerts-bell-btn"
               onClick={() => setIsAlertsOpen(!isAlertsOpen)}
-              className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg relative transition-colors"
+              className="p-2 bg-[#F5EFEB] hover:bg-[#EFE8DC] border border-[#E6DDCF] text-[#1C1917] rounded-lg relative transition-colors"
               title="Signal Alerts"
             >
-              <Bell className="w-4 h-4" />
+              <Bell className="w-4 h-4 text-[#57534E]" />
               {unreadAlertsCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-amber-500 text-slate-950 font-bold text-[10px] w-4 h-4 rounded-full flex items-center justify-center animate-pulse font-mono">
+                <span className="absolute -top-1 -right-1 bg-[#D4AF37] text-[#1C1917] font-bold text-[10px] w-4 h-4 rounded-full flex items-center justify-center animate-pulse font-mono shadow-sm">
                   {unreadAlertsCount}
                 </span>
               )}
@@ -315,45 +337,45 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Alert Drawer Popup */}
             {isAlertsOpen && (
-              <div className="absolute right-0 top-full mt-2 w-72 sm:w-96 bg-[#161B22] border border-slate-800 rounded-lg shadow-2xl z-50 overflow-hidden">
-                <div className="p-3 bg-[#0B0E14] border-b border-slate-800 flex items-center justify-between">
+              <div className="absolute right-0 top-full mt-2 w-72 sm:w-96 bg-[#FFFFFF] border border-[#E6DDCF] rounded-xl shadow-2xl z-50 overflow-hidden">
+                <div className="p-3 bg-[#F5EFEB] border-b border-[#E6DDCF] flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <Bell className="w-4 h-4 text-amber-400" />
-                    <span className="font-bold text-sm text-slate-100">Active Entry Signals</span>
+                    <Bell className="w-4 h-4 text-[#B8860B]" />
+                    <span className="font-bold text-sm text-[#1C1917]">Active Entry Signals</span>
                   </div>
                   <button
                     onClick={() => {
                       setIsAlertsOpen(false);
                       setActiveTab('signals');
                     }}
-                    className="text-xs text-emerald-400 hover:underline flex items-center"
+                    className="text-xs text-[#996515] font-semibold hover:underline flex items-center"
                   >
                     View All <ChevronRight className="w-3 h-3 ml-0.5" />
                   </button>
                 </div>
 
-                <div className="max-h-72 overflow-y-auto divide-y divide-slate-800/60 p-1">
+                <div className="max-h-72 overflow-y-auto divide-y divide-[#EFE8DC] p-1">
                   {alerts.length === 0 ? (
-                    <div className="p-4 text-center text-xs text-slate-400">
+                    <div className="p-4 text-center text-xs text-[#78716C]">
                       No active signals fired yet in this session.
                     </div>
                   ) : (
                     Array.from<SignalAlert>(new Map<string, SignalAlert>(alerts.map(a => [a.id, a])).values()).slice(0, 5).map(alert => (
-                      <div key={alert.id} className="p-2.5 hover:bg-slate-800/50 rounded-lg transition-colors">
+                      <div key={alert.id} className="p-2.5 hover:bg-[#FAF7F2] rounded-lg transition-colors">
                         <div className="flex items-center justify-between mb-1">
-                          <span className="font-bold font-mono text-emerald-400 cursor-pointer hover:underline" onClick={() => {
+                          <span className="font-bold font-mono text-[#845306] cursor-pointer hover:underline" onClick={() => {
                             onSelectTicker(alert.ticker);
                             setIsAlertsOpen(false);
                             setActiveTab('charts');
                           }}>
                             {alert.ticker}
                           </span>
-                          <span className="text-[10px] text-slate-500 font-mono">
+                          <span className="text-[10px] text-[#78716C] font-mono">
                             {new Date(alert.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                           </span>
                         </div>
-                        <div className="text-xs font-medium text-slate-200 mb-1">{alert.ruleName}</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">{alert.reason}</p>
+                        <div className="text-xs font-semibold text-[#1C1917] mb-1">{alert.ruleName}</div>
+                        <p className="text-[11px] text-[#57534E] leading-snug">{alert.reason}</p>
                       </div>
                     ))
                   )}
@@ -368,7 +390,7 @@ export const Header: React.FC<HeaderProps> = ({
               id="header-clear-cache-btn"
               onClick={onClearCache}
               disabled={isResettingCache}
-              className="p-2 bg-slate-800/90 hover:bg-rose-900/40 hover:text-rose-300 text-slate-400 rounded-lg transition-colors flex items-center gap-1.5 text-xs font-mono disabled:opacity-50"
+              className="p-2 bg-[#0f243b] hover:bg-rose-950/40 hover:text-rose-300 text-slate-400 border border-[#1d3f63] rounded-lg transition-colors flex items-center gap-1.5 text-xs font-mono disabled:opacity-50"
               title="Clear Cache & Refetch Finnhub 4H Data"
             >
               <RefreshCw className={`w-4 h-4 ${isResettingCache ? 'animate-spin text-rose-400' : ''}`} />
@@ -380,7 +402,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             id="settings-btn"
             onClick={onOpenSettings}
-            className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition-colors"
+            className="p-2 bg-[#0f243b] hover:bg-[#153454] border border-[#1d3f63] text-slate-300 rounded-lg transition-colors"
             title="Settings & Data Provider"
           >
             <SettingsIcon className="w-4 h-4" />
@@ -403,12 +425,12 @@ export const Header: React.FC<HeaderProps> = ({
             />
           </div>
           {filteredUniverse.length > 0 && (
-            <div className="mt-1 bg-[#161B22] border border-slate-800 rounded-lg shadow-xl overflow-hidden max-h-60 overflow-y-auto divide-y divide-slate-800/80">
+            <div className="mt-1 bg-[#0f243b] border border-[#1d3f63] rounded-lg shadow-xl overflow-hidden max-h-60 overflow-y-auto divide-y divide-[#1d3f63]/80">
               {filteredUniverse.slice(0, 6).map(quote => (
                 <div
                   key={`mob-search-${quote.symbol}`}
                   onClick={() => handleSelectSymbol(quote.symbol)}
-                  className="px-3 py-2.5 hover:bg-slate-800 flex items-center justify-between text-sm"
+                  className="px-3 py-2.5 hover:bg-[#163654] flex items-center justify-between text-sm"
                 >
                   <div>
                     <span className="font-bold text-white font-mono">{quote.symbol}</span>
@@ -426,8 +448,8 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Collapsible Navigation Drawer */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-[#161B22] border-b border-slate-800 px-4 py-3 space-y-2 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider pb-1 border-b border-slate-800">
+        <div className="md:hidden bg-[#0b1d30] border-b border-[#1d3f63] px-4 py-3 space-y-2 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="text-xs font-semibold text-teal-400 uppercase tracking-wider pb-1 border-b border-[#1d3f63]">
             Navigation Menu
           </div>
           <div className="grid grid-cols-2 gap-1.5 pt-1">
@@ -440,8 +462,8 @@ export const Header: React.FC<HeaderProps> = ({
                 }}
                 className={`px-3 py-2 rounded-lg text-left text-xs font-medium flex items-center justify-between transition-colors ${
                   activeTab === tab.id
-                    ? (tab.isGold ? 'bg-amber-500 text-slate-950 font-black' : 'bg-emerald-600 text-white font-bold')
-                    : (tab.isGold ? 'text-amber-300 hover:bg-slate-800 font-semibold' : 'text-slate-300 hover:bg-slate-800')
+                    ? (tab.isGold ? 'bg-amber-400 text-slate-950 font-black' : 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold')
+                    : (tab.isGold ? 'text-amber-300 hover:bg-[#132e4d] font-semibold' : 'text-slate-300 hover:bg-[#132e4d]')
                 }`}
               >
                 <span className="flex items-center gap-1.5">
@@ -451,8 +473,8 @@ export const Header: React.FC<HeaderProps> = ({
                 {tab.badge !== undefined && (
                   <span className={`text-[10px] font-mono px-1 rounded ${
                     activeTab === tab.id 
-                      ? (tab.isGold ? 'bg-slate-950/40 text-slate-900 font-bold' : 'bg-emerald-700 text-white')
-                      : (tab.isGold ? 'bg-amber-500/20 text-amber-300' : 'bg-slate-800 text-slate-400')
+                      ? (tab.isGold ? 'bg-slate-950/40 text-slate-900 font-bold' : 'bg-teal-800 text-white')
+                      : (tab.isGold ? 'bg-amber-500/20 text-amber-300' : 'bg-[#153454] text-slate-400')
                   }`}>
                     {tab.badge}
                   </span>
@@ -460,13 +482,13 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             ))}
           </div>
-          <div className="pt-2 border-t border-slate-800 flex items-center justify-between gap-2">
+          <div className="pt-2 border-t border-[#1d3f63] flex items-center justify-between gap-2">
             <button
               onClick={() => {
                 onOpenNewPosition();
                 setIsMobileMenuOpen(false);
               }}
-              className="px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold flex items-center gap-1"
+              className="px-3 py-1.5 bg-gradient-to-r from-teal-600 to-cyan-600 text-white rounded-lg text-xs font-semibold flex items-center gap-1"
             >
               <Plus className="w-3.5 h-3.5" />
               Log Trade
@@ -478,7 +500,7 @@ export const Header: React.FC<HeaderProps> = ({
                   setIsMobileMenuOpen(false);
                 }}
                 disabled={isResettingCache}
-                className="px-2.5 py-1.5 bg-slate-800 hover:bg-rose-950 text-rose-300 rounded-lg text-xs font-semibold flex items-center gap-1"
+                className="px-2.5 py-1.5 bg-[#0f243b] hover:bg-rose-950 text-rose-300 border border-[#1d3f63] rounded-lg text-xs font-semibold flex items-center gap-1"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${isResettingCache ? 'animate-spin' : ''}`} />
                 Reset Data
@@ -489,7 +511,7 @@ export const Header: React.FC<HeaderProps> = ({
                 onOpenSettings();
                 setIsMobileMenuOpen(false);
               }}
-              className="px-3 py-1.5 bg-slate-800 text-slate-300 rounded-lg text-xs font-semibold flex items-center gap-1"
+              className="px-3 py-1.5 bg-[#0f243b] border border-[#1d3f63] text-slate-300 rounded-lg text-xs font-semibold flex items-center gap-1"
             >
               <SettingsIcon className="w-3.5 h-3.5" />
               Settings
@@ -499,7 +521,7 @@ export const Header: React.FC<HeaderProps> = ({
       )}
 
       {/* Mobile Horizontal Quick-Nav Bar (Visible on mobile < md) */}
-      <nav className="md:hidden flex items-center space-x-1.5 px-3 py-1.5 overflow-x-auto no-scrollbar border-t border-slate-800/80 bg-[#0B0E14]/90">
+      <nav className="md:hidden flex items-center space-x-1.5 px-3 py-1.5 overflow-x-auto no-scrollbar border-t border-[#1d3f63]/80 bg-[#071524]/95">
         {navTabs.map(tab => (
           <button
             key={`mob-strip-${tab.id}`}
@@ -508,11 +530,11 @@ export const Header: React.FC<HeaderProps> = ({
             className={`px-3 py-2 min-h-[42px] rounded-lg text-xs whitespace-nowrap transition-all flex items-center gap-1.5 font-bold shrink-0 touch-manipulation ${
               activeTab === tab.id
                 ? (tab.isGold 
-                    ? 'bg-amber-500 text-slate-950 font-black shadow-md shadow-amber-500/20' 
-                    : 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20')
+                    ? 'bg-amber-400 text-slate-950 font-black shadow-md shadow-amber-500/20' 
+                    : 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white shadow-md shadow-teal-500/20')
                 : (tab.isGold
                     ? 'bg-amber-500/10 text-amber-300 border border-amber-500/30'
-                    : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-white')
+                    : 'bg-[#0f243b] text-slate-400 border border-[#1d3f63] hover:text-white')
             }`}
           >
             {tab.isGold && <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />}
@@ -521,7 +543,7 @@ export const Header: React.FC<HeaderProps> = ({
               <span className={`text-[9px] font-mono px-1 py-0.2 rounded ${
                 activeTab === tab.id 
                   ? 'bg-slate-950/40 text-white font-bold' 
-                  : (tab.isGold ? 'bg-amber-500/20 text-amber-300' : 'bg-slate-800 text-slate-400')
+                  : (tab.isGold ? 'bg-amber-500/20 text-amber-300' : 'bg-[#153454] text-slate-400')
               }`}>
                 {tab.badge}
               </span>
@@ -539,8 +561,8 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setActiveTab(tab.id)}
             className={`pb-3 whitespace-nowrap transition-colors flex items-center gap-1.5 border-b-2 ${
               activeTab === tab.id
-                ? (tab.isGold ? 'text-amber-300 border-amber-400 font-black' : 'text-white border-emerald-500')
-                : (tab.isGold ? 'text-amber-400/90 border-transparent hover:text-amber-300 hover:border-amber-500/50' : 'text-slate-500 border-transparent hover:text-slate-300 hover:border-slate-700')
+                ? (tab.isGold ? 'text-amber-300 border-amber-400 font-black' : 'text-teal-300 border-teal-400')
+                : (tab.isGold ? 'text-amber-400/90 border-transparent hover:text-amber-300 hover:border-amber-500/50' : 'text-slate-400 border-transparent hover:text-slate-200 hover:border-teal-500/40')
             }`}
           >
             {tab.isGold && <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />}
@@ -548,12 +570,12 @@ export const Header: React.FC<HeaderProps> = ({
             {tab.badge !== undefined && (
               <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold ${
                 tab.isGold
-                  ? (activeTab === tab.id ? 'bg-amber-500 text-slate-950 font-black' : 'bg-amber-500/15 text-amber-300 border border-amber-500/30')
+                  ? (activeTab === tab.id ? 'bg-amber-400 text-slate-950 font-black' : 'bg-amber-500/15 text-amber-300 border border-amber-500/30')
                   : typeof tab.badge === 'string' && tab.badge.startsWith('+') 
-                  ? 'text-emerald-400' 
+                  ? 'text-teal-300 bg-teal-950/60 border border-teal-800/40' 
                   : typeof tab.badge === 'string' && tab.badge.startsWith('-')
-                  ? 'text-rose-400'
-                  : 'text-slate-400'
+                  ? 'text-rose-400 bg-rose-950/60 border border-rose-800/40'
+                  : 'text-slate-400 bg-[#153454] border border-[#1d3f63]'
               }`}>
                 {tab.badge}
               </span>

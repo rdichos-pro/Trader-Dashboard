@@ -184,6 +184,9 @@ export interface ConfluenceEvaluationResult {
   stochD: number;
   cci: number;
   
+  // Stop loss from bottom of bar close after Tenkan-Kijun crossover
+  tkCrossoverStopLoss?: number;
+
   // Consolidation zone check
   isInCloudConsolidation: boolean;
   
@@ -280,12 +283,13 @@ export function evaluateConfluenceDetails(
     stochK: 50,
     stochD: 50,
     cci: 0,
+    tkCrossoverStopLoss: 0,
     isInCloudConsolidation: false,
     trendSummary: 'Insufficient data for 1HR calculations',
     chikouSummary: 'Insufficient data for Chikou Span',
     futureCloudSummary: 'Insufficient data for Future Cloud',
-    stochSummary: 'Oscillators removed per trading rules',
-    cciSummary: 'Oscillators removed per trading rules',
+    stochSummary: 'Stoch (12,3,3): Awaiting data',
+    cciSummary: 'CCI (40): Awaiting data',
     entrySummary: 'Awaiting closed candle data',
     exitSummary: 'Awaiting closed candle data',
     confluenceReason: 'Awaiting 1HR market feed initialization',
@@ -347,7 +351,7 @@ export function evaluateConfluenceDetails(
     entryDailyTkCross = (lastClosedDaily.tenkan ?? lastClosedDaily.close) >= (lastClosedDaily.kijun ?? lastClosedDaily.close);
   }
 
-  // 2. 1HR Ichimoku 6 Strict Rules (No Stoch, No CCI)
+  // 2. 1HR Ichimoku Strict Rules
   const entry1hTkBullish = tenkan >= kijun;
   const entry1hPriceAboveCloud = closedClose > cloudTop;
   const entry1hTkAboveCloud = tenkan > cloudTop && kijun > cloudTop;
@@ -355,33 +359,26 @@ export function evaluateConfluenceDetails(
   const entry1hFutureCloudBullish = futureSenkouA > futureSenkouB;
   const entry1hKumoClearance = closedClose > cloudTop && ((closedClose - cloudTop) / Math.max(1, cloudTop) >= 0.0005);
 
-  // 8. Volume Confirmation: closed candle volume vs its trailing average (RVOL).
-  // A Kumo breakout with rising volume is more likely to follow through; low-volume
-  // breakouts reverse more often. Toggle off via ruleParams.requireVolumeConfirmation.
-  const volLookback = 20;
-  const volStart = Math.max(0, closedIndex - volLookback);
-  const trailingVolumes = candles.slice(volStart, closedIndex).map(c => c.volume || 0).filter(v => v > 0);
-  const avgTrailingVolume = trailingVolumes.length > 0
-    ? trailingVolumes.reduce((a, b) => a + b, 0) / trailingVolumes.length
-    : (closedCandle.volume || 0);
-  const candleRvol = avgTrailingVolume > 0 ? (closedCandle.volume || 0) / avgTrailingVolume : 1;
-  const requireVolumeConfirmation = ruleParams?.requireVolumeConfirmation !== false;
-  const minRvol = ruleParams?.minRvol ?? 1.2;
-  const entry1hVolumeConfirmed = !requireVolumeConfirmation || candleRvol >= minRvol;
+  // 3. Momentum & Oscillator Confluence (CCI 40 & Stochastic 12,3,3)
+  const stochMin = ruleParams?.stochThreshold ?? 80;
+  const cciMin = ruleParams?.cciThreshold ?? 100;
+  const entryStochBullish = stochK > stochD && stochK > stochMin;
+  const entryCciBullish = cci > cciMin;
 
+  // 8 Strict Confluence Pillars (Macro + Ichimoku Geometry + CCI 40 + Stoch 12,3,3)
   const totalPillarsPassed = 
     (entryDailyTkCross ? 1 : 0) +
     (entry1hTkBullish ? 1 : 0) +
-    (entry1hPriceAboveCloud ? 1 : 0) +
     (entry1hTkAboveCloud ? 1 : 0) +
+    (entry1hPriceAboveCloud ? 1 : 0) +
     (entry1hChikouBullish ? 1 : 0) +
     (entry1hFutureCloudBullish ? 1 : 0) +
-    (entry1hKumoClearance ? 1 : 0) +
-    (entry1hVolumeConfirmed ? 1 : 0);
+    (entryCciBullish ? 1 : 0) +
+    (entryStochBullish ? 1 : 0);
 
   const isMasterEntryTriggered = totalPillarsPassed === 8;
 
-  // 3. EXIT LOGIC (Strictly based on 1HR chart):
+  // 4. EXIT LOGIC (Strictly based on 1HR chart):
   // "the exit signal should be below the first closed bar after the reversal cross"
   let hasReversalCross = false;
   let reversalCrossBarClose = 0;
@@ -417,12 +414,12 @@ export function evaluateConfluenceDetails(
   const missingEntryConditions: string[] = [];
   if (!entryDailyTkCross) missingEntryConditions.push('1D Daily TK Golden Cross');
   if (!entry1hTkBullish) missingEntryConditions.push(`1HR Tenkan ($${tenkan.toFixed(2)}) < Kijun ($${kijun.toFixed(2)})`);
-  if (!entry1hPriceAboveCloud) missingEntryConditions.push(`1HR Close ($${closedClose.toFixed(2)}) <= Cloud Top ($${cloudTop.toFixed(2)})`);
   if (!entry1hTkAboveCloud) missingEntryConditions.push(`1HR Tenkan/Kijun <= Cloud Top ($${cloudTop.toFixed(2)})`);
+  if (!entry1hPriceAboveCloud) missingEntryConditions.push(`1HR Close ($${closedClose.toFixed(2)}) <= Cloud Top ($${cloudTop.toFixed(2)})`);
   if (!entry1hChikouBullish) missingEntryConditions.push(`1HR Chikou Close ($${closedClose.toFixed(2)}) <= Close[-26] ($${close26Ago.toFixed(2)})`);
   if (!entry1hFutureCloudBullish) missingEntryConditions.push(`1HR Future Cloud Red (Span A <= Span B)`);
-  if (!entry1hKumoClearance) missingEntryConditions.push('1HR Close within 0.05% Kumo Chop buffer');
-  if (!entry1hVolumeConfirmed) missingEntryConditions.push(`1HR Volume RVOL (${candleRvol.toFixed(2)}x) below required ${minRvol}x threshold`);
+  if (!entryCciBullish) missingEntryConditions.push(`CCI (40) (${cci.toFixed(1)}) <= ${cciMin}`);
+  if (!entryStochBullish) missingEntryConditions.push(`Stoch (12,3,3) (%K:${stochK.toFixed(1)} / %D:${stochD.toFixed(1)}) not > ${stochMin} or %K <= %D`);
 
   const missingExitConditions: string[] = [];
   if (!hasReversalCross) missingExitConditions.push('1HR Tenkan has not crossed below Kijun');
@@ -503,10 +500,6 @@ export function evaluateConfluenceDetails(
   const entryKijunAboveCloud = kijun > cloudTop;
   const entryChikouBullish = entry1hChikouBullish;
   const entryFutureCloudBullish = entry1hFutureCloudBullish;
-  const stochMin = ruleParams?.stochThreshold ?? 80;
-  const cciMin = ruleParams?.cciThreshold ?? 100;
-  const entryStochBullish = stochK > stochD && stochK > stochMin;
-  const entryCciBullish = cci > cciMin;
   const entryNoChopAboveCloud = entry1hKumoClearance;
   const entryPassedCount = totalPillarsPassed;
 
@@ -534,7 +527,7 @@ export function evaluateConfluenceDetails(
   const stochSummary = `Stoch (12,3,3): %K=${stochK.toFixed(1)} ${stochK > stochD ? '>' : '<='} %D=${stochD.toFixed(1)} (Threshold: >${stochMin})`;
   const cciSummary = `CCI (40): ${cci.toFixed(1)} (Threshold: >${cciMin})`;
   const entrySummary = isMasterEntryTriggered
-    ? '🎯 8/8 CONFLUENCE CONFIRMED: 1D TK Golden Cross + 1HR 6-Rule Pure Ichimoku + Volume'
+    ? '🎯 8/8 CONFLUENCE CONFIRMED: Macro Golden Cross + Ichimoku + CCI(40)>100 + Stoch(12,3,3)>80'
     : `Awaiting Full Alignment (${totalPillarsPassed}/8 pillars)`;
   const exitSummary = isExitTriggered
     ? `🛑 1HR REVERSAL EXIT TRIGGERED (< $${reversalCrossBarClose.toFixed(2)})`
@@ -556,8 +549,8 @@ export function evaluateConfluenceDetails(
     entry1hChikouBullish,
     entry1hFutureCloudBullish,
     entry1hKumoClearance,
-    entry1hVolumeConfirmed,
-    candleRvol,
+    entry1hVolumeConfirmed: true,
+    candleRvol: 1,
     totalPillarsPassed,
     hasReversalCross,
     reversalCrossBarClose,
@@ -612,6 +605,7 @@ export function evaluateConfluenceDetails(
     stochK,
     stochD,
     cci,
+    tkCrossoverStopLoss,
     isInCloudConsolidation,
     trendSummary,
     chikouSummary,

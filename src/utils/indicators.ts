@@ -491,8 +491,8 @@ export function enrichCandlesWithIndicators(candles: Candle[]): Candle[] {
   const volumes = sorted.map(c => c.volume);
 
   const ichimoku = calculateIchimoku(highs, lows, closes, 9, 26, 52, 26);
-  // Stoch 14,3,3 standardizes with TradingView's default oscillator settings
-  const stochastic = calculateStochastic(highs, lows, closes, 14, 3, 3);
+  // Stoch (12, 3, 3) strictly matching the strategy rules: %K period 12, %K smooth 3, %D period 3
+  const stochastic = calculateStochastic(highs, lows, closes, 12, 3, 3);
   const cci40 = calculateCCI(highs, lows, closes, 40);
   const cci20 = calculateCCI(highs, lows, closes, 20);
 

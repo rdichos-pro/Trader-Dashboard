@@ -87,32 +87,32 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
   const totalSellPillars = mtfConfluence?.totalSellPillarsPassed ?? ((dailyCrossSell ? 1 : 0) + rules1hSellPassed);
 
   return (
-    <div className="bg-[#161B22] border border-slate-800 rounded-xl p-3.5 sm:p-5 shadow-xl relative overflow-hidden">
+    <div className="bg-[#101217] border border-[#222631] rounded-xl p-3.5 sm:p-5 shadow-2xl relative overflow-hidden">
       
       {/* 1. SIGNAL REGIME DROPDOWN & SELECTOR BAR */}
-      <div className="bg-slate-950/95 border border-slate-800 rounded-xl p-2.5 mb-3 flex flex-col md:flex-row items-center justify-between gap-3 shadow-inner">
+      <div className="bg-[#151821] border border-[#262B37] rounded-xl p-2.5 mb-3 flex flex-col md:flex-row items-center justify-between gap-3 shadow-inner">
         <div className="flex items-center gap-2.5 w-full md:w-auto">
-          <div className="p-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 shrink-0">
+          <div className="p-1.5 rounded-lg bg-zinc-800/80 border border-zinc-700/60 text-zinc-300 shrink-0">
             <Filter className="w-4 h-4" />
           </div>
           <div>
             <div className="flex items-center gap-2 flex-wrap">
               <label htmlFor="signal-regime-dropdown" className="text-xs font-bold text-white uppercase tracking-wider">
-                Pure Ichimoku Signal Filter:
+                Strategy Confluence Filter:
               </label>
               <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold border flex items-center gap-1 ${
                 mtfConfluence.marketRegime === 'BUY'
-                  ? 'bg-emerald-950 text-emerald-300 border-emerald-700'
+                  ? 'bg-emerald-950/80 text-emerald-300 border-emerald-700/60'
                   : mtfConfluence.marketRegime === 'SELL'
-                  ? 'bg-rose-950 text-rose-300 border-rose-700'
-                  : 'bg-amber-950 text-amber-300 border-amber-700'
+                  ? 'bg-rose-950/80 text-rose-300 border-rose-700/60'
+                  : 'bg-zinc-900 text-zinc-300 border-zinc-700'
               }`}>
                 <span>Market:</span>
                 <strong>{mtfConfluence.regimeLabel || mtfConfluence.marketRegime}</strong>
               </span>
             </div>
-            <p className="text-[11px] text-slate-400">
-              {trendTf} Tenkan-Kijun Crossover Gate + {entryTf} 6-Rule Ichimoku Breakout (Zero Stoch, Zero CCI).
+            <p className="text-[11px] text-zinc-400">
+              {trendTf} Tenkan-Kijun Crossover Gate + {entryTf} Ichimoku &amp; Momentum (CCI 40 + Stoch 12,3,3) + Crossover Bar Stop Loss.
             </p>
           </div>
         </div>
@@ -124,14 +124,14 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               id="signal-regime-dropdown"
               value={signalFilterMode}
               onChange={(e) => onSignalFilterModeChange(e.target.value as any)}
-              className="w-full appearance-none bg-slate-900 border border-slate-700 text-white text-xs font-bold rounded-lg px-3 py-2 pr-8 shadow-sm focus:outline-none focus:border-amber-500 cursor-pointer min-h-[38px]"
+              className="w-full appearance-none bg-[#181B24] border border-[#2B313F] text-white text-xs font-bold rounded-lg px-3 py-2 pr-8 shadow-sm focus:outline-none focus:border-zinc-400 cursor-pointer min-h-[38px]"
             >
               <option value="AUTO">🌐 Auto Live ({mtfConfluence.marketRegime})</option>
-              <option value="BUY">🟢 Buy Signals (1D TK Cross + 1HR Bull)</option>
-              <option value="SELL">🔴 Sell Signals (1D Death Cross + 1HR Bear)</option>
-              <option value="CONSOLIDATION">🟡 Consolidation / Kumo Chop Only</option>
+              <option value="BUY">🟢 Buy Signals (Macro TK + Bull Ichimoku + Stoch/CCI)</option>
+              <option value="SELL">🔴 Sell Signals (Macro Death Cross + Bearish Breakdown)</option>
+              <option value="CONSOLIDATION">⚪ Consolidation / Kumo Chop Only</option>
             </select>
-            <ChevronDown className="w-4 h-4 text-slate-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <ChevronDown className="w-4 h-4 text-zinc-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
 
           {/* Quick-select pills */}
@@ -141,8 +141,8 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               onClick={() => onSignalFilterModeChange('AUTO')}
               className={`flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all min-h-[38px] ${
                 signalFilterMode === 'AUTO' 
-                  ? 'bg-slate-200 text-slate-950 font-black' 
-                  : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
+                  ? 'bg-zinc-200 text-zinc-950 font-black' 
+                  : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'
               }`}
             >
               Auto
@@ -153,11 +153,11 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               className={`flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1 min-h-[38px] ${
                 signalFilterMode === 'BUY' 
                   ? 'bg-emerald-500 text-slate-950 font-black' 
-                  : 'bg-slate-900 text-emerald-400 hover:bg-emerald-950/40 border border-slate-800'
+                  : 'bg-zinc-900 text-emerald-400 hover:bg-emerald-950/40 border border-zinc-800'
               }`}
             >
               <span>Buy</span>
-              <span className="text-[10px] font-mono opacity-80">({totalBuyPillars}/7)</span>
+              <span className="text-[10px] font-mono opacity-90 font-bold">({totalBuyPillars}/9)</span>
             </button>
             <button
               id="btn-filter-sell"
@@ -165,19 +165,19 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               className={`flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1 min-h-[38px] ${
                 signalFilterMode === 'SELL' 
                   ? 'bg-rose-500 text-slate-950 font-black' 
-                  : 'bg-slate-900 text-rose-400 hover:bg-rose-950/40 border border-slate-800'
+                  : 'bg-zinc-900 text-rose-400 hover:bg-rose-950/40 border border-zinc-800'
               }`}
             >
               <span>Sell</span>
-              <span className="text-[10px] font-mono opacity-80">({totalSellPillars}/7)</span>
+              <span className="text-[10px] font-mono opacity-90 font-bold">({totalSellPillars}/9)</span>
             </button>
             <button
               id="btn-filter-chop"
               onClick={() => onSignalFilterModeChange('CONSOLIDATION')}
               className={`flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all min-h-[38px] ${
                 signalFilterMode === 'CONSOLIDATION' 
-                  ? 'bg-amber-500 text-slate-950 font-black' 
-                  : 'bg-slate-900 text-amber-400 hover:bg-amber-950/40 border border-slate-800'
+                  ? 'bg-zinc-300 text-zinc-950 font-black' 
+                  : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800 border border-zinc-800'
               }`}
             >
               Chop
@@ -187,9 +187,9 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
       </div>
 
       {/* 2. STRATEGY CHOOSER BAR */}
-      <div className="bg-slate-950/95 border border-slate-800 rounded-xl p-2.5 mb-3.5 flex flex-col sm:flex-row items-center justify-between gap-2.5 shadow-inner">
+      <div className="bg-[#151821] border border-[#262B37] rounded-xl p-2.5 mb-3.5 flex flex-col sm:flex-row items-center justify-between gap-2.5 shadow-inner">
         <div className="flex items-center gap-2">
-          <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider">
+          <span className="text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">
             Active Strategy:
           </span>
         </div>
@@ -199,16 +199,16 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
             onClick={() => onSelectStrategy('DUAL_MASTER')}
             className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition-all touch-manipulation min-h-[38px] ${
               activeSignalStrategy === 'DUAL_MASTER'
-                ? 'bg-amber-500 text-slate-950 shadow-md font-black'
-                : 'bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800'
+                ? 'bg-zinc-200 text-zinc-950 shadow-md font-black'
+                : 'bg-zinc-900/80 text-zinc-400 hover:text-white border border-zinc-800'
             }`}
           >
             <Layers className="w-3.5 h-3.5 shrink-0" />
-            <span>1D TK Cross + 1HR Ichimoku</span>
+            <span>{trendTf} TK Cross + {entryTf} Confluence</span>
             <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-              activeSignalStrategy === 'DUAL_MASTER' ? 'bg-slate-950 text-amber-300' : 'bg-slate-800 text-slate-400'
+              activeSignalStrategy === 'DUAL_MASTER' ? 'bg-zinc-950 text-emerald-400' : 'bg-zinc-800 text-zinc-400'
             }`}>
-              7 Pillars
+              9 Pillars
             </span>
           </button>
 
@@ -217,14 +217,14 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
             onClick={() => onSelectStrategy('FAST_TK')}
             className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition-all touch-manipulation min-h-[38px] ${
               activeSignalStrategy === 'FAST_TK'
-                ? 'bg-amber-500 text-slate-950 shadow-md font-black'
-                : 'bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800'
+                ? 'bg-zinc-200 text-zinc-950 shadow-md font-black'
+                : 'bg-zinc-900/80 text-zinc-400 hover:text-white border border-zinc-800'
             }`}
           >
             <Zap className="w-3.5 h-3.5 shrink-0" />
-            <span>1HR Fast TK Cross (Pure Ichimoku)</span>
+            <span>Fast Tenkan-Kijun Cross + CCI</span>
             <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-              activeSignalStrategy === 'FAST_TK' ? 'bg-slate-950 text-emerald-300' : 'bg-slate-800 text-slate-400'
+              activeSignalStrategy === 'FAST_TK' ? 'bg-zinc-950 text-emerald-400' : 'bg-zinc-800 text-zinc-400'
             }`}>
               Rank #1
             </span>
@@ -252,51 +252,51 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">
-                {isDual ? '1D Macro TK Crossover + 1HR Ichimoku Engine' : '1HR Fast Tenkan-Kijun Scalp Trigger'}
+              <span className="text-[10px] sm:text-xs font-bold text-zinc-400 uppercase tracking-wider">
+                {isDual ? `${trendTf} Macro TK Cross + ${entryTf} Multi-Timeframe Confluence` : 'Fast Tenkan-Kijun Scalp Trigger'}
               </span>
               <span className={`text-[9px] sm:text-[10px] font-mono px-1.5 py-0.5 rounded border font-bold ${
                 effectiveRegime === 'BUY' 
                   ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40' 
                   : effectiveRegime === 'SELL'
                   ? 'bg-rose-950/60 text-rose-300 border-rose-800/40'
-                  : 'bg-amber-950/60 text-amber-300 border-amber-800/40'
+                  : 'bg-zinc-900 text-zinc-300 border-zinc-800'
               }`}>
-                {effectiveRegime === 'BUY' ? 'BUY REGIME' : effectiveRegime === 'SELL' ? 'SELL REGIME' : 'CHOP / KUMO CLOUD'}
+                {effectiveRegime === 'BUY' ? 'BULLISH REGIME' : effectiveRegime === 'SELL' ? 'BEARISH REGIME' : 'CHOP / KUMO CLOUD'}
               </span>
             </div>
 
             <h2 className="text-base sm:text-xl font-black text-white tracking-tight flex items-center gap-2 mt-0.5">
               {effectiveRegime === 'BUY' ? (
                 <>
-                  <span>Pure Ichimoku Confluence:</span>
-                  <span className={`font-mono ${
-                    totalBuyPillars >= 7 
+                  <span>Triple Strategy Confluence:</span>
+                  <span className={`font-mono font-black ${
+                    totalBuyPillars >= 8 
                       ? 'text-emerald-400' 
-                      : totalBuyPillars >= 5 
-                      ? 'text-amber-400' 
-                      : 'text-slate-300'
+                      : totalBuyPillars >= 6 
+                      ? 'text-emerald-300/80' 
+                      : 'text-zinc-400'
                   }`}>
-                    {totalBuyPillars} / 7 ({mtfConfluence.alignmentScore}%)
+                    {totalBuyPillars} / 9 ({Math.round((totalBuyPillars / 9) * 100)}%)
                   </span>
                 </>
               ) : effectiveRegime === 'SELL' ? (
                 <>
                   <span>Sell Breakdown Confluence:</span>
-                  <span className={`font-mono ${
-                    totalSellPillars >= 7 
+                  <span className={`font-mono font-black ${
+                    totalSellPillars >= 8 
                       ? 'text-rose-400' 
-                      : totalSellPillars >= 5 
-                      ? 'text-amber-400' 
-                      : 'text-slate-300'
+                      : totalSellPillars >= 6 
+                      ? 'text-rose-300/80' 
+                      : 'text-zinc-400'
                   }`}>
-                    {totalSellPillars} / 7 ({mtfConfluence.sellAlignmentScore}%)
+                    {totalSellPillars} / 9 ({Math.round((totalSellPillars / 9) * 100)}%)
                   </span>
                 </>
               ) : (
                 <>
-                  <span>1HR Kumo Cloud Chop Bounds:</span>
-                  <span className="font-mono text-amber-300">
+                  <span>{entryTf} Kumo Cloud Chop Bounds:</span>
+                  <span className="font-mono text-zinc-300">
                     ${safeFixed(bar1h?.cloudBottom, 1)} – ${safeFixed(bar1h?.cloudTop, 1)}
                   </span>
                 </>
@@ -309,31 +309,31 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
         <div className="flex items-center">
           {effectiveRegime === 'BUY' ? (
             <div className={`w-full sm:w-auto px-3 sm:px-4 py-2 rounded-xl border flex items-center justify-center gap-2 font-black text-xs sm:text-sm shadow-md ${
-              mtfConfluence.alignmentStatus === 'DUAL_MASTER_BUY'
+              totalBuyPillars >= 8
                 ? 'bg-emerald-950/80 border-emerald-500 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.25)]'
-                : mtfConfluence.alignmentStatus === 'STRONG_BUY_SYNC'
-                ? 'bg-emerald-900/60 border-emerald-500/50 text-emerald-200'
-                : 'bg-slate-900 border-slate-700 text-slate-300'
+                : totalBuyPillars >= 6
+                ? 'bg-emerald-900/40 border-emerald-500/40 text-emerald-200'
+                : 'bg-zinc-900 border-zinc-800 text-zinc-300'
             }`}>
-              {mtfConfluence.alignmentStatus === 'DUAL_MASTER_BUY' && <Flame className="w-4 h-4 text-emerald-400 animate-pulse shrink-0" />}
-              {mtfConfluence.alignmentStatus === 'STRONG_BUY_SYNC' && <Zap className="w-4 h-4 text-emerald-400 shrink-0" />}
-              <span>{mtfConfluence.alignmentStatus === 'DUAL_MASTER_BUY' ? '🔥 1D TK CROSS + 1HR ICHIMOKU (7/7)' : '🟢 BULLISH ICHIMOKU ALIGNMENT'}</span>
+              {totalBuyPillars >= 8 && <Flame className="w-4 h-4 text-emerald-400 animate-pulse shrink-0" />}
+              {totalBuyPillars >= 6 && totalBuyPillars < 8 && <Zap className="w-4 h-4 text-emerald-400 shrink-0" />}
+              <span>{totalBuyPillars >= 8 ? '🔥 ALL CONFLUENCES ALIGNED (9/9)' : '🟢 BULLISH STRATEGY ALIGNMENT'}</span>
             </div>
           ) : effectiveRegime === 'SELL' ? (
             <div className={`w-full sm:w-auto px-3 sm:px-4 py-2 rounded-xl border flex items-center justify-center gap-2 font-black text-xs sm:text-sm shadow-md ${
-              totalSellPillars >= 7
+              totalSellPillars >= 8
                 ? 'bg-rose-950/80 border-rose-500 text-rose-300 shadow-[0_0_20px_rgba(244,63,94,0.25)]'
-                : totalSellPillars >= 5
-                ? 'bg-rose-900/60 border-rose-500/50 text-rose-200'
-                : 'bg-slate-900 border-slate-700 text-slate-300'
+                : totalSellPillars >= 6
+                ? 'bg-rose-900/40 border-rose-500/40 text-rose-200'
+                : 'bg-zinc-900 border-zinc-800 text-zinc-300'
             }`}>
-              <ShieldAlert className="w-4 h-4 text-rose-400 shrink-0" />
-              <span>{totalSellPillars >= 7 ? '🚨 1D TK DEATH CROSS + 1HR ICHIMOKU SHORT' : '🔴 BEARISH ICHIMOKU ALIGNMENT'}</span>
+              {totalSellPillars >= 8 ? <AlertTriangle className="w-4 h-4 text-rose-400 animate-pulse shrink-0" /> : <ShieldAlert className="w-4 h-4 text-rose-400 shrink-0" />}
+              <span>{totalSellPillars >= 8 ? '🚨 ALL BEARISH BREAKDOWNS ALIGNED (9/9)' : '🔴 BEARISH STRATEGY ALIGNMENT'}</span>
             </div>
           ) : (
-            <div className="w-full sm:w-auto px-3 sm:px-4 py-2 rounded-xl border border-amber-500/50 bg-amber-950/70 text-amber-300 flex items-center justify-center gap-2 font-black text-xs sm:text-sm shadow-md">
-              <Cloud className="w-4 h-4 text-amber-400 shrink-0" />
-              <span>☁️ 1HR KUMO CHOP / STAND ASIDE</span>
+            <div className="w-full sm:w-auto px-3 sm:px-4 py-2 rounded-xl border border-zinc-800 bg-zinc-900/80 text-zinc-300 flex items-center justify-center gap-2 font-black text-xs sm:text-sm shadow-md">
+              <Cloud className="w-4 h-4 text-zinc-400 shrink-0" />
+              <span>☁️ {entryTf} KUMO CHOP / STAND ASIDE</span>
             </div>
           )}
         </div>
@@ -893,6 +893,40 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
                     </span>
                     <span className="font-mono text-[10px]">{bar1h?.f6_kumoClearance ? 'CLEAR' : 'CHOPPY'}</span>
                   </div>
+
+                  <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
+                    bar1h?.f7_cciBullish ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                  }`}>
+                    <span className="flex items-center gap-1.5">
+                      {bar1h?.f7_cciBullish ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      7. ⚡ CCI (40) &gt; 100 (Momentum Expansion)
+                    </span>
+                    <span className="font-mono text-[10px] font-bold">
+                      {safeFixed(bar1h?.cci, 1)} {bar1h?.f7_cciBullish ? '(&gt; 100 PASS)' : '(&lt;= 100 FAIL)'}
+                    </span>
+                  </div>
+
+                  <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
+                    bar1h?.f8_stochBullish ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                  }`}>
+                    <span className="flex items-center gap-1.5">
+                      {bar1h?.f8_stochBullish ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      8. ⚡ Stoch (12,3,3) Main &gt; Signal &amp; &gt; 80
+                    </span>
+                    <span className="font-mono text-[10px] font-bold">
+                      %K: {safeFixed(bar1h?.stochK, 1)} / %D: {safeFixed(bar1h?.stochD, 1)} {bar1h?.f8_stochBullish ? '(PASS)' : '(FAIL)'}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between p-2 rounded-lg border min-h-[38px] bg-zinc-950/70 border-zinc-800 text-zinc-300">
+                    <span className="flex items-center gap-1.5 text-emerald-300">
+                      <Shield className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      9. 🛡️ Stop Loss: Bottom of TK Crossover Bar
+                    </span>
+                    <span className="font-mono text-[10px] font-bold text-emerald-400">
+                      ${safeFixed(mtfConfluence?.tkCrossoverStopLoss ?? dynamicStopLoss, 2)}
+                    </span>
+                  </div>
                 </>
               ) : effectiveRegime === 'SELL' ? (
                 <>
@@ -954,6 +988,40 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
                       6. Clean Kumo Clearance Below (High &lt;= Cloud Top)
                     </span>
                     <span className="font-mono text-[10px]">{bar1h?.sf6_kumoClearance ? 'CLEAR' : 'CHOPPY'}</span>
+                  </div>
+
+                  <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
+                    bar1h?.sf7_cciBearish ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                  }`}>
+                    <span className="flex items-center gap-1.5">
+                      {bar1h?.sf7_cciBearish ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      7. ⚡ CCI (40) &lt; -100 (Bearish Momentum)
+                    </span>
+                    <span className="font-mono text-[10px] font-bold">
+                      {safeFixed(bar1h?.cci, 1)} {bar1h?.sf7_cciBearish ? '(&lt; -100 PASS)' : 'FAIL'}
+                    </span>
+                  </div>
+
+                  <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
+                    bar1h?.sf8_stochBearish ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                  }`}>
+                    <span className="flex items-center gap-1.5">
+                      {bar1h?.sf8_stochBearish ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      8. ⚡ Stoch (12,3,3) Main &lt; Signal &amp; &lt; 20
+                    </span>
+                    <span className="font-mono text-[10px] font-bold">
+                      %K: {safeFixed(bar1h?.stochK, 1)} / %D: {safeFixed(bar1h?.stochD, 1)} {bar1h?.sf8_stochBearish ? '(PASS)' : '(FAIL)'}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between p-2 rounded-lg border min-h-[38px] bg-zinc-950/70 border-zinc-800 text-zinc-300">
+                    <span className="flex items-center gap-1.5 text-rose-300">
+                      <ShieldAlert className="w-3.5 h-3.5 text-rose-400 shrink-0" />
+                      9. 🛡️ Stop Loss: Top of TK Crossover Bar
+                    </span>
+                    <span className="font-mono text-[10px] font-bold text-rose-400">
+                      ${safeFixed(mtfConfluence?.tkCrossoverShortStopLoss ?? dynamicShortStopLoss, 2)}
+                    </span>
                   </div>
                 </>
               ) : (

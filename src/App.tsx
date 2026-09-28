@@ -910,7 +910,7 @@ export default function App() {
   const exitAlertsCount = positions.reduce((sum, p) => sum + p.exitFlags.length, 0);
 
   return (
-    <div className="flex flex-col h-full w-full bg-[#0B0E14] text-slate-300 font-sans overflow-hidden selection:bg-emerald-500/30">
+    <div className="flex flex-col h-full w-full bg-[#FAF7F2] text-[#1C1917] font-sans overflow-hidden selection:bg-amber-300/40 cream-gold-canvas">
       {/* Universal Trading Dashboard Header */}
       <Header
         activeTab={activeTab}
@@ -1147,12 +1147,13 @@ export default function App() {
       />
 
       {/* Sticky Mobile Bottom Navigation Bar (< md) */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0F1219]/95 backdrop-blur-md border-t border-slate-800 flex justify-around items-center px-1 py-1.5 shadow-2xl">
+      {/* Mobile Fixed Bottom Nav Strip */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0b1d30]/95 backdrop-blur-md border-t border-[#1d3f63] flex justify-around items-center px-1 py-1.5 shadow-2xl">
         <button
           id="mobile-bottom-nav-watchlist"
           onClick={() => setActiveTab('watchlist')}
           className={`flex flex-col items-center justify-center flex-1 py-1 text-[10px] font-medium transition-colors ${
-            activeTab === 'watchlist' ? 'text-emerald-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+            activeTab === 'watchlist' ? 'text-teal-300 font-bold' : 'text-slate-400 hover:text-slate-200'
           }`}
         >
           <List className="w-4 h-4 mb-0.5" />
@@ -1163,13 +1164,13 @@ export default function App() {
           id="mobile-bottom-nav-signals"
           onClick={() => setActiveTab('signals')}
           className={`flex flex-col items-center justify-center flex-1 py-1 text-[10px] font-medium transition-colors relative ${
-            activeTab === 'signals' ? 'text-emerald-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+            activeTab === 'signals' ? 'text-teal-300 font-bold' : 'text-slate-400 hover:text-slate-200'
           }`}
         >
           <Zap className="w-4 h-4 mb-0.5" />
           <span>Signals</span>
           {alerts.length > 0 && (
-            <span className="absolute top-0 right-1/4 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-[#0F1219]"></span>
+            <span className="absolute top-0 right-1/4 w-2 h-2 rounded-full bg-teal-400 ring-2 ring-[#0b1d30]"></span>
           )}
         </button>
 
@@ -1177,13 +1178,13 @@ export default function App() {
           id="mobile-bottom-nav-positions"
           onClick={() => setActiveTab('positions')}
           className={`flex flex-col items-center justify-center flex-1 py-1 text-[10px] font-medium transition-colors relative ${
-            activeTab === 'positions' ? 'text-emerald-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+            activeTab === 'positions' ? 'text-teal-300 font-bold' : 'text-slate-400 hover:text-slate-200'
           }`}
         >
           <ShieldCheck className="w-4 h-4 mb-0.5" />
           <span>Positions</span>
           {positions.length > 0 && (
-            <span className="absolute top-0 right-1/4 w-2 h-2 rounded-full bg-cyan-500 ring-2 ring-[#0F1219]"></span>
+            <span className="absolute top-0 right-1/4 w-2 h-2 rounded-full bg-cyan-400 ring-2 ring-[#0b1d30]"></span>
           )}
         </button>
 
@@ -1191,7 +1192,7 @@ export default function App() {
           id="mobile-bottom-nav-charts"
           onClick={() => setActiveTab('charts')}
           className={`flex flex-col items-center justify-center flex-1 py-1 text-[10px] font-medium transition-colors ${
-            activeTab === 'charts' ? 'text-emerald-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+            activeTab === 'charts' ? 'text-teal-300 font-bold' : 'text-slate-400 hover:text-slate-200'
           }`}
         >
           <CandlestickChart className="w-4 h-4 mb-0.5" />
@@ -1202,7 +1203,7 @@ export default function App() {
           id="mobile-bottom-nav-scanner"
           onClick={() => setActiveTab('scanner')}
           className={`flex flex-col items-center justify-center flex-1 py-1 text-[10px] font-medium transition-colors ${
-            activeTab === 'scanner' ? 'text-emerald-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+            activeTab === 'scanner' ? 'text-teal-300 font-bold' : 'text-slate-400 hover:text-slate-200'
           }`}
         >
           <Sliders className="w-4 h-4 mb-0.5" />

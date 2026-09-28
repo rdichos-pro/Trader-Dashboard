@@ -36,7 +36,7 @@ export const BacktestTab: React.FC<BacktestTabProps> = ({
   onNavigateToTab,
 }) => {
   const [params, setParams] = useState<BacktestParams>({
-    strategyId: 'rule-breakout-vol',
+    strategyId: 'rule-cci-40',
     stopLossPct: 5.0,
     takeProfitPct: 10.0,
     maxHoldDays: 15,
@@ -74,40 +74,43 @@ export const BacktestTab: React.FC<BacktestTabProps> = ({
   return (
     <div className="space-y-4">
       {/* Overview Banner */}
-      <div className="bg-[#161B22] p-4 rounded-lg border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-white p-4 rounded-xl border border-[#E6DDCF] shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center space-x-2">
-          <Cpu className="w-5 h-5 text-emerald-400" />
+          <div className="w-9 h-9 rounded-lg bg-[#FDF4DC] border border-[#F3DA90] flex items-center justify-center text-[#845306]">
+            <Cpu className="w-5 h-5 text-[#996515]" />
+          </div>
           <div>
-            <h2 className="text-base font-bold text-slate-100">Algorithmic Rule Backtester</h2>
-            <p className="text-xs text-slate-400">
+            <h2 className="text-base font-bold text-[#1C1917]">Algorithmic Rule Backtester</h2>
+            <p className="text-xs text-[#57534E]">
               Simulate rule triggers against historical price action with stop-loss and profit target execution.
             </p>
           </div>
         </div>
 
-        <div className="text-xs font-mono text-emerald-400 bg-[#0B0E14] px-3 py-1.5 rounded-lg border border-slate-800">
+        <div className="text-xs font-mono text-[#845306] bg-[#FDF4DC] px-3 py-1.5 rounded-lg border border-[#F3DA90] font-bold">
           {params.universeScope === 'SINGLE' ? '1HR+1D Walk-Forward (1Yr Dataset)' : '6-Month Lookback Dataset'}
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Parameters Form */}
-        <div className="bg-[#161B22] p-5 rounded-lg border border-slate-800 space-y-4 shadow-xl">
-          <h3 className="text-sm font-bold text-white flex items-center gap-1.5 uppercase tracking-wider">
-            <Sliders className="w-4 h-4 text-emerald-400" />
+        <div className="bg-white p-5 rounded-xl border border-[#E6DDCF] space-y-4 shadow-sm">
+          <h3 className="text-sm font-bold text-[#1C1917] flex items-center gap-1.5 uppercase tracking-wider">
+            <Sliders className="w-4 h-4 text-[#D4AF37]" />
             Strategy Parameters
           </h3>
 
           <form onSubmit={handleRunTest} className="space-y-3.5 text-xs">
-            {/* Strategy Selection - legacy engine only; the single-ticker engine below auto-selects via walk-forward */}
+            {/* Strategy Selection */}
             {params.universeScope !== 'SINGLE' && (
               <div>
-                <label className="text-slate-400 block mb-1 font-medium">Strategy Trigger Template</label>
+                <label className="text-[#57534E] block mb-1 font-semibold">Strategy Trigger Template</label>
                 <select
                   value={params.strategyId}
                   onChange={e => setParams({ ...params, strategyId: e.target.value })}
-                  className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg p-2.5 text-white font-medium focus:border-emerald-500"
+                  className="w-full bg-[#FDFBF7] border border-[#E6DDCF] rounded-lg p-2.5 text-[#1C1917] font-medium focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
                 >
+                  <option value="rule-cci-40">CCI (40) Confluence Strategy (&gt; +100) [Active]</option>
                   <option value="rule-breakout-vol">20-Day Breakout + 1.5x Volume Spike</option>
                   <option value="rule-ma-crossover">20 EMA / 50 SMA Golden Cross</option>
                   <option value="rule-rsi-oversold">RSI(14) Oversold Bounce (&lt; 32)</option>
@@ -116,18 +119,17 @@ export const BacktestTab: React.FC<BacktestTabProps> = ({
               </div>
             )}
 
-
             {/* Universe Scope */}
             <div>
-              <label className="text-slate-400 block mb-1 font-medium">Test Scope</label>
+              <label className="text-[#57534E] block mb-1 font-semibold">Test Scope</label>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => setParams({ ...params, universeScope: 'ALL' })}
                   className={`p-2 rounded-lg border font-medium text-xs transition-colors ${
                     params.universeScope === 'ALL'
-                      ? 'bg-emerald-950 border-emerald-600 text-emerald-300 font-bold'
-                      : 'bg-[#0B0E14] border-slate-800 text-slate-400'
+                      ? 'gold-gradient-btn text-[#1C1917] border-[#C59B27] shadow-sm font-bold'
+                      : 'bg-[#FDFBF7] border-[#E6DDCF] text-[#57534E] hover:text-[#1C1917]'
                   }`}
                 >
                   Entire Universe ({universe.length} Stocks)
@@ -137,8 +139,8 @@ export const BacktestTab: React.FC<BacktestTabProps> = ({
                   onClick={() => setParams({ ...params, universeScope: 'SINGLE' })}
                   className={`p-2 rounded-lg border font-medium text-xs transition-colors ${
                     params.universeScope === 'SINGLE'
-                      ? 'bg-emerald-950 border-emerald-600 text-emerald-300 font-bold'
-                      : 'bg-[#0B0E14] border-slate-800 text-slate-400'
+                      ? 'gold-gradient-btn text-[#1C1917] border-[#C59B27] shadow-sm font-bold'
+                      : 'bg-[#FDFBF7] border-[#E6DDCF] text-[#57534E] hover:text-[#1C1917]'
                   }`}
                 >
                   Single Ticker
@@ -148,11 +150,11 @@ export const BacktestTab: React.FC<BacktestTabProps> = ({
 
             {params.universeScope === 'SINGLE' && (
               <div>
-                <label className="text-slate-400 block mb-1 font-medium">Selected Ticker</label>
+                <label className="text-[#57534E] block mb-1 font-semibold">Selected Ticker</label>
                 <select
                   value={params.specificTicker || 'NVDA'}
                   onChange={e => setParams({ ...params, specificTicker: e.target.value })}
-                  className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg p-2 text-white font-mono font-bold"
+                  className="w-full bg-[#FDFBF7] border border-[#E6DDCF] rounded-lg p-2 text-[#1C1917] font-mono font-bold"
                 >
                   {universe.map(u => (
                     <option key={u.symbol} value={u.symbol}>
@@ -164,9 +166,9 @@ export const BacktestTab: React.FC<BacktestTabProps> = ({
             )}
 
             {params.universeScope === 'SINGLE' ? (
-              <div className="bg-emerald-950/30 border border-emerald-900/50 p-2.5 rounded-lg flex items-start gap-2">
-                <Cpu className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <p className="text-[11px] text-emerald-200/80 leading-snug">
+              <div className="bg-[#FDF4DC] border border-[#F3DA90] p-2.5 rounded-lg flex items-start gap-2">
+                <Cpu className="w-4 h-4 text-[#845306] shrink-0 mt-0.5" />
+                <p className="text-[11px] text-[#845306] leading-snug">
                   Tests all 6 real 1D+1HR 8-pillar Ichimoku variants (volume-confirmed) and auto-selects the best performer on in-sample data — exits (stop/target) are managed internally per-strategy, not user-set here.
                 </p>
               </div>
@@ -175,63 +177,63 @@ export const BacktestTab: React.FC<BacktestTabProps> = ({
                 {/* Risk / Exit Thresholds */}
                 <div className="grid grid-cols-2 gap-3 font-mono">
                   <div>
-                    <label className="text-slate-400 font-sans block mb-1 font-medium">Stop-Loss (%)</label>
+                    <label className="text-[#57534E] font-sans block mb-1 font-semibold">Stop-Loss (%)</label>
                     <input
                       type="number"
                       step="0.5"
                       value={params.stopLossPct}
                       onChange={e => setParams({ ...params, stopLossPct: Number(e.target.value) })}
-                      className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg p-2 text-rose-400 font-bold"
+                      className="w-full bg-[#FDFBF7] border border-[#E6DDCF] rounded-lg p-2 text-rose-700 font-bold"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-400 font-sans block mb-1 font-medium">Take-Profit (%)</label>
+                    <label className="text-[#57534E] font-sans block mb-1 font-semibold">Take-Profit (%)</label>
                     <input
                       type="number"
                       step="0.5"
                       value={params.takeProfitPct}
                       onChange={e => setParams({ ...params, takeProfitPct: Number(e.target.value) })}
-                      className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg p-2 text-emerald-400 font-bold"
+                      className="w-full bg-[#FDFBF7] border border-[#E6DDCF] rounded-lg p-2 text-emerald-700 font-bold"
                     />
                   </div>
                 </div>
 
                 {/* Max Hold Duration */}
                 <div>
-                  <label className="text-slate-400 block mb-1 font-medium">Max Holding Window</label>
+                  <label className="text-[#57534E] block mb-1 font-semibold">Max Holding Window</label>
                   <div className="flex items-center space-x-2 font-mono">
                     <input
                       type="number"
                       value={params.maxHoldDays}
                       onChange={e => setParams({ ...params, maxHoldDays: Number(e.target.value) })}
-                      className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg p-2 text-slate-100 font-bold"
+                      className="w-full bg-[#FDFBF7] border border-[#E6DDCF] rounded-lg p-2 text-[#1C1917] font-bold"
                     />
-                    <span className="text-slate-400 font-sans text-xs">Days</span>
+                    <span className="text-[#57534E] font-sans text-xs">Days</span>
                   </div>
                 </div>
 
                 {/* Realism Parameters */}
                 <div className="grid grid-cols-2 gap-3 font-mono">
                   <div>
-                    <label className="text-slate-400 font-sans block mb-1 font-medium">Slippage (%)</label>
+                    <label className="text-[#57534E] font-sans block mb-1 font-semibold">Slippage (%)</label>
                     <input
                       type="number"
                       step="0.05"
                       value={params.slippagePct}
                       onChange={e => setParams({ ...params, slippagePct: Number(e.target.value) })}
-                      className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg p-2 text-amber-400 font-bold"
+                      className="w-full bg-[#FDFBF7] border border-[#E6DDCF] rounded-lg p-2 text-[#996515] font-bold"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-400 font-sans block mb-1 font-medium">Commission ($)</label>
+                    <label className="text-[#57534E] font-sans block mb-1 font-semibold">Commission ($)</label>
                     <input
                       type="number"
                       step="0.5"
                       value={params.commissionPerTrade}
                       onChange={e => setParams({ ...params, commissionPerTrade: Number(e.target.value) })}
-                      className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg p-2 text-slate-300 font-bold"
+                      className="w-full bg-[#FDFBF7] border border-[#E6DDCF] rounded-lg p-2 text-[#1C1917] font-bold"
                     />
                   </div>
                 </div>
@@ -240,7 +242,7 @@ export const BacktestTab: React.FC<BacktestTabProps> = ({
 
             {/* Out of Sample Holdout */}
             <div>
-              <label className="text-slate-400 block mb-1 font-medium">
+              <label className="text-[#57534E] block mb-1 font-semibold">
                 {params.universeScope === 'SINGLE' ? 'Walk-Forward Holdout Window' : 'OOS Holdout Window (To catch overfitting)'}
               </label>
               <div className="flex items-center space-x-2 font-mono">
@@ -248,21 +250,21 @@ export const BacktestTab: React.FC<BacktestTabProps> = ({
                   type="number"
                   value={params.holdoutDays}
                   onChange={e => setParams({ ...params, holdoutDays: Number(e.target.value) })}
-                  className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg p-2 text-slate-100 font-bold"
+                  className="w-full bg-[#FDFBF7] border border-[#E6DDCF] rounded-lg p-2 text-[#1C1917] font-bold"
                 />
-                <span className="text-slate-400 font-sans text-xs">Days (Untouched)</span>
+                <span className="text-[#57534E] font-sans text-xs">Days (Untouched)</span>
               </div>
               {params.universeScope === 'SINGLE' && (
-                <p className="text-[10px] text-slate-500 mt-1 leading-snug">
+                <p className="text-[10px] text-[#78716C] mt-1 leading-snug">
                   Strategy is selected on data before this window only, then validated on this window untouched. Results below are the out-of-sample numbers.
                 </p>
               )}
             </div>
 
             {params.universeScope === 'ALL' && (
-              <div className="bg-amber-950/40 border border-amber-900/50 p-2.5 rounded-lg flex items-start gap-2">
-                <Activity className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                <p className="text-[11px] text-amber-200/80 leading-snug">
+              <div className="bg-[#FDF4DC] border border-[#F3DA90] p-2.5 rounded-lg flex items-start gap-2">
+                <Activity className="w-4 h-4 text-[#845306] shrink-0 mt-0.5" />
+                <p className="text-[11px] text-[#845306] leading-snug">
                   <strong>Survivorship Bias Flag:</strong> Running against the current active universe may inflate returns, as stocks that delisted or went bankrupt are not included.
                 </p>
               </div>
@@ -271,9 +273,9 @@ export const BacktestTab: React.FC<BacktestTabProps> = ({
             <button
               type="submit"
               disabled={isRunning}
-              className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg shadow-lg transition-colors flex items-center justify-center gap-1.5"
+              className="w-full py-2.5 gold-gradient-btn text-[#1C1917] font-bold rounded-lg shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
             >
-              <Play className="w-4 h-4" />
+              <Play className="w-4 h-4 text-[#1C1917]" />
               {isRunning ? 'Simulating Historical Data...' : 'Run Historical Backtest'}
             </button>
           </form>
@@ -284,54 +286,54 @@ export const BacktestTab: React.FC<BacktestTabProps> = ({
           {result && (
             <>
               {result.isWalkForward && (
-                <div className="bg-[#161B22] p-4 rounded-lg border border-slate-800 space-y-3">
+                <div className="bg-white p-4 rounded-xl border border-[#E6DDCF] space-y-3 shadow-sm">
                   <div className="flex items-center justify-between flex-wrap gap-2">
-                    <h4 className="font-bold text-xs text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-                      <Award className="w-4 h-4 text-emerald-400" />
+                    <h4 className="font-bold text-xs text-[#1C1917] uppercase tracking-wider flex items-center gap-1.5">
+                      <Award className="w-4 h-4 text-[#D4AF37]" />
                       Walk-Forward Validation
                     </h4>
                     {result.strategyName && (
-                      <span className="text-[11px] font-mono text-emerald-300 bg-emerald-950/50 border border-emerald-800 px-2 py-0.5 rounded">
+                      <span className="text-[11px] font-mono text-[#845306] bg-[#FDF4DC] border border-[#F3DA90] px-2 py-0.5 rounded font-bold">
                         Selected: {result.strategyName}
                       </span>
                     )}
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 text-xs">
-                    <div className="bg-[#0B0E14] p-3 rounded-lg border border-slate-800">
-                      <span className="text-[10px] text-slate-500 uppercase font-medium block mb-1">In-Sample (Selection Data)</span>
+                    <div className="bg-[#FDFBF7] p-3 rounded-lg border border-[#E6DDCF]">
+                      <span className="text-[10px] text-[#78716C] uppercase font-semibold block mb-1">In-Sample (Selection Data)</span>
                       {result.inSample ? (
                         <div className="font-mono space-y-0.5">
-                          <div className="text-slate-300">{result.inSample.trades} trades</div>
-                          <div className="text-slate-300">{result.inSample.winRatePct}% WR &middot; {result.inSample.profitFactor}x PF</div>
-                          <div className={result.inSample.netReturnPct >= 0 ? 'text-emerald-400' : 'text-rose-400'}>
+                          <div className="text-[#1C1917] font-semibold">{result.inSample.trades} trades</div>
+                          <div className="text-[#57534E]">{result.inSample.winRatePct}% WR &middot; {result.inSample.profitFactor}x PF</div>
+                          <div className={result.inSample.netReturnPct >= 0 ? 'text-emerald-700 font-bold' : 'text-rose-700 font-bold'}>
                             {result.inSample.netReturnPct >= 0 ? '+' : ''}{result.inSample.netReturnPct}%
                           </div>
                         </div>
-                      ) : <span className="text-slate-500">N/A</span>}
+                      ) : <span className="text-[#A8A29E]">N/A</span>}
                     </div>
-                    <div className="bg-[#0B0E14] p-3 rounded-lg border border-emerald-900/60">
-                      <span className="text-[10px] text-emerald-500 uppercase font-medium block mb-1">Out-of-Sample (Real Test)</span>
+                    <div className="bg-[#FDFBF7] p-3 rounded-lg border border-[#D4AF37]/50">
+                      <span className="text-[10px] text-[#996515] uppercase font-semibold block mb-1">Out-of-Sample (Real Test)</span>
                       {result.outOfSample ? (
                         <div className="font-mono space-y-0.5">
-                          <div className="text-slate-300">{result.outOfSample.trades} trades</div>
-                          <div className="text-slate-300">{result.outOfSample.winRatePct}% WR &middot; {result.outOfSample.profitFactor}x PF</div>
-                          <div className={result.outOfSample.netReturnPct >= 0 ? 'text-emerald-400' : 'text-rose-400'}>
+                          <div className="text-[#1C1917] font-semibold">{result.outOfSample.trades} trades</div>
+                          <div className="text-[#57534E]">{result.outOfSample.winRatePct}% WR &middot; {result.outOfSample.profitFactor}x PF</div>
+                          <div className={result.outOfSample.netReturnPct >= 0 ? 'text-emerald-700 font-bold' : 'text-rose-700 font-bold'}>
                             {result.outOfSample.netReturnPct >= 0 ? '+' : ''}{result.outOfSample.netReturnPct}%
                           </div>
                         </div>
-                      ) : <span className="text-slate-500">N/A</span>}
+                      ) : <span className="text-[#A8A29E]">N/A</span>}
                     </div>
                   </div>
 
                   {result.overfittingWarning && (
-                    <div className="bg-amber-950/40 border border-amber-900/50 p-2.5 rounded-lg flex items-start gap-2">
-                      <Activity className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                      <p className="text-[11px] text-amber-200/80 leading-snug">{result.overfittingWarning}</p>
+                    <div className="bg-[#FDF4DC] border border-[#F3DA90] p-2.5 rounded-lg flex items-start gap-2">
+                      <Activity className="w-4 h-4 text-[#845306] shrink-0 mt-0.5" />
+                      <p className="text-[11px] text-[#845306] leading-snug">{result.overfittingWarning}</p>
                     </div>
                   )}
 
-                  <p className="text-[10px] text-slate-500 leading-snug">
+                  <p className="text-[10px] text-[#78716C] leading-snug">
                     The KPI cards and trade log below reflect the <strong>out-of-sample</strong> result only — the strategy was picked using the in-sample data above, so its own numbers aren't a fair test of forward performance.
                   </p>
                 </div>
@@ -340,65 +342,65 @@ export const BacktestTab: React.FC<BacktestTabProps> = ({
               {/* Top Result KPI Cards */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {/* Win Rate */}
-                <div className="bg-[#161B22] p-3.5 rounded-lg border border-slate-800">
-                  <span className="text-[11px] text-slate-400 block font-medium">Win Rate</span>
-                  <div className={`text-xl font-bold font-mono ${result.winRate >= 50 ? 'text-emerald-400' : 'text-amber-400'}`}>
+                <div className="bg-white p-3.5 rounded-xl border border-[#E6DDCF] shadow-sm">
+                  <span className="text-[11px] text-[#57534E] block font-semibold">Win Rate</span>
+                  <div className={`text-xl font-bold font-mono ${result.winRate >= 50 ? 'text-emerald-700' : 'text-[#845306]'}`}>
                     {result.winRate.toFixed(1)}%
                   </div>
-                  <span className="text-[10px] text-slate-500 font-mono">
+                  <span className="text-[10px] text-[#78716C] font-mono">
                     {result.winningTrades}W / {result.losingTrades}L
                   </span>
                 </div>
 
                 {/* Net Return */}
-                <div className="bg-[#161B22] p-3.5 rounded-lg border border-slate-800">
-                  <span className="text-[11px] text-slate-400 block font-medium">Cumulative Return</span>
-                  <div className={`text-xl font-bold font-mono ${result.totalReturnPct >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                <div className="bg-white p-3.5 rounded-xl border border-[#E6DDCF] shadow-sm">
+                  <span className="text-[11px] text-[#57534E] block font-semibold">Cumulative Return</span>
+                  <div className={`text-xl font-bold font-mono ${result.totalReturnPct >= 0 ? 'text-emerald-700' : 'text-rose-700'}`}>
                     {result.totalReturnPct >= 0 ? '+' : ''}{result.totalReturnPct.toFixed(1)}%
                   </div>
-                  <span className="text-[10px] text-slate-500 font-mono">
+                  <span className="text-[10px] text-[#78716C] font-mono">
                     Across {result.totalTrades} signals
                   </span>
                 </div>
 
                 {/* Profit Factor */}
-                <div className="bg-[#161B22] p-3.5 rounded-lg border border-slate-800">
-                  <span className="text-[11px] text-slate-400 block font-medium">Profit Factor</span>
-                  <div className={`text-xl font-bold font-mono ${result.profitFactor >= 1.5 ? 'text-emerald-400' : 'text-slate-200'}`}>
+                <div className="bg-white p-3.5 rounded-xl border border-[#E6DDCF] shadow-sm">
+                  <span className="text-[11px] text-[#57534E] block font-semibold">Profit Factor</span>
+                  <div className={`text-xl font-bold font-mono ${result.profitFactor >= 1.5 ? 'text-emerald-700' : 'text-[#1C1917]'}`}>
                     {result.profitFactor.toFixed(2)}
                   </div>
-                  <span className="text-[10px] text-slate-500 font-mono">
+                  <span className="text-[10px] text-[#78716C] font-mono">
                     Gross Win/Loss Ratio
                   </span>
                 </div>
 
                 {/* Max Drawdown */}
-                <div className="bg-[#161B22] p-3.5 rounded-lg border border-slate-800">
-                  <span className="text-[11px] text-slate-400 block font-medium">Max Drawdown</span>
-                  <div className="text-xl font-bold font-mono text-rose-400">
+                <div className="bg-white p-3.5 rounded-xl border border-[#E6DDCF] shadow-sm">
+                  <span className="text-[11px] text-[#57534E] block font-semibold">Max Drawdown</span>
+                  <div className="text-xl font-bold font-mono text-rose-700">
                     -{result.maxDrawdownPct.toFixed(1)}%
                   </div>
-                  <span className="text-[10px] text-slate-500 font-mono">
+                  <span className="text-[10px] text-[#78716C] font-mono">
                     Peak-to-trough risk
                   </span>
                 </div>
               </div>
 
               {/* Detailed Simulated Trades Table */}
-              <div className="bg-[#161B22] rounded-lg border border-slate-800 overflow-hidden shadow-lg">
-                <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between">
-                  <h4 className="font-bold text-xs text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-                    <History className="w-4 h-4 text-emerald-400" />
+              <div className="bg-white rounded-xl border border-[#E6DDCF] overflow-hidden shadow-sm">
+                <div className="px-4 py-3 border-b border-[#E6DDCF] flex items-center justify-between bg-[#F5EFEB]">
+                  <h4 className="font-bold text-xs text-[#1C1917] uppercase tracking-wider flex items-center gap-1.5">
+                    <History className="w-4 h-4 text-[#D4AF37]" />
                     Simulated Historical Trade Log ({result.trades.length})
                   </h4>
-                  <span className="text-[11px] text-slate-400 font-mono">
+                  <span className="text-[11px] text-[#57534E] font-mono">
                     Avg Trade: {result.totalTrades > 0 ? (result.totalReturnPct / result.totalTrades).toFixed(2) : 0}%
                   </span>
                 </div>
 
                 <div className="overflow-x-auto max-h-80 overflow-y-auto">
                   <table className="w-full text-left text-sm font-mono">
-                    <thead className="bg-[#0B0E14]/70 border-b border-slate-800 text-[11px] text-slate-400 uppercase tracking-wider sticky top-0">
+                    <thead className="bg-[#FDFBF7] border-b border-[#E6DDCF] text-[11px] text-[#57534E] uppercase tracking-wider sticky top-0">
                       <tr>
                         <th className="py-2.5 px-3">Ticker</th>
                         <th className="py-2.5 px-3">Entry Date</th>
@@ -409,36 +411,36 @@ export const BacktestTab: React.FC<BacktestTabProps> = ({
                         <th className="py-2.5 px-3">Exit Reason</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/60 text-xs">
+                    <tbody className="divide-y divide-[#EFE8DC] text-xs">
                       {result.trades.map(trade => {
                         const isWin = trade.returnPct >= 0;
                         return (
-                          <tr key={trade.id} className="hover:bg-slate-800/40 transition-colors">
-                            <td className="py-2.5 px-3 font-bold text-white">
+                          <tr key={trade.id} className="hover:bg-[#FAF7F2] transition-colors">
+                            <td className="py-2.5 px-3 font-bold text-[#1C1917]">
                               {trade.ticker}
                             </td>
-                            <td className="py-2.5 px-3 text-slate-400">
+                            <td className="py-2.5 px-3 text-[#57534E]">
                               {formatDate(trade.entryDate)}
                             </td>
-                            <td className="py-2.5 px-3 text-right text-slate-200">
+                            <td className="py-2.5 px-3 text-right text-[#1C1917]">
                               {formatCurrency(trade.entryPrice)}
                             </td>
-                            <td className="py-2.5 px-3 text-slate-400">
+                            <td className="py-2.5 px-3 text-[#57534E]">
                               {formatDate(trade.exitDate)}
                             </td>
-                            <td className="py-2.5 px-3 text-right text-slate-200">
+                            <td className="py-2.5 px-3 text-right text-[#1C1917]">
                               {formatCurrency(trade.exitPrice)}
                             </td>
-                            <td className={`py-2.5 px-3 text-right font-bold ${isWin ? 'text-emerald-400' : 'text-rose-400'}`}>
+                            <td className={`py-2.5 px-3 text-right font-bold ${isWin ? 'text-emerald-700' : 'text-rose-700'}`}>
                               {isWin ? '+' : ''}{trade.returnPct.toFixed(2)}%
                             </td>
                             <td className="py-2.5 px-3 font-sans text-[11px]">
                               <span className={`px-2 py-0.5 rounded font-medium ${
                                 trade.exitReason === 'TAKE_PROFIT'
-                                  ? 'bg-emerald-950 text-emerald-300 border border-emerald-800'
+                                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
                                   : trade.exitReason === 'STOP_LOSS'
-                                  ? 'bg-rose-950 text-rose-300 border border-rose-800'
-                                  : 'bg-slate-800 text-slate-400'
+                                  ? 'bg-rose-100 text-rose-800 border border-rose-300'
+                                  : 'bg-[#FDFBF7] text-[#57534E] border border-[#E6DDCF]'
                               }`}>
                                 {trade.exitReason.replace('_', ' ')}
                               </span>
