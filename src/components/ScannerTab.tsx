@@ -442,10 +442,10 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
               return (
                 <div
                   key={mover.symbol}
-                  className={`bg-[#0B0E14] p-3.5 rounded-lg border transition-all flex flex-col justify-between gap-2.5 ${
+                  className={`bg-white p-3.5 rounded-xl border transition-all flex flex-col justify-between gap-2.5 shadow-sm ${
                     isHighConfluence
-                      ? 'border-emerald-800/80 hover:border-emerald-600 shadow-md'
-                      : 'border-slate-800 hover:border-slate-700'
+                      ? 'border-[#D4AF37] hover:border-amber-500'
+                      : 'border-[#E6DDCF] hover:border-[#D4AF37]/60'
                   }`}
                 >
                   {/* Top: Symbol, Price, Cheaper Badge & In Watchlist */}
@@ -457,81 +457,81 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
                             onSelectTicker(mover.symbol);
                             onNavigateToTab('charts');
                           }}
-                          className="text-base font-bold text-white hover:text-emerald-400 transition-colors"
+                          className="text-base font-bold text-[#1C1917] hover:text-[#845306] transition-colors cursor-pointer"
                         >
                           {mover.symbol}
                         </button>
-                        <span className="text-[10px] font-sans px-1.5 py-0.2 bg-emerald-950 text-emerald-300 border border-emerald-800 rounded font-semibold">
+                        <span className="text-[10px] font-sans px-1.5 py-0.2 bg-[#FDF4DC] text-[#845306] border border-[#F3DA90] rounded font-semibold">
                           ${mover.price.toFixed(2)}
                         </span>
                         {mover.price <= 10 && (
-                          <span className="text-[9px] font-sans px-1 py-0.2 bg-indigo-950 text-indigo-300 border border-indigo-800 rounded font-bold">
+                          <span className="text-[9px] font-sans px-1 py-0.2 bg-[#F5EFEB] text-[#7E5E14] border border-[#E6DDCF] rounded font-bold">
                             &lt; $10 Entry
                           </span>
                         )}
                       </div>
-                      <div className="text-[11px] text-slate-400 truncate max-w-[200px]">
+                      <div className="text-[11px] text-[#78716C] truncate max-w-[200px]">
                         {mover.name}
                       </div>
                     </div>
 
                     <div className="text-right font-mono">
-                      <div className={`text-xs font-bold ${mover.changePercent >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                      <div className={`text-xs font-bold ${mover.changePercent >= 0 ? 'text-emerald-700' : 'text-rose-700'}`}>
                         {mover.changePercent >= 0 ? '+' : ''}{mover.changePercent.toFixed(2)}%
                       </div>
-                      <div className="text-[10px] text-amber-400 flex items-center justify-end gap-0.5">
-                        <Flame className="w-2.5 h-2.5" />
+                      <div className="text-[10px] text-[#845306] flex items-center justify-end gap-0.5 font-semibold">
+                        <Flame className="w-2.5 h-2.5 text-[#D4AF37]" />
                         <span>{mover.rvol.toFixed(1)}x RVOL</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Confluence Score Bar */}
-                  <div className="space-y-1 bg-[#121620] p-2 rounded border border-slate-800/80">
+                  <div className="space-y-1 bg-[#FDFBF7] p-2 rounded-lg border border-[#E6DDCF]">
                     <div className="flex items-center justify-between text-[11px]">
-                      <span className="text-slate-400 font-medium flex items-center gap-1">
-                        <Target className="w-3 h-3 text-indigo-400" />
+                      <span className="text-[#57534E] font-medium flex items-center gap-1">
+                        <Target className="w-3 h-3 text-[#996515]" />
                         <span>Technical Confluence:</span>
                       </span>
                       <span className={`font-mono font-bold ${
-                        isHighConfluence ? 'text-emerald-400' : isGoodConfluence ? 'text-amber-400' : 'text-slate-300'
+                        isHighConfluence ? 'text-emerald-700' : isGoodConfluence ? 'text-[#845306]' : 'text-[#78716C]'
                       }`}>
                         {mover.confluenceScore}% ({mover.confluencePassedCount}/8 rules)
                       </span>
                     </div>
 
                     {/* Progress Bar */}
-                    <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                    <div className="w-full bg-[#EFE8DC] h-1.5 rounded-full overflow-hidden">
                       <div
                         className={`h-full rounded-full transition-all ${
                           isHighConfluence
-                            ? 'bg-emerald-500'
+                            ? 'bg-emerald-600'
                             : isGoodConfluence
-                            ? 'bg-amber-500'
-                            : 'bg-indigo-500'
+                            ? 'bg-[#D4AF37]'
+                            : 'bg-amber-400'
                         }`}
                         style={{ width: `${mover.confluenceScore}%` }}
                       />
                     </div>
 
                     {/* Confluence Highlights */}
-                    <div className="text-[10px] text-slate-400 line-clamp-1 font-mono pt-0.5">
+                    <div className="text-[10px] text-[#78716C] line-clamp-1 font-mono pt-0.5">
                       {mover.reason}
                     </div>
                   </div>
 
                   {/* Actions: Add to Watchlist / Trade / Chart */}
-                  <div className="flex items-center justify-between gap-1.5 pt-1 border-t border-slate-800/60">
+                  <div className="flex items-center justify-between gap-1.5 pt-1 border-t border-[#EFE8DC]">
                     {inWatchlist ? (
-                      <span className="inline-flex items-center gap-1 text-[11px] text-emerald-400 bg-emerald-950/60 px-2 py-1 rounded border border-emerald-900 font-medium">
+                      <span className="inline-flex items-center gap-1 text-[11px] text-emerald-800 bg-emerald-50 px-2 py-1 rounded border border-emerald-200 font-medium">
                         <Check className="w-3 h-3" /> In Watchlist
                       </span>
                     ) : (
                       <button
                         onClick={() => onAddToWatchlist(mover.symbol)}
-                        className="px-2.5 py-1 bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 border border-emerald-800 rounded text-xs font-semibold flex items-center gap-1 transition-colors"
+                        className="px-2.5 py-1 bg-[#F5EFEB] hover:bg-[#EFE8DC] text-[#7E5E14] border border-[#E6DDCF] rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
                       >
-                        <Plus className="w-3 h-3" /> Add to Watchlist
+                        <Plus className="w-3 h-3 text-[#996515]" /> Add to Watchlist
                       </button>
                     )}
 
@@ -541,14 +541,14 @@ export const ScannerTab: React.FC<ScannerTabProps> = ({
                           onSelectTicker(mover.symbol);
                           onNavigateToTab('charts');
                         }}
-                        className="px-2 py-1 bg-slate-800/80 hover:bg-slate-700 text-slate-300 rounded text-xs font-medium transition-colors"
+                        className="px-2 py-1 bg-[#F5EFEB] hover:bg-[#EFE8DC] text-[#57534E] hover:text-[#1C1917] border border-[#E6DDCF] rounded-lg text-xs font-medium transition-colors cursor-pointer"
                         title="View 4H Chart"
                       >
                         Chart
                       </button>
                       <button
                         onClick={() => onOpenNewPositionWithTicker(mover.symbol, mover.price)}
-                        className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-xs font-semibold transition-colors"
+                        className="px-2.5 py-1 gold-gradient-btn text-[#1C1917] font-bold rounded-lg text-xs transition-colors shadow-xs cursor-pointer"
                       >
                         Trade
                       </button>

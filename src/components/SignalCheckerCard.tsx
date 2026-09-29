@@ -87,31 +87,31 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
   const totalSellPillars = mtfConfluence?.totalSellPillarsPassed ?? ((dailyCrossSell ? 1 : 0) + rules1hSellPassed);
 
   return (
-    <div className="bg-[#101217] border border-[#222631] rounded-xl p-3.5 sm:p-5 shadow-2xl relative overflow-hidden">
+    <div className="bg-white border border-[#E6DDCF] rounded-xl p-3.5 sm:p-5 shadow-sm relative overflow-hidden">
       
       {/* 1. SIGNAL REGIME DROPDOWN & SELECTOR BAR */}
-      <div className="bg-[#151821] border border-[#262B37] rounded-xl p-2.5 mb-3 flex flex-col md:flex-row items-center justify-between gap-3 shadow-inner">
+      <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-2.5 mb-3 flex flex-col md:flex-row items-center justify-between gap-3 shadow-2xs">
         <div className="flex items-center gap-2.5 w-full md:w-auto">
-          <div className="p-1.5 rounded-lg bg-zinc-800/80 border border-zinc-700/60 text-zinc-300 shrink-0">
+          <div className="p-1.5 rounded-lg bg-[#F5EFEB] border border-[#E6DDCF] text-[#845306] shrink-0">
             <Filter className="w-4 h-4" />
           </div>
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <label htmlFor="signal-regime-dropdown" className="text-xs font-bold text-white uppercase tracking-wider">
+              <label htmlFor="signal-regime-dropdown" className="text-xs font-bold text-[#1C1917] uppercase tracking-wider">
                 Strategy Confluence Filter:
               </label>
               <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold border flex items-center gap-1 ${
                 mtfConfluence.marketRegime === 'BUY'
-                  ? 'bg-emerald-950/80 text-emerald-300 border-emerald-700/60'
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
                   : mtfConfluence.marketRegime === 'SELL'
-                  ? 'bg-rose-950/80 text-rose-300 border-rose-700/60'
-                  : 'bg-zinc-900 text-zinc-300 border-zinc-700'
+                  ? 'bg-rose-50 text-rose-800 border-rose-200'
+                  : 'bg-[#F5EFEB] text-[#57534E] border-[#E6DDCF]'
               }`}>
                 <span>Market:</span>
                 <strong>{mtfConfluence.regimeLabel || mtfConfluence.marketRegime}</strong>
               </span>
             </div>
-            <p className="text-[11px] text-zinc-400">
+            <p className="text-[11px] text-[#78716C]">
               {trendTf} Tenkan-Kijun Crossover Gate + {entryTf} Ichimoku &amp; Momentum (CCI 40 + Stoch 12,3,3) + Crossover Bar Stop Loss.
             </p>
           </div>
@@ -124,14 +124,14 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               id="signal-regime-dropdown"
               value={signalFilterMode}
               onChange={(e) => onSignalFilterModeChange(e.target.value as any)}
-              className="w-full appearance-none bg-[#181B24] border border-[#2B313F] text-white text-xs font-bold rounded-lg px-3 py-2 pr-8 shadow-sm focus:outline-none focus:border-zinc-400 cursor-pointer min-h-[38px]"
+              className="w-full appearance-none bg-white border border-[#E6DDCF] text-[#1C1917] text-xs font-bold rounded-lg px-3 py-2 pr-8 shadow-sm focus:outline-none focus:border-[#D4AF37] cursor-pointer min-h-[38px]"
             >
               <option value="AUTO">🌐 Auto Live ({mtfConfluence.marketRegime})</option>
               <option value="BUY">🟢 Buy Signals (Macro TK + Bull Ichimoku + Stoch/CCI)</option>
               <option value="SELL">🔴 Sell Signals (Macro Death Cross + Bearish Breakdown)</option>
               <option value="CONSOLIDATION">⚪ Consolidation / Kumo Chop Only</option>
             </select>
-            <ChevronDown className="w-4 h-4 text-zinc-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <ChevronDown className="w-4 h-4 text-[#78716C] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
 
           {/* Quick-select pills */}
@@ -141,8 +141,8 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               onClick={() => onSignalFilterModeChange('AUTO')}
               className={`flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all min-h-[38px] ${
                 signalFilterMode === 'AUTO' 
-                  ? 'bg-zinc-200 text-zinc-950 font-black' 
-                  : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'
+                  ? 'bg-[#1C1917] text-white font-black' 
+                  : 'bg-[#F5EFEB] text-[#57534E] hover:text-[#1C1917] border border-[#E6DDCF]'
               }`}
             >
               Auto
@@ -152,8 +152,8 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               onClick={() => onSignalFilterModeChange('BUY')}
               className={`flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1 min-h-[38px] ${
                 signalFilterMode === 'BUY' 
-                  ? 'bg-emerald-500 text-slate-950 font-black' 
-                  : 'bg-zinc-900 text-emerald-400 hover:bg-emerald-950/40 border border-zinc-800'
+                  ? 'bg-emerald-600 text-white font-black shadow-xs' 
+                  : 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200'
               }`}
             >
               <span>Buy</span>
@@ -164,8 +164,8 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               onClick={() => onSignalFilterModeChange('SELL')}
               className={`flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1 min-h-[38px] ${
                 signalFilterMode === 'SELL' 
-                  ? 'bg-rose-500 text-slate-950 font-black' 
-                  : 'bg-zinc-900 text-rose-400 hover:bg-rose-950/40 border border-zinc-800'
+                  ? 'bg-rose-600 text-white font-black shadow-xs' 
+                  : 'bg-rose-50 text-rose-800 hover:bg-rose-100 border border-rose-200'
               }`}
             >
               <span>Sell</span>
@@ -176,8 +176,8 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               onClick={() => onSignalFilterModeChange('CONSOLIDATION')}
               className={`flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all min-h-[38px] ${
                 signalFilterMode === 'CONSOLIDATION' 
-                  ? 'bg-zinc-300 text-zinc-950 font-black' 
-                  : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800 border border-zinc-800'
+                  ? 'bg-amber-600 text-white font-black shadow-xs' 
+                  : 'bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200'
               }`}
             >
               Chop
@@ -187,9 +187,9 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
       </div>
 
       {/* 2. STRATEGY CHOOSER BAR */}
-      <div className="bg-[#151821] border border-[#262B37] rounded-xl p-2.5 mb-3.5 flex flex-col sm:flex-row items-center justify-between gap-2.5 shadow-inner">
+      <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-xl p-2.5 mb-3.5 flex flex-col sm:flex-row items-center justify-between gap-2.5 shadow-2xs">
         <div className="flex items-center gap-2">
-          <span className="text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">
+          <span className="text-[11px] font-mono font-bold text-[#78716C] uppercase tracking-wider">
             Active Strategy:
           </span>
         </div>
@@ -199,14 +199,14 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
             onClick={() => onSelectStrategy('DUAL_MASTER')}
             className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition-all touch-manipulation min-h-[38px] ${
               activeSignalStrategy === 'DUAL_MASTER'
-                ? 'bg-zinc-200 text-zinc-950 shadow-md font-black'
-                : 'bg-zinc-900/80 text-zinc-400 hover:text-white border border-zinc-800'
+                ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] shadow-2xs font-bold'
+                : 'bg-[#F5EFEB] text-[#57534E] hover:text-[#1C1917] border border-[#E6DDCF]'
             }`}
           >
             <Layers className="w-3.5 h-3.5 shrink-0" />
             <span>{trendTf} TK Cross + {entryTf} Confluence</span>
             <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-              activeSignalStrategy === 'DUAL_MASTER' ? 'bg-zinc-950 text-emerald-400' : 'bg-zinc-800 text-zinc-400'
+              activeSignalStrategy === 'DUAL_MASTER' ? 'bg-[#1C1917] text-white font-bold' : 'bg-white text-[#78716C] border border-[#E6DDCF]'
             }`}>
               9 Pillars
             </span>
@@ -217,14 +217,14 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
             onClick={() => onSelectStrategy('FAST_TK')}
             className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition-all touch-manipulation min-h-[38px] ${
               activeSignalStrategy === 'FAST_TK'
-                ? 'bg-zinc-200 text-zinc-950 shadow-md font-black'
-                : 'bg-zinc-900/80 text-zinc-400 hover:text-white border border-zinc-800'
+                ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] shadow-2xs font-bold'
+                : 'bg-[#F5EFEB] text-[#57534E] hover:text-[#1C1917] border border-[#E6DDCF]'
             }`}
           >
             <Zap className="w-3.5 h-3.5 shrink-0" />
             <span>Fast Tenkan-Kijun Cross + CCI</span>
             <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-              activeSignalStrategy === 'FAST_TK' ? 'bg-zinc-950 text-emerald-400' : 'bg-zinc-800 text-zinc-400'
+              activeSignalStrategy === 'FAST_TK' ? 'bg-[#1C1917] text-white font-bold' : 'bg-white text-[#78716C] border border-[#E6DDCF]'
             }`}>
               Rank #1
             </span>
@@ -233,14 +233,14 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
       </div>
 
       {/* 3. HEADER ROW: CONFLUENCE METER & STATUS BADGE */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-slate-800 pb-3 mb-3">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-[#E6DDCF] pb-3 mb-3">
         <div className="flex items-center gap-3">
           <div className={`p-2.5 rounded-xl border shrink-0 ${
             effectiveRegime === 'BUY'
-              ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+              ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
               : effectiveRegime === 'SELL'
-              ? 'bg-rose-500/10 border-rose-500/30 text-rose-400'
-              : 'bg-amber-500/10 border-amber-500/30 text-amber-400'
+              ? 'bg-rose-50 border-rose-200 text-rose-700'
+              : 'bg-amber-50 border-amber-200 text-[#845306]'
           }`}>
             {effectiveRegime === 'BUY' ? (
               <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -252,30 +252,30 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] sm:text-xs font-bold text-zinc-400 uppercase tracking-wider">
+              <span className="text-[10px] sm:text-xs font-bold text-[#78716C] uppercase tracking-wider">
                 {isDual ? `${trendTf} Macro TK Cross + ${entryTf} Multi-Timeframe Confluence` : 'Fast Tenkan-Kijun Scalp Trigger'}
               </span>
               <span className={`text-[9px] sm:text-[10px] font-mono px-1.5 py-0.5 rounded border font-bold ${
                 effectiveRegime === 'BUY' 
-                  ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40' 
-                  : effectiveRegime === 'SELL'
-                  ? 'bg-rose-950/60 text-rose-300 border-rose-800/40'
-                  : 'bg-zinc-900 text-zinc-300 border-zinc-800'
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-200' 
+                  : effectiveRegime === 'SELL' 
+                  ? 'bg-rose-50 text-rose-800 border-rose-200' 
+                  : 'bg-[#F5EFEB] text-[#57534E] border-[#E6DDCF]'
               }`}>
                 {effectiveRegime === 'BUY' ? 'BULLISH REGIME' : effectiveRegime === 'SELL' ? 'BEARISH REGIME' : 'CHOP / KUMO CLOUD'}
               </span>
             </div>
 
-            <h2 className="text-base sm:text-xl font-black text-white tracking-tight flex items-center gap-2 mt-0.5">
+            <h2 className="text-base sm:text-xl font-black text-[#1C1917] tracking-tight flex items-center gap-2 mt-0.5">
               {effectiveRegime === 'BUY' ? (
                 <>
                   <span>Triple Strategy Confluence:</span>
                   <span className={`font-mono font-black ${
                     totalBuyPillars >= 8 
-                      ? 'text-emerald-400' 
+                      ? 'text-emerald-700' 
                       : totalBuyPillars >= 6 
-                      ? 'text-emerald-300/80' 
-                      : 'text-zinc-400'
+                      ? 'text-emerald-600' 
+                      : 'text-[#78716C]'
                   }`}>
                     {totalBuyPillars} / 9 ({Math.round((totalBuyPillars / 9) * 100)}%)
                   </span>
@@ -285,10 +285,10 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
                   <span>Sell Breakdown Confluence:</span>
                   <span className={`font-mono font-black ${
                     totalSellPillars >= 8 
-                      ? 'text-rose-400' 
+                      ? 'text-rose-700' 
                       : totalSellPillars >= 6 
-                      ? 'text-rose-300/80' 
-                      : 'text-zinc-400'
+                      ? 'text-rose-600' 
+                      : 'text-[#78716C]'
                   }`}>
                     {totalSellPillars} / 9 ({Math.round((totalSellPillars / 9) * 100)}%)
                   </span>
@@ -296,7 +296,7 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               ) : (
                 <>
                   <span>{entryTf} Kumo Cloud Chop Bounds:</span>
-                  <span className="font-mono text-zinc-300">
+                  <span className="font-mono text-[#1C1917]">
                     ${safeFixed(bar1h?.cloudBottom, 1)} – ${safeFixed(bar1h?.cloudTop, 1)}
                   </span>
                 </>
@@ -308,31 +308,31 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
         {/* Visual Alignment Badge */}
         <div className="flex items-center">
           {effectiveRegime === 'BUY' ? (
-            <div className={`w-full sm:w-auto px-3 sm:px-4 py-2 rounded-xl border flex items-center justify-center gap-2 font-black text-xs sm:text-sm shadow-md ${
+            <div className={`w-full sm:w-auto px-3 sm:px-4 py-2 rounded-xl border flex items-center justify-center gap-2 font-black text-xs sm:text-sm shadow-xs ${
               totalBuyPillars >= 8
-                ? 'bg-emerald-950/80 border-emerald-500 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.25)]'
+                ? 'bg-emerald-50 border-emerald-300 text-emerald-800'
                 : totalBuyPillars >= 6
-                ? 'bg-emerald-900/40 border-emerald-500/40 text-emerald-200'
-                : 'bg-zinc-900 border-zinc-800 text-zinc-300'
+                ? 'bg-emerald-50/70 border-emerald-200 text-emerald-800'
+                : 'bg-[#F5EFEB] border-[#E6DDCF] text-[#57534E]'
             }`}>
-              {totalBuyPillars >= 8 && <Flame className="w-4 h-4 text-emerald-400 animate-pulse shrink-0" />}
-              {totalBuyPillars >= 6 && totalBuyPillars < 8 && <Zap className="w-4 h-4 text-emerald-400 shrink-0" />}
+              {totalBuyPillars >= 8 && <Flame className="w-4 h-4 text-emerald-600 animate-pulse shrink-0" />}
+              {totalBuyPillars >= 6 && totalBuyPillars < 8 && <Zap className="w-4 h-4 text-emerald-600 shrink-0" />}
               <span>{totalBuyPillars >= 8 ? '🔥 ALL CONFLUENCES ALIGNED (9/9)' : '🟢 BULLISH STRATEGY ALIGNMENT'}</span>
             </div>
           ) : effectiveRegime === 'SELL' ? (
-            <div className={`w-full sm:w-auto px-3 sm:px-4 py-2 rounded-xl border flex items-center justify-center gap-2 font-black text-xs sm:text-sm shadow-md ${
+            <div className={`w-full sm:w-auto px-3 sm:px-4 py-2 rounded-xl border flex items-center justify-center gap-2 font-black text-xs sm:text-sm shadow-xs ${
               totalSellPillars >= 8
-                ? 'bg-rose-950/80 border-rose-500 text-rose-300 shadow-[0_0_20px_rgba(244,63,94,0.25)]'
+                ? 'bg-rose-50 border-rose-300 text-rose-800'
                 : totalSellPillars >= 6
-                ? 'bg-rose-900/40 border-rose-500/40 text-rose-200'
-                : 'bg-zinc-900 border-zinc-800 text-zinc-300'
+                ? 'bg-rose-50/70 border-rose-200 text-rose-800'
+                : 'bg-[#F5EFEB] border-[#E6DDCF] text-[#57534E]'
             }`}>
-              {totalSellPillars >= 8 ? <AlertTriangle className="w-4 h-4 text-rose-400 animate-pulse shrink-0" /> : <ShieldAlert className="w-4 h-4 text-rose-400 shrink-0" />}
+              {totalSellPillars >= 8 ? <AlertTriangle className="w-4 h-4 text-rose-600 animate-pulse shrink-0" /> : <ShieldAlert className="w-4 h-4 text-rose-600 shrink-0" />}
               <span>{totalSellPillars >= 8 ? '🚨 ALL BEARISH BREAKDOWNS ALIGNED (9/9)' : '🔴 BEARISH STRATEGY ALIGNMENT'}</span>
             </div>
           ) : (
-            <div className="w-full sm:w-auto px-3 sm:px-4 py-2 rounded-xl border border-zinc-800 bg-zinc-900/80 text-zinc-300 flex items-center justify-center gap-2 font-black text-xs sm:text-sm shadow-md">
-              <Cloud className="w-4 h-4 text-zinc-400 shrink-0" />
+            <div className="w-full sm:w-auto px-3 sm:px-4 py-2 rounded-xl border border-[#E6DDCF] bg-[#FAF7F2] text-[#57534E] flex items-center justify-center gap-2 font-black text-xs sm:text-sm shadow-2xs">
+              <Cloud className="w-4 h-4 text-[#78716C] shrink-0" />
               <span>☁️ {entryTf} KUMO CHOP / STAND ASIDE</span>
             </div>
           )}
@@ -340,9 +340,9 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
       </div>
 
       {/* Guidance banner */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-lg p-2.5 sm:p-3 text-xs text-slate-300 mb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
+      <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-lg p-2.5 sm:p-3 text-xs text-[#57534E] mb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
         <div className="flex items-start sm:items-center gap-1.5">
-          <span className="font-bold text-amber-400 shrink-0">Ichimoku Guidance:</span>
+          <span className="font-bold text-[#845306] shrink-0">Ichimoku Guidance:</span>
           <span className="text-[11px] sm:text-xs">
             {effectiveRegime === 'BUY'
               ? (isDual ? mtfConfluence.guidance : fastTkSignal.guidance)
@@ -372,26 +372,26 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
         const diffDollar = isDual ? mtfConfluence?.entryDiffDollar : fastTkSignal?.entryDiffDollar;
 
         return (
-          <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-amber-500/40 rounded-xl p-3 sm:p-4 mb-3 shadow-lg">
+          <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-3 sm:p-4 mb-3 shadow-xs">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
               <div className="flex items-center gap-2.5">
                 <div className={`p-2 rounded-lg shrink-0 border ${
                   isTriggered
-                    ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-400'
-                    : 'bg-amber-500/10 border-amber-500/30 text-amber-400'
+                    ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
+                    : 'bg-amber-50 border-amber-200 text-amber-700'
                 }`}>
                   <Crosshair className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs sm:text-sm font-black text-white">
+                    <span className="text-xs sm:text-sm font-black text-[#1C1917]">
                       Buy Trigger: Over Last 1HR Signal Bar Close
                     </span>
-                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">
                       {isDual ? '1D TK Cross + 1HR 6-Rule Breakout' : '1HR Fast TK Cross Breakout'}
                     </span>
                   </div>
-                  <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">
+                  <p className="text-[11px] sm:text-xs text-[#78716C] mt-0.5">
                     Orders execute strictly when 1HR Gold trades over the close of the candle with all pure Ichimoku confluences.
                   </p>
                 </div>
@@ -401,17 +401,17 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               <div className="flex items-center gap-2 shrink-0">
                 <div className={`px-3 py-1.5 rounded-lg border text-xs font-mono font-bold flex items-center gap-2 ${
                   isTriggered
-                    ? 'bg-emerald-950/80 border-emerald-500 text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.2)]'
-                    : 'bg-amber-950/60 border-amber-500/50 text-amber-300'
+                    ? 'bg-emerald-100 border-emerald-300 text-emerald-800 shadow-xs'
+                    : 'bg-amber-100 border-amber-300 text-amber-800'
                 }`}>
                   {isTriggered ? (
                     <>
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                       <span>TRIGGER CONFIRMED (&gt; ${safeFixed(signalBarClose, 2)})</span>
                     </>
                   ) : (
                     <>
-                      <Clock className="w-4 h-4 text-amber-400 animate-pulse" />
+                      <Clock className="w-4 h-4 text-amber-600 animate-pulse" />
                       <span>AWAITING 1HR BREAKOUT (&gt; ${safeFixed(signalBarClose, 2)})</span>
                     </>
                   )}
@@ -420,22 +420,22 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
             </div>
 
             {/* Metric Comparison Strip */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 pt-3 border-t border-slate-800/80 font-mono text-center">
-              <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-                <span className="text-[10px] text-slate-400 block font-sans">1HR Signal Bar Close</span>
-                <span className="text-xs sm:text-sm font-bold text-white">${safeFixed(signalBarClose, 2)}</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 pt-3 border-t border-[#E6DDCF] font-mono text-center">
+              <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+                <span className="text-[10px] text-[#78716C] block font-sans">1HR Signal Bar Close</span>
+                <span className="text-xs sm:text-sm font-bold text-[#1C1917]">${safeFixed(signalBarClose, 2)}</span>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-                <span className="text-[10px] text-slate-400 block font-sans">Required Trigger</span>
-                <span className="text-xs sm:text-sm font-bold text-amber-300">&gt; ${safeFixed(triggerPrice, 2)}</span>
+              <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+                <span className="text-[10px] text-[#78716C] block font-sans">Required Trigger</span>
+                <span className="text-xs sm:text-sm font-bold text-amber-800">&gt; ${safeFixed(triggerPrice, 2)}</span>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-                <span className="text-[10px] text-slate-400 block font-sans">Current Spot</span>
-                <span className="text-xs sm:text-sm font-bold text-emerald-400">${safeFixed(currentSpotPrice, 2)}</span>
+              <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+                <span className="text-[10px] text-[#78716C] block font-sans">Current Spot</span>
+                <span className="text-xs sm:text-sm font-bold text-emerald-700">${safeFixed(currentSpotPrice, 2)}</span>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-                <span className="text-[10px] text-slate-400 block font-sans">Breakout Delta</span>
-                <span className={`text-xs sm:text-sm font-bold ${(diffDollar ?? 0) > 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+              <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+                <span className="text-[10px] text-[#78716C] block font-sans">Breakout Delta</span>
+                <span className={`text-xs sm:text-sm font-bold ${(diffDollar ?? 0) > 0 ? 'text-emerald-700' : 'text-rose-700'}`}>
                   {(diffDollar ?? 0) > 0 ? `+$${safeFixed(diffDollar, 2)}` : `-$${safeFixed(Math.abs(diffDollar ?? 0), 2)}`}
                 </span>
               </div>
@@ -451,26 +451,26 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
         const sellDiff = isDual ? mtfConfluence?.sellDiffDollar : fastTkSignal?.sellDiffDollar;
 
         return (
-          <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-rose-500/40 rounded-xl p-3 sm:p-4 mb-3 shadow-lg">
+          <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-3 sm:p-4 mb-3 shadow-xs">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
               <div className="flex items-center gap-2.5">
                 <div className={`p-2 rounded-lg shrink-0 border ${
                   isSellTriggered
-                    ? 'bg-rose-500/20 border-rose-500/40 text-rose-400'
-                    : 'bg-amber-500/10 border-amber-500/30 text-amber-400'
+                    ? 'bg-rose-50 border-rose-200 text-rose-700'
+                    : 'bg-amber-50 border-amber-200 text-amber-700'
                 }`}>
                   <Crosshair className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs sm:text-sm font-black text-white">
+                    <span className="text-xs sm:text-sm font-black text-[#1C1917]">
                       Sell Breakdown Trigger: Under Last 1HR Signal Bar Close
                     </span>
-                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-300">
                       {isDual ? '1D TK Death Cross + 1HR Bearish Ichimoku' : '1HR Fast TK Death Cross'}
                     </span>
                   </div>
-                  <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">
+                  <p className="text-[11px] sm:text-xs text-[#78716C] mt-0.5">
                     Orders execute strictly when 1HR Gold trades under the close of the candle with all bearish confluences.
                   </p>
                 </div>
@@ -480,17 +480,17 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               <div className="flex items-center gap-2 shrink-0">
                 <div className={`px-3 py-1.5 rounded-lg border text-xs font-mono font-bold flex items-center gap-2 ${
                   isSellTriggered
-                    ? 'bg-rose-950/80 border-rose-500 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.2)]'
-                    : 'bg-amber-950/60 border-amber-500/50 text-amber-300'
+                    ? 'bg-rose-100 border-rose-300 text-rose-800 shadow-xs'
+                    : 'bg-amber-100 border-amber-300 text-amber-800'
                 }`}>
                   {isSellTriggered ? (
                     <>
-                      <CheckCircle2 className="w-4 h-4 text-rose-400" />
+                      <CheckCircle2 className="w-4 h-4 text-rose-600" />
                       <span>BREAKDOWN TRIGGERED (&lt; ${safeFixed(sellSignalBarClose, 2)})</span>
                     </>
                   ) : (
                     <>
-                      <Clock className="w-4 h-4 text-amber-400 animate-pulse" />
+                      <Clock className="w-4 h-4 text-amber-600 animate-pulse" />
                       <span>AWAITING 1HR BREAKDOWN (&lt; ${safeFixed(sellSignalBarClose, 2)})</span>
                     </>
                   )}
@@ -499,22 +499,22 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
             </div>
 
             {/* Metric Comparison Strip */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 pt-3 border-t border-slate-800/80 font-mono text-center">
-              <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-                <span className="text-[10px] text-slate-400 block font-sans">1HR Signal Bar Close</span>
-                <span className="text-xs sm:text-sm font-bold text-white">${safeFixed(sellSignalBarClose, 2)}</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 pt-3 border-t border-[#E6DDCF] font-mono text-center">
+              <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+                <span className="text-[10px] text-[#78716C] block font-sans">1HR Signal Bar Close</span>
+                <span className="text-xs sm:text-sm font-bold text-[#1C1917]">${safeFixed(sellSignalBarClose, 2)}</span>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-                <span className="text-[10px] text-slate-400 block font-sans">Required Breakdown</span>
-                <span className="text-xs sm:text-sm font-bold text-amber-300">&lt; ${safeFixed(sellTriggerPrice, 2)}</span>
+              <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+                <span className="text-[10px] text-[#78716C] block font-sans">Required Breakdown</span>
+                <span className="text-xs sm:text-sm font-bold text-amber-800">&lt; ${safeFixed(sellTriggerPrice, 2)}</span>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-                <span className="text-[10px] text-slate-400 block font-sans">Current Spot</span>
-                <span className="text-xs sm:text-sm font-bold text-rose-400">${safeFixed(currentSpotPrice, 2)}</span>
+              <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+                <span className="text-[10px] text-[#78716C] block font-sans">Current Spot</span>
+                <span className="text-xs sm:text-sm font-bold text-rose-700">${safeFixed(currentSpotPrice, 2)}</span>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-                <span className="text-[10px] text-slate-400 block font-sans">Breakdown Delta</span>
-                <span className={`text-xs sm:text-sm font-bold ${(sellDiff ?? 0) > 0 ? 'text-rose-400' : 'text-emerald-400'}`}>
+              <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+                <span className="text-[10px] text-[#78716C] block font-sans">Breakdown Delta</span>
+                <span className={`text-xs sm:text-sm font-bold ${(sellDiff ?? 0) > 0 ? 'text-rose-700' : 'text-emerald-700'}`}>
                   {(sellDiff ?? 0) > 0 ? `-$${safeFixed(sellDiff, 2)}` : `+$${safeFixed(Math.abs(sellDiff ?? 0), 2)}`}
                 </span>
               </div>
@@ -533,40 +533,40 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
         const exitDiff = isDual ? mtfConfluence?.exitDiffDollar : fastTkSignal?.exitDiffDollar;
 
         return (
-          <div className={`rounded-xl p-3 sm:p-4 mb-3 shadow-lg border transition-all ${
+          <div className={`rounded-xl p-3 sm:p-4 mb-3 shadow-xs border transition-all ${
             isExitTriggered
-              ? 'bg-rose-950/40 border-rose-500 shadow-[0_0_20px_rgba(244,63,94,0.25)]'
+              ? 'bg-rose-50 border-rose-300 shadow-xs'
               : hasReversal
-              ? 'bg-amber-950/30 border-amber-500/60'
-              : 'bg-slate-950/80 border-slate-800'
+              ? 'bg-amber-50/70 border-amber-300'
+              : 'bg-[#FFFDF7] border-[#E6DDCF]'
           }`}>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
               <div className="flex items-center gap-2.5">
                 <div className={`p-2 rounded-lg shrink-0 border ${
                   isExitTriggered
-                    ? 'bg-rose-500/20 border-rose-500/50 text-rose-400'
+                    ? 'bg-rose-100 border-rose-300 text-rose-700'
                     : hasReversal
-                    ? 'bg-amber-500/20 border-amber-500/40 text-amber-400'
-                    : 'bg-slate-800/80 border-slate-700 text-slate-300'
+                    ? 'bg-amber-100 border-amber-300 text-amber-700'
+                    : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#57534E]'
                 }`}>
                   <LogOut className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs sm:text-sm font-black text-white">
+                    <span className="text-xs sm:text-sm font-black text-[#1C1917]">
                       Exit Signal Rule: Below First Closed Bar After Reversal Cross
                     </span>
                     <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border ${
                       isExitTriggered
-                        ? 'bg-rose-900/60 text-rose-200 border-rose-700'
+                        ? 'bg-rose-100 text-rose-800 border-rose-300'
                         : hasReversal
-                        ? 'bg-amber-900/60 text-amber-200 border-amber-700'
-                        : 'bg-slate-800 text-slate-300 border-slate-700'
+                        ? 'bg-amber-100 text-amber-800 border-amber-300'
+                        : 'bg-stone-100 text-[#57534E] border-[#E6DDCF]'
                     }`}>
                       {entryTf} Tenkan &lt; Kijun Cross
                     </span>
                   </div>
-                  <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">
+                  <p className="text-[11px] sm:text-xs text-[#78716C] mt-0.5">
                     {hasReversal
                       ? isExitTriggered
                         ? `🚨 REVERSAL EXIT TRIGGERED: Price has broken below the first closed ${entryTf} bar ($${safeFixed(reversalBarClose, 2)}) after the Tenkan-Kijun reversal cross. Exit long position immediately!`
@@ -580,24 +580,24 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               <div className="flex items-center gap-2 shrink-0">
                 <div className={`px-3 py-1.5 rounded-lg border text-xs font-mono font-bold flex items-center gap-2 ${
                   isExitTriggered
-                    ? 'bg-rose-950/90 border-rose-500 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.3)] animate-pulse'
+                    ? 'bg-rose-100 border-rose-300 text-rose-800 shadow-xs animate-pulse'
                     : hasReversal
-                    ? 'bg-amber-950/70 border-amber-500 text-amber-300'
-                    : 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300'
+                    ? 'bg-amber-100 border-amber-300 text-amber-800'
+                    : 'bg-emerald-100 border-emerald-300 text-emerald-800'
                 }`}>
                   {isExitTriggered ? (
                     <>
-                      <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+                      <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
                       <span>EXIT TRIGGERED (&lt; ${safeFixed(reversalBarClose, 2)})</span>
                     </>
                   ) : hasReversal ? (
                     <>
-                      <Clock className="w-4 h-4 text-amber-400 shrink-0 animate-pulse" />
+                      <Clock className="w-4 h-4 text-amber-600 shrink-0 animate-pulse" />
                       <span>HOLDING: AWAITING BREAKDOWN (&lt; ${safeFixed(reversalBarClose, 2)})</span>
                     </>
                   ) : (
                     <>
-                      <Shield className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <Shield className="w-4 h-4 text-emerald-600 shrink-0" />
                       <span>NO REVERSAL CROSS (HOLD LONG)</span>
                     </>
                   )}
@@ -606,33 +606,33 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
             </div>
 
             {/* Metric Comparison Strip */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 pt-3 border-t border-slate-800/80 font-mono text-center">
-              <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-                <span className="text-[10px] text-slate-400 block font-sans">Reversal Cross Status</span>
-                <span className={`text-xs sm:text-sm font-bold ${hasReversal ? 'text-amber-400' : 'text-emerald-400'}`}>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 pt-3 border-t border-[#E6DDCF] font-mono text-center">
+              <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+                <span className="text-[10px] text-[#78716C] block font-sans">Reversal Cross Status</span>
+                <span className={`text-xs sm:text-sm font-bold ${hasReversal ? 'text-amber-700' : 'text-emerald-700'}`}>
                   {hasReversal ? 'Death Cross Active' : 'Tenkan ≥ Kijun (Safe)'}
                 </span>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-                <span className="text-[10px] text-slate-400 block font-sans">1st Reversal Bar Close</span>
-                <span className="text-xs sm:text-sm font-bold text-white">
+              <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+                <span className="text-[10px] text-[#78716C] block font-sans">1st Reversal Bar Close</span>
+                <span className="text-xs sm:text-sm font-bold text-[#1C1917]">
                   {hasReversal ? `$${safeFixed(reversalBarClose, 2)}` : 'N/A (No Cross)'}
                 </span>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-                <span className="text-[10px] text-slate-400 block font-sans">Required Exit Trigger</span>
-                <span className={`text-xs sm:text-sm font-bold ${hasReversal ? 'text-rose-400' : 'text-slate-400'}`}>
+              <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+                <span className="text-[10px] text-[#78716C] block font-sans">Required Exit Trigger</span>
+                <span className={`text-xs sm:text-sm font-bold ${hasReversal ? 'text-rose-700' : 'text-[#78716C]'}`}>
                   {hasReversal ? `< $${safeFixed(exitTriggerPrice, 2)}` : 'Awaiting Cross'}
                 </span>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-                <span className="text-[10px] text-slate-400 block font-sans">Exit Delta / Buffer</span>
+              <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+                <span className="text-[10px] text-[#78716C] block font-sans">Exit Delta / Buffer</span>
                 <span className={`text-xs sm:text-sm font-bold ${
                   !hasReversal 
-                    ? 'text-emerald-400' 
+                    ? 'text-emerald-700' 
                     : isExitTriggered 
-                    ? 'text-rose-400' 
-                    : 'text-amber-400'
+                    ? 'text-rose-700' 
+                    : 'text-amber-700'
                 }`}>
                   {!hasReversal 
                     ? `+$${safeFixed((currentSpotPrice - (bar1h?.kijun ?? currentSpotPrice)), 1)} to Kijun`
@@ -647,43 +647,43 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
       })()}
 
       {effectiveRegime === 'CONSOLIDATION' && (
-        <div className="bg-slate-950 border border-amber-500/30 rounded-xl p-3 sm:p-4 mb-3 shadow-lg">
+        <div className="bg-[#FFFDF7] border border-amber-300 rounded-xl p-3 sm:p-4 mb-3 shadow-xs">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
-              <div className="p-2 rounded-lg shrink-0 border bg-amber-500/10 border-amber-500/30 text-amber-400">
+              <div className="p-2 rounded-lg shrink-0 border bg-amber-50 border-amber-200 text-amber-700">
                 <Cloud className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-xs sm:text-sm font-black text-white">
+                <span className="text-xs sm:text-sm font-black text-[#1C1917]">
                   1HR Kumo Cloud Consolidation Range Boundaries
                 </span>
-                <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">
+                <p className="text-[11px] sm:text-xs text-[#78716C] mt-0.5">
                   Gold is currently coiling inside the 1HR Ichimoku Kumo Cloud. Stand aside or wait for 1D TK Crossover.
                 </p>
               </div>
             </div>
-            <div className="px-3 py-1.5 rounded-lg border border-amber-500/50 bg-amber-950/60 text-amber-300 text-xs font-mono font-bold flex items-center gap-1.5">
-              <Clock className="w-4 h-4 text-amber-400" />
+            <div className="px-3 py-1.5 rounded-lg border border-amber-300 bg-amber-100 text-amber-800 text-xs font-mono font-bold flex items-center gap-1.5">
+              <Clock className="w-4 h-4 text-amber-600" />
               <span>STAND ASIDE (NO DIRECTIONAL EDGE)</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 pt-3 border-t border-slate-800/80 font-mono text-center">
-            <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-              <span className="text-[10px] text-slate-400 block font-sans">1HR Kumo Resistance</span>
-              <span className="text-xs sm:text-sm font-bold text-rose-300">${safeFixed(bar1h?.cloudTop, 2)}</span>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 pt-3 border-t border-[#E6DDCF] font-mono text-center">
+            <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+              <span className="text-[10px] text-[#78716C] block font-sans">1HR Kumo Resistance</span>
+              <span className="text-xs sm:text-sm font-bold text-rose-700">${safeFixed(bar1h?.cloudTop, 2)}</span>
             </div>
-            <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-              <span className="text-[10px] text-slate-400 block font-sans">1HR Kijun Equilibrium Magnet</span>
-              <span className="text-xs sm:text-sm font-bold text-amber-300">${safeFixed(bar1h?.kijun, 2)}</span>
+            <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+              <span className="text-[10px] text-[#78716C] block font-sans">1HR Kijun Equilibrium Magnet</span>
+              <span className="text-xs sm:text-sm font-bold text-amber-800">${safeFixed(bar1h?.kijun, 2)}</span>
             </div>
-            <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-              <span className="text-[10px] text-slate-400 block font-sans">1HR Kumo Floor Support</span>
-              <span className="text-xs sm:text-sm font-bold text-emerald-300">${safeFixed(bar1h?.cloudBottom, 2)}</span>
+            <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+              <span className="text-[10px] text-[#78716C] block font-sans">1HR Kumo Floor Support</span>
+              <span className="text-xs sm:text-sm font-bold text-emerald-700">${safeFixed(bar1h?.cloudBottom, 2)}</span>
             </div>
-            <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-2">
-              <span className="text-[10px] text-slate-400 block font-sans">1HR Kumo Cloud Thickness</span>
-              <span className="text-xs sm:text-sm font-bold text-white">
+            <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+              <span className="text-[10px] text-[#78716C] block font-sans">1HR Kumo Cloud Thickness</span>
+              <span className="text-xs sm:text-sm font-bold text-[#1C1917]">
                 ${safeFixed(Math.abs((bar1h?.cloudTop ?? 0) - (bar1h?.cloudBottom ?? 0)), 2)}
               </span>
             </div>
@@ -693,13 +693,13 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
 
       {/* 5. FAST TK CHECKLIST CARD (Shown when Fast TK is selected) */}
       {!isDual && (
-        <div className="bg-slate-950 border border-slate-800 rounded-xl p-3 mb-3">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-2 mb-2">
-            <span className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-              <Zap className="w-3.5 h-3.5 text-emerald-400" />
+        <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-3 mb-3">
+          <div className="flex items-center justify-between border-b border-[#E6DDCF] pb-2 mb-2">
+            <span className="text-xs font-bold text-[#1C1917] flex items-center gap-1.5">
+              <Zap className="w-3.5 h-3.5 text-amber-600" />
               1HR Pure Tenkan-Kijun Cross Trigger Checklist
             </span>
-            <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40">
+            <span className="text-[10px] font-mono text-emerald-800 font-bold bg-emerald-100 px-2 py-0.5 rounded border border-emerald-300">
               {effectiveRegime === 'BUY'
                 ? (fastTkSignal?.tkCross ? 'BULLISH TK CROSS ACTIVE' : 'AWAITING TK GOLDEN CROSS')
                 : (fastTkSignal?.tkDeathCross ? 'BEARISH TK CROSS ACTIVE' : 'AWAITING TK DEATH CROSS')}
@@ -710,19 +710,19 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
             {effectiveRegime === 'BUY' ? (
               <>
                 <div className={`flex items-center justify-between p-2 rounded-lg border ${
-                  fastTkSignal?.tkCross ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-900 border-slate-800 text-slate-400'
+                  fastTkSignal?.tkCross ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                 }`}>
                   <span className="flex items-center gap-1.5">
-                    {fastTkSignal?.tkCross ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                    {fastTkSignal?.tkCross ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                     1. 1HR Tenkan &gt;= Kijun (Golden Cross)
                   </span>
                   <span>{safeFixed(fastTkSignal?.tenkan, 2)} &gt;= {safeFixed(fastTkSignal?.kijun, 2)}</span>
                 </div>
                 <div className={`flex items-center justify-between p-2 rounded-lg border ${
-                  (currentSpotPrice >= (fastTkSignal?.kijun ?? 0)) ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-900 border-slate-800 text-slate-400'
+                  (currentSpotPrice >= (fastTkSignal?.kijun ?? 0)) ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                 }`}>
                   <span className="flex items-center gap-1.5">
-                    {(currentSpotPrice >= (fastTkSignal?.kijun ?? 0)) ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                    {(currentSpotPrice >= (fastTkSignal?.kijun ?? 0)) ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                     2. 1HR Price &gt;= Kijun-sen Support
                   </span>
                   <span>${safeFixed(currentSpotPrice, 2)} &gt;= ${safeFixed(fastTkSignal?.kijun, 2)}</span>
@@ -731,19 +731,19 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
             ) : (
               <>
                 <div className={`flex items-center justify-between p-2 rounded-lg border ${
-                  fastTkSignal?.tkDeathCross ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-900 border-slate-800 text-slate-400'
+                  fastTkSignal?.tkDeathCross ? 'bg-rose-50 border-rose-300 text-rose-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                 }`}>
                   <span className="flex items-center gap-1.5">
-                    {fastTkSignal?.tkDeathCross ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                    {fastTkSignal?.tkDeathCross ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                     1. 1HR Tenkan &lt;= Kijun (Death Cross)
                   </span>
                   <span>{safeFixed(fastTkSignal?.tenkan, 2)} &lt;= {safeFixed(fastTkSignal?.kijun, 2)}</span>
                 </div>
                 <div className={`flex items-center justify-between p-2 rounded-lg border ${
-                  (currentSpotPrice <= (fastTkSignal?.kijun ?? 0)) ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-900 border-slate-800 text-slate-400'
+                  (currentSpotPrice <= (fastTkSignal?.kijun ?? 0)) ? 'bg-rose-50 border-rose-300 text-rose-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                 }`}>
                   <span className="flex items-center gap-1.5">
-                    {(currentSpotPrice <= (fastTkSignal?.kijun ?? 0)) ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                    {(currentSpotPrice <= (fastTkSignal?.kijun ?? 0)) ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                     2. 1HR Price &lt;= Kijun-sen Resistance
                   </span>
                   <span>${safeFixed(currentSpotPrice, 2)} &lt;= ${safeFixed(fastTkSignal?.kijun, 2)}</span>
@@ -755,13 +755,13 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
       )}
 
       {/* 6. MOBILE TIMEFRAME SELECTOR */}
-      <div className="md:hidden flex items-center justify-between bg-slate-950 rounded-lg p-1 border border-slate-800 mb-3">
-        <span className="text-[10px] font-mono text-slate-500 pl-2">TIMEFRAME:</span>
+      <div className="md:hidden flex items-center justify-between bg-[#FAF7F2] rounded-lg p-1 border border-[#E6DDCF] mb-3">
+        <span className="text-[10px] font-mono text-[#78716C] pl-2">TIMEFRAME:</span>
         <div className="flex items-center gap-1">
           <button
             onClick={() => setMobilePillarView('ALL')}
             className={`px-2.5 py-1.5 rounded text-xs font-bold transition-colors touch-manipulation ${
-              mobilePillarView === 'ALL' ? 'bg-amber-500 text-slate-950 font-black' : 'text-slate-400'
+              mobilePillarView === 'ALL' ? 'bg-[#1C1917] text-white font-black' : 'text-[#78716C]'
             }`}
           >
             Both (7)
@@ -769,7 +769,7 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
           <button
             onClick={() => setMobilePillarView('1HR')}
             className={`px-2.5 py-1.5 rounded text-xs font-bold transition-colors touch-manipulation ${
-              mobilePillarView === '1HR' ? 'bg-amber-500 text-slate-950 font-black' : 'text-slate-400'
+              mobilePillarView === '1HR' ? 'bg-[#1C1917] text-white font-black' : 'text-[#78716C]'
             }`}
           >
             {entryTf} ({effectiveRegime === 'BUY' ? rules1hBuyPassed : rules1hSellPassed}/6)
@@ -777,7 +777,7 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
           <button
             onClick={() => setMobilePillarView('1D')}
             className={`px-2.5 py-1.5 rounded text-xs font-bold transition-colors touch-manipulation ${
-              mobilePillarView === '1D' ? 'bg-amber-500 text-slate-950 font-black' : 'text-slate-400'
+              mobilePillarView === '1D' ? 'bg-[#1C1917] text-white font-black' : 'text-[#78716C]'
             }`}
           >
             {trendTf} ({effectiveRegime === 'BUY' ? (dailyCrossBuy ? 1 : 0) : (dailyCrossSell ? 1 : 0)}/1)
@@ -789,20 +789,20 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
         {/* LEFT COLUMN: ENTRY TIMEFRAME (6 PURE ICHIMOKU RULES) */}
         {(mobilePillarView === 'ALL' || mobilePillarView === '1HR') && (
-          <div className="bg-slate-900/60 border border-slate-800/80 rounded-xl p-3 sm:p-4">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2 mb-2.5">
+          <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-3 sm:p-4 shadow-xs">
+            <div className="flex items-center justify-between border-b border-[#E6DDCF] pb-2 mb-2.5">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-xs sm:text-sm font-black text-white">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-xs sm:text-sm font-black text-[#1C1917]">
                   {entryTf} Entry Timeframe {effectiveRegime === 'BUY' ? '(All 6 Ichimoku Rules)' : effectiveRegime === 'SELL' ? '(All 6 Bearish Rules)' : '(Range Matrix)'}
                 </span>
               </div>
               <span className={`text-[11px] sm:text-xs font-mono font-bold px-2 py-0.5 rounded ${
                 effectiveRegime === 'BUY'
-                  ? (rules1hBuyPassed >= 6 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-slate-800 text-slate-300')
+                  ? (rules1hBuyPassed >= 6 ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-[#FAF7F2] text-[#57534E] border border-[#E6DDCF]')
                   : effectiveRegime === 'SELL'
-                  ? (rules1hSellPassed >= 6 ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-slate-800 text-slate-300')
-                  : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                  ? (rules1hSellPassed >= 6 ? 'bg-rose-100 text-rose-800 border border-rose-300' : 'bg-[#FAF7F2] text-[#57534E] border border-[#E6DDCF]')
+                  : 'bg-amber-100 text-amber-800 border border-amber-300'
               }`}>
                 {effectiveRegime === 'BUY'
                   ? `${rules1hBuyPassed} / 6 Rules Met`
@@ -814,17 +814,17 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
 
             {/* Entry Metric Chips */}
             <div className="grid grid-cols-3 gap-1.5 text-[10px] sm:text-[11px] font-mono mb-2.5">
-              <div className="p-1 sm:p-1.5 rounded bg-slate-950/60 border border-slate-800/80 text-center">
-                <span className="text-slate-500 block text-[8px] sm:text-[9px]">{entryTf} Tenkan / Kijun</span>
-                <span className="text-slate-200 font-bold">${safeFixed(bar1h?.tenkan, 1)} / ${safeFixed(bar1h?.kijun, 1)}</span>
+              <div className="p-1 sm:p-1.5 rounded bg-[#FAF7F2] border border-[#E6DDCF] text-center">
+                <span className="text-[#78716C] block text-[8px] sm:text-[9px]">{entryTf} Tenkan / Kijun</span>
+                <span className="text-[#1C1917] font-bold">${safeFixed(bar1h?.tenkan, 1)} / ${safeFixed(bar1h?.kijun, 1)}</span>
               </div>
-              <div className="p-1 sm:p-1.5 rounded bg-slate-950/60 border border-slate-800/80 text-center">
-                <span className="text-slate-500 block text-[8px] sm:text-[9px]">{entryTf} Kumo Cloud Bounds</span>
-                <span className="text-slate-200 font-bold">${safeFixed(bar1h?.cloudBottom, 1)} - ${safeFixed(bar1h?.cloudTop, 1)}</span>
+              <div className="p-1 sm:p-1.5 rounded bg-[#FAF7F2] border border-[#E6DDCF] text-center">
+                <span className="text-[#78716C] block text-[8px] sm:text-[9px]">{entryTf} Kumo Cloud Bounds</span>
+                <span className="text-[#1C1917] font-bold">${safeFixed(bar1h?.cloudBottom, 1)} - ${safeFixed(bar1h?.cloudTop, 1)}</span>
               </div>
-              <div className="p-1 sm:p-1.5 rounded bg-slate-950/60 border border-slate-800/80 text-center">
-                <span className="text-slate-500 block text-[8px] sm:text-[9px]">{entryTf} Chikou vs Close[-26]</span>
-                <span className={`font-bold ${bar1h?.f4_chikouBullish ? 'text-emerald-400' : 'text-rose-400'}`}>
+              <div className="p-1 sm:p-1.5 rounded bg-[#FAF7F2] border border-[#E6DDCF] text-center">
+                <span className="text-[#78716C] block text-[8px] sm:text-[9px]">{entryTf} Chikou vs Close[-26]</span>
+                <span className={`font-bold ${bar1h?.f4_chikouBullish ? 'text-emerald-700' : 'text-rose-700'}`}>
                   {bar1h?.f4_chikouBullish ? 'UPTREND' : 'RESIST'}
                 </span>
               </div>
@@ -835,70 +835,70 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               {effectiveRegime === 'BUY' ? (
                 <>
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.f1_tkCross ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.f1_tkCross ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.f1_tkCross ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.f1_tkCross ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       1. Tenkan &gt;= Kijun Golden Cross
                     </span>
                     <span className="font-mono text-[10px]">{bar1h?.f1_tkCross ? 'BULLISH' : 'BEARISH'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.f2_priceAboveCloud ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.f2_priceAboveCloud ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.f2_priceAboveCloud ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.f2_priceAboveCloud ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       2. Price (Close) &gt; Cloud Top (Above Kumo)
                     </span>
                     <span className="font-mono text-[10px]">{bar1h?.f2_priceAboveCloud ? 'ABOVE KUMO' : 'INSIDE/BELOW'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.f3_tkAboveCloud ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.f3_tkAboveCloud ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.f3_tkAboveCloud ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.f3_tkAboveCloud ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       3. Tenkan &amp; Kijun Both &gt; Cloud Top
                     </span>
                     <span className="font-mono text-[10px]">{bar1h?.f3_tkAboveCloud ? 'BULLISH ZONE' : 'SUB-CLOUD'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.f4_chikouBullish ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.f4_chikouBullish ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.f4_chikouBullish ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.f4_chikouBullish ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       4. Chikou Macro Uptrend (Close &gt; Close[-26])
                     </span>
                     <span className="font-mono text-[10px]">{bar1h?.f4_chikouBullish ? 'CLEAR' : 'RESISTANCE'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.f5_futureCloudGreen ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.f5_futureCloudGreen ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.f5_futureCloudGreen ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.f5_futureCloudGreen ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       5. Future Kumo Bullish Green (Span A &gt;= B)
                     </span>
                     <span className="font-mono text-[10px]">{bar1h?.f5_futureCloudGreen ? 'GREEN' : 'RED'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.f6_kumoClearance ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.f6_kumoClearance ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.f6_kumoClearance ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.f6_kumoClearance ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       6. Clean Kumo Clearance (Low &gt;= Cloud Bottom)
                     </span>
                     <span className="font-mono text-[10px]">{bar1h?.f6_kumoClearance ? 'CLEAR' : 'CHOPPY'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.f7_cciBullish ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.f7_cciBullish ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.f7_cciBullish ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.f7_cciBullish ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       7. ⚡ CCI (40) &gt; 100 (Momentum Expansion)
                     </span>
                     <span className="font-mono text-[10px] font-bold">
@@ -907,10 +907,10 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.f8_stochBullish ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.f8_stochBullish ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.f8_stochBullish ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.f8_stochBullish ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       8. ⚡ Stoch (12,3,3) Main &gt; Signal &amp; &gt; 80
                     </span>
                     <span className="font-mono text-[10px] font-bold">
@@ -918,12 +918,12 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between p-2 rounded-lg border min-h-[38px] bg-zinc-950/70 border-zinc-800 text-zinc-300">
-                    <span className="flex items-center gap-1.5 text-emerald-300">
-                      <Shield className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <div className="flex items-center justify-between p-2 rounded-lg border min-h-[38px] bg-amber-50 border-amber-300 text-amber-900">
+                    <span className="flex items-center gap-1.5 text-amber-800">
+                      <Shield className="w-3.5 h-3.5 text-amber-600 shrink-0" />
                       9. 🛡️ Stop Loss: Bottom of TK Crossover Bar
                     </span>
-                    <span className="font-mono text-[10px] font-bold text-emerald-400">
+                    <span className="font-mono text-[10px] font-bold text-amber-900">
                       ${safeFixed(mtfConfluence?.tkCrossoverStopLoss ?? dynamicStopLoss, 2)}
                     </span>
                   </div>
@@ -931,70 +931,70 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               ) : effectiveRegime === 'SELL' ? (
                 <>
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.sf1_tkDeathCross ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.sf1_tkDeathCross ? 'bg-rose-50 border-rose-300 text-rose-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.sf1_tkDeathCross ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.sf1_tkDeathCross ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       1. Tenkan &lt;= Kijun Death Cross
                     </span>
                     <span className="font-mono text-[10px]">{bar1h?.sf1_tkDeathCross ? 'DEATH CROSS' : 'BULLISH'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.sf2_priceBelowCloud ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.sf2_priceBelowCloud ? 'bg-rose-50 border-rose-300 text-rose-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.sf2_priceBelowCloud ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.sf2_priceBelowCloud ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       2. Price (Close) &lt; Cloud Bottom (Below Kumo)
                     </span>
                     <span className="font-mono text-[10px]">{bar1h?.sf2_priceBelowCloud ? 'BELOW KUMO' : 'INSIDE/ABOVE'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.sf3_tkBelowCloud ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.sf3_tkBelowCloud ? 'bg-rose-50 border-rose-300 text-rose-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.sf3_tkBelowCloud ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.sf3_tkBelowCloud ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       3. Tenkan &amp; Kijun Both &lt; Cloud Bottom
                     </span>
                     <span className="font-mono text-[10px]">{bar1h?.sf3_tkBelowCloud ? 'BEARISH ZONE' : 'SUPER-CLOUD'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.sf4_chikouBearish ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.sf4_chikouBearish ? 'bg-rose-50 border-rose-300 text-rose-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.sf4_chikouBearish ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.sf4_chikouBearish ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       4. Chikou Macro Downtrend (Close &lt; Close[-26])
                     </span>
                     <span className="font-mono text-[10px]">{bar1h?.sf4_chikouBearish ? 'DOWNTREND' : 'UPTREND'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.sf5_futureCloudRed ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.sf5_futureCloudRed ? 'bg-rose-50 border-rose-300 text-rose-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.sf5_futureCloudRed ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.sf5_futureCloudRed ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       5. Future Kumo Bearish Red (Span A &lt; B)
                     </span>
                     <span className="font-mono text-[10px]">{bar1h?.sf5_futureCloudRed ? 'RED' : 'GREEN'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.sf6_kumoClearance ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.sf6_kumoClearance ? 'bg-rose-50 border-rose-300 text-rose-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.sf6_kumoClearance ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.sf6_kumoClearance ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       6. Clean Kumo Clearance Below (High &lt;= Cloud Top)
                     </span>
                     <span className="font-mono text-[10px]">{bar1h?.sf6_kumoClearance ? 'CLEAR' : 'CHOPPY'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.sf7_cciBearish ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.sf7_cciBearish ? 'bg-rose-50 border-rose-300 text-rose-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.sf7_cciBearish ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.sf7_cciBearish ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       7. ⚡ CCI (40) &lt; -100 (Bearish Momentum)
                     </span>
                     <span className="font-mono text-[10px] font-bold">
@@ -1003,10 +1003,10 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1h?.sf8_stochBearish ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1h?.sf8_stochBearish ? 'bg-rose-50 border-rose-300 text-rose-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1h?.sf8_stochBearish ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1h?.sf8_stochBearish ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       8. ⚡ Stoch (12,3,3) Main &lt; Signal &amp; &lt; 20
                     </span>
                     <span className="font-mono text-[10px] font-bold">
@@ -1014,35 +1014,35 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between p-2 rounded-lg border min-h-[38px] bg-zinc-950/70 border-zinc-800 text-zinc-300">
-                    <span className="flex items-center gap-1.5 text-rose-300">
-                      <ShieldAlert className="w-3.5 h-3.5 text-rose-400 shrink-0" />
+                  <div className="flex items-center justify-between p-2 rounded-lg border min-h-[38px] bg-rose-50 border-rose-300 text-rose-900">
+                    <span className="flex items-center gap-1.5 text-rose-800">
+                      <ShieldAlert className="w-3.5 h-3.5 text-rose-600 shrink-0" />
                       9. 🛡️ Stop Loss: Top of TK Crossover Bar
                     </span>
-                    <span className="font-mono text-[10px] font-bold text-rose-400">
+                    <span className="font-mono text-[10px] font-bold text-rose-800">
                       ${safeFixed(mtfConfluence?.tkCrossoverShortStopLoss ?? dynamicShortStopLoss, 2)}
                     </span>
                   </div>
                 </>
               ) : (
                 <>
-                  <div className="flex items-center justify-between p-2 rounded-lg border bg-amber-950/20 border-amber-500/30 text-amber-200 min-h-[38px]">
+                  <div className="flex items-center justify-between p-2 rounded-lg border bg-amber-50 border-amber-300 text-amber-900 min-h-[38px]">
                     <span className="flex items-center gap-1.5">
-                      <Cloud className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                      <Cloud className="w-3.5 h-3.5 text-amber-600 shrink-0" />
                       1. Price in 1HR Kumo Chop Zone
                     </span>
                     <span className="font-mono text-[10px]">${safeFixed(bar1h?.close, 2)}</span>
                   </div>
-                  <div className="flex items-center justify-between p-2 rounded-lg border bg-slate-900 border-slate-800 text-slate-300 min-h-[38px]">
+                  <div className="flex items-center justify-between p-2 rounded-lg border bg-[#FAF7F2] border-[#E6DDCF] text-[#57534E] min-h-[38px]">
                     <span className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <Clock className="w-3.5 h-3.5 text-[#78716C] shrink-0" />
                       2. Kumo Cloud Span
                     </span>
                     <span className="font-mono text-[10px]">${safeFixed(bar1h?.cloudBottom, 1)} - ${safeFixed(bar1h?.cloudTop, 1)}</span>
                   </div>
-                  <div className="flex items-center justify-between p-2 rounded-lg border bg-slate-900 border-slate-800 text-slate-300 min-h-[38px]">
+                  <div className="flex items-center justify-between p-2 rounded-lg border bg-[#FAF7F2] border-[#E6DDCF] text-[#57534E] min-h-[38px]">
                     <span className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <Clock className="w-3.5 h-3.5 text-[#78716C] shrink-0" />
                       3. Tenkan / Kijun Equilibrium
                     </span>
                     <span className="font-mono text-[10px]">Δ ${safeFixed((bar1h?.tenkan ?? 0) - (bar1h?.kijun ?? 0), 2)}</span>
@@ -1055,20 +1055,20 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
 
         {/* RIGHT COLUMN: REFERENCE MACRO TIMEFRAME (TENKAN-KIJUN CROSSOVER REQUIREMENT) */}
         {(mobilePillarView === 'ALL' || mobilePillarView === '1D') && (
-          <div className="bg-slate-900/60 border border-slate-800/80 rounded-xl p-3 sm:p-4">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2 mb-2.5">
+          <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-3 sm:p-4 shadow-xs">
+            <div className="flex items-center justify-between border-b border-[#E6DDCF] pb-2 mb-2.5">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-blue-400 animate-pulse" />
-                <span className="text-xs sm:text-sm font-black text-white">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
+                <span className="text-xs sm:text-sm font-black text-[#1C1917]">
                   {trendTf} Reference Macro Timeframe {effectiveRegime === 'BUY' ? '(Tenkan-Kijun Crossover)' : effectiveRegime === 'SELL' ? '(Tenkan-Kijun Death Cross)' : '(Macro Filter)'}
                 </span>
               </div>
               <span className={`text-[11px] sm:text-xs font-mono font-bold px-2 py-0.5 rounded ${
                 effectiveRegime === 'BUY'
-                  ? (dailyCrossBuy ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-slate-800 text-slate-300')
+                  ? (dailyCrossBuy ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-[#FAF7F2] text-[#57534E] border border-[#E6DDCF]')
                   : effectiveRegime === 'SELL'
-                  ? (dailyCrossSell ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-slate-800 text-slate-300')
-                  : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                  ? (dailyCrossSell ? 'bg-rose-100 text-rose-800 border border-rose-300' : 'bg-[#FAF7F2] text-[#57534E] border border-[#E6DDCF]')
+                  : 'bg-amber-100 text-amber-800 border border-amber-300'
               }`}>
                 {effectiveRegime === 'BUY'
                   ? (dailyCrossBuy ? `${trendTf} TK Cross: ACTIVE` : `${trendTf} TK Cross: PENDING`)
@@ -1080,17 +1080,17 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
 
             {/* Reference Macro Metric Chips */}
             <div className="grid grid-cols-3 gap-1.5 text-[10px] sm:text-[11px] font-mono mb-2.5">
-              <div className="p-1 sm:p-1.5 rounded bg-slate-950/60 border border-slate-800/80 text-center">
-                <span className="text-slate-500 block text-[8px] sm:text-[9px]">{trendTf} Tenkan / Kijun</span>
-                <span className="text-slate-200 font-bold">${safeFixed(bar1d?.tenkan, 1)} / ${safeFixed(bar1d?.kijun, 1)}</span>
+              <div className="p-1 sm:p-1.5 rounded bg-[#FAF7F2] border border-[#E6DDCF] text-center">
+                <span className="text-[#78716C] block text-[8px] sm:text-[9px]">{trendTf} Tenkan / Kijun</span>
+                <span className="text-[#1C1917] font-bold">${safeFixed(bar1d?.tenkan, 1)} / ${safeFixed(bar1d?.kijun, 1)}</span>
               </div>
-              <div className="p-1 sm:p-1.5 rounded bg-slate-950/60 border border-slate-800/80 text-center">
-                <span className="text-slate-500 block text-[8px] sm:text-[9px]">{trendTf} Kumo Bounds</span>
-                <span className="text-slate-200 font-bold">${safeFixed(bar1d?.cloudBottom, 1)} - ${safeFixed(bar1d?.cloudTop, 1)}</span>
+              <div className="p-1 sm:p-1.5 rounded bg-[#FAF7F2] border border-[#E6DDCF] text-center">
+                <span className="text-[#78716C] block text-[8px] sm:text-[9px]">{trendTf} Kumo Bounds</span>
+                <span className="text-[#1C1917] font-bold">${safeFixed(bar1d?.cloudBottom, 1)} - ${safeFixed(bar1d?.cloudTop, 1)}</span>
               </div>
-              <div className="p-1 sm:p-1.5 rounded bg-slate-950/60 border border-slate-800/80 text-center">
-                <span className="text-slate-500 block text-[8px] sm:text-[9px]">{trendTf} TK Spread</span>
-                <span className={`font-bold ${(bar1d?.tenkan ?? 0) >= (bar1d?.kijun ?? 0) ? 'text-emerald-400' : 'text-rose-400'}`}>
+              <div className="p-1 sm:p-1.5 rounded bg-[#FAF7F2] border border-[#E6DDCF] text-center">
+                <span className="text-[#78716C] block text-[8px] sm:text-[9px]">{trendTf} TK Spread</span>
+                <span className={`font-bold ${(bar1d?.tenkan ?? 0) >= (bar1d?.kijun ?? 0) ? 'text-emerald-700' : 'text-rose-700'}`}>
                   {(bar1d?.tenkan ?? 0) >= (bar1d?.kijun ?? 0) ? `+${safeFixed((bar1d?.tenkan ?? 0) - (bar1d?.kijun ?? 0), 1)}` : `-${safeFixed(Math.abs((bar1d?.tenkan ?? 0) - (bar1d?.kijun ?? 0)), 1)}`}
                 </span>
               </div>
@@ -1101,40 +1101,40 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               {effectiveRegime === 'BUY' ? (
                 <>
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    dailyCrossBuy ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    dailyCrossBuy ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {dailyCrossBuy ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {dailyCrossBuy ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       1. 1D Daily Tenkan &gt;= Kijun Golden Crossover (Primary Gate)
                     </span>
                     <span className="font-mono text-[10px]">{dailyCrossBuy ? 'CROSSOVER CONFIRMED' : 'NO CROSSOVER'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1d?.f2_priceAboveCloud ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1d?.f2_priceAboveCloud ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1d?.f2_priceAboveCloud ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1d?.f2_priceAboveCloud ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       2. 1D Price &gt; Daily Kumo Cloud Support
                     </span>
                     <span className="font-mono text-[10px]">{bar1d?.f2_priceAboveCloud ? 'MACRO BULL' : 'SUB-CLOUD'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1d?.f4_chikouBullish ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1d?.f4_chikouBullish ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1d?.f4_chikouBullish ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1d?.f4_chikouBullish ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       3. 1D Chikou Span Macro Uptrend (Clearance)
                     </span>
                     <span className="font-mono text-[10px]">{bar1d?.f4_chikouBullish ? 'CLEAR' : 'RESTRICTED'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1d?.f5_futureCloudGreen ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1d?.f5_futureCloudGreen ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1d?.f5_futureCloudGreen ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1d?.f5_futureCloudGreen ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       4. 1D Future Kumo Bullish Green (Span A &gt;= B)
                     </span>
                     <span className="font-mono text-[10px]">{bar1d?.f5_futureCloudGreen ? 'GREEN' : 'RED'}</span>
@@ -1143,40 +1143,40 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
               ) : effectiveRegime === 'SELL' ? (
                 <>
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    dailyCrossSell ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    dailyCrossSell ? 'bg-rose-50 border-rose-300 text-rose-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {dailyCrossSell ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {dailyCrossSell ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       1. 1D Daily Tenkan &lt;= Kijun Death Crossover (Primary Gate)
                     </span>
                     <span className="font-mono text-[10px]">{dailyCrossSell ? 'DEATH CROSS CONFIRMED' : 'NO CROSSOVER'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1d?.sf2_priceBelowCloud ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1d?.sf2_priceBelowCloud ? 'bg-rose-50 border-rose-300 text-rose-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1d?.sf2_priceBelowCloud ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1d?.sf2_priceBelowCloud ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       2. 1D Price &lt; Daily Kumo Cloud Floor
                     </span>
                     <span className="font-mono text-[10px]">{bar1d?.sf2_priceBelowCloud ? 'MACRO BEAR' : 'ABOVE CLOUD'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1d?.sf4_chikouBearish ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1d?.sf4_chikouBearish ? 'bg-rose-50 border-rose-300 text-rose-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1d?.sf4_chikouBearish ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1d?.sf4_chikouBearish ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       3. 1D Chikou Span Macro Downtrend
                     </span>
                     <span className="font-mono text-[10px]">{bar1d?.sf4_chikouBearish ? 'DOWNTREND' : 'RESTRICTED'}</span>
                   </div>
 
                   <div className={`flex items-center justify-between p-2 rounded-lg border min-h-[38px] ${
-                    bar1d?.sf5_futureCloudRed ? 'bg-rose-950/30 border-rose-500/30 text-rose-200' : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                    bar1d?.sf5_futureCloudRed ? 'bg-rose-50 border-rose-300 text-rose-800' : 'bg-[#FAF7F2] border-[#E6DDCF] text-[#78716C]'
                   }`}>
                     <span className="flex items-center gap-1.5">
-                      {bar1d?.sf5_futureCloudRed ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-400 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />}
+                      {bar1d?.sf5_futureCloudRed ? <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 shrink-0" /> : <XCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
                       4. 1D Future Kumo Bearish Red (Span A &lt; B)
                     </span>
                     <span className="font-mono text-[10px]">{bar1d?.sf5_futureCloudRed ? 'RED' : 'GREEN'}</span>
@@ -1184,16 +1184,16 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
                 </>
               ) : (
                 <>
-                  <div className="flex items-center justify-between p-2 rounded-lg border bg-amber-950/20 border-amber-500/30 text-amber-200 min-h-[38px]">
+                  <div className="flex items-center justify-between p-2 rounded-lg border bg-amber-50 border-amber-300 text-amber-900 min-h-[38px]">
                     <span className="flex items-center gap-1.5">
-                      <Cloud className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                      <Cloud className="w-3.5 h-3.5 text-amber-600 shrink-0" />
                       1. 1D Macro Cloud Coiling
                     </span>
                     <span className="font-mono text-[10px]">${safeFixed(bar1d?.close, 2)}</span>
                   </div>
-                  <div className="flex items-center justify-between p-2 rounded-lg border bg-slate-900 border-slate-800 text-slate-300 min-h-[38px]">
+                  <div className="flex items-center justify-between p-2 rounded-lg border bg-[#FAF7F2] border-[#E6DDCF] text-[#57534E] min-h-[38px]">
                     <span className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <Clock className="w-3.5 h-3.5 text-[#78716C] shrink-0" />
                       2. 1D Tenkan vs Kijun
                     </span>
                     <span className="font-mono text-[10px]">${safeFixed(bar1d?.tenkan, 1)} / ${safeFixed(bar1d?.kijun, 1)}</span>
@@ -1206,23 +1206,23 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
       </div>
 
       {/* 8. QUICK DAYTRADE ORDER BUTTONS WITH DYNAMIC SL/TP */}
-      <div className="mt-3 pt-3 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2.5">
-        <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-mono text-slate-400">
+      <div className="mt-3 pt-3 border-t border-[#E6DDCF] flex flex-col sm:flex-row items-center justify-between gap-2.5">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-mono text-[#57534E]">
           <span>
             {effectiveRegime === 'SELL' ? 'Short Stop: ' : 'Stop Loss: '}
-            <strong className="text-rose-400">
+            <strong className="text-rose-700 font-bold">
               ${safeFixed(effectiveRegime === 'SELL' ? dynamicShortStopLoss : dynamicStopLoss, 2)}
             </strong>
           </span>
           <span>•</span>
           <span>
-            TP 1: <strong className="text-emerald-400">
+            TP 1: <strong className="text-emerald-700 font-bold">
               ${safeFixed(effectiveRegime === 'SELL' ? shortTarget1Price : target1Price, 2)}
             </strong>
           </span>
           <span>•</span>
           <span>
-            TP 2: <strong className="text-emerald-400">
+            TP 2: <strong className="text-emerald-700 font-bold">
               ${safeFixed(effectiveRegime === 'SELL' ? shortTarget2Price : target2Price, 2)}
             </strong>
           </span>
@@ -1239,7 +1239,7 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
             return (
               <span>
                 Gate ({isDual ? '1D TK + 1HR' : 'Fast TK'}):{' '}
-                <strong className={isTriggered ? (effectiveRegime === 'SELL' ? 'text-rose-400' : 'text-emerald-400') : 'text-amber-400'}>
+                <strong className={isTriggered ? (effectiveRegime === 'SELL' ? 'text-rose-700 font-bold' : 'text-emerald-700 font-bold') : 'text-amber-700 font-bold'}>
                   {op} ${safeFixed(gateLevel ?? currentSpotPrice, 2)} ({isTriggered ? 'CONFIRMED' : 'WAITING'})
                 </strong>
               </span>
@@ -1251,10 +1251,10 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
           <button
             id="xauusd-quick-buy-btn"
             onClick={() => onQuickTrade('LONG')}
-            className={`flex-1 sm:flex-initial px-4 py-2.5 rounded-lg text-xs font-black shadow-md transition-colors flex items-center justify-center gap-1.5 touch-manipulation min-h-[42px] ${
+            className={`flex-1 sm:flex-initial px-4 py-2.5 rounded-lg text-xs font-black shadow-xs transition-colors flex items-center justify-center gap-1.5 touch-manipulation min-h-[42px] ${
               effectiveRegime === 'BUY'
-                ? 'bg-emerald-600 hover:bg-emerald-500 text-white ring-2 ring-emerald-400/40'
-                : 'bg-emerald-900/80 hover:bg-emerald-800 text-slate-200'
+                ? 'bg-emerald-600 hover:bg-emerald-700 text-white ring-2 ring-emerald-400/40'
+                : 'bg-emerald-700 hover:bg-emerald-800 text-white'
             }`}
           >
             <ArrowUpRight className="w-4 h-4" />
@@ -1264,10 +1264,10 @@ export const SignalCheckerCard: React.FC<SignalCheckerCardProps> = ({
           <button
             id="xauusd-quick-sell-btn"
             onClick={() => onQuickTrade('SHORT')}
-            className={`flex-1 sm:flex-initial px-4 py-2.5 rounded-lg text-xs font-black shadow-md transition-colors flex items-center justify-center gap-1.5 touch-manipulation min-h-[42px] ${
+            className={`flex-1 sm:flex-initial px-4 py-2.5 rounded-lg text-xs font-black shadow-xs transition-colors flex items-center justify-center gap-1.5 touch-manipulation min-h-[42px] ${
               effectiveRegime === 'SELL'
-                ? 'bg-rose-600 hover:bg-rose-500 text-white ring-2 ring-rose-400/40'
-                : 'bg-rose-900/80 hover:bg-rose-800 text-slate-200'
+                ? 'bg-rose-600 hover:bg-rose-700 text-white ring-2 ring-rose-400/40'
+                : 'bg-rose-700 hover:bg-rose-800 text-white'
             }`}
           >
             <ArrowDownRight className="w-4 h-4" />

@@ -52,7 +52,8 @@ export function formatTradingViewSymbol(symbol?: string): string {
 export const DEFAULT_STRATEGY_STUDIES = [
   'Volume@tv-basicstudies',
   'IchimokuCloud@tv-basicstudies',
-  'Stochastic@tv-basicstudies',
+  'EMA20@tv-basicstudies',
+  'EMA50@tv-basicstudies',
   'CCI@tv-basicstudies',
 ];
 
@@ -82,10 +83,23 @@ export const TradingViewWidget: React.FC<TradingViewWidgetProps> = memo(({
 
   const iframeSrc = useMemo(() => {
     const rawStudies = studies && studies.length > 0 ? studies : DEFAULT_STRATEGY_STUDIES;
-    // Normalize study names (e.g. CommodityChannelIndex -> CCI for TradingView)
-    const activeStudies = rawStudies.map(s => 
-      s === 'CommodityChannelIndex@tv-basicstudies' ? 'CCI@tv-basicstudies' : s
-    );
+    // Normalize study names and configure EMA 20 & EMA 50 parameters
+    const activeStudies = rawStudies.map(s => {
+      if (s === 'CommodityChannelIndex@tv-basicstudies') return 'CCI@tv-basicstudies';
+      if (s === 'EMA20@tv-basicstudies' || s === 'EMA20') {
+        return {
+          id: 'Moving Average Exponential@tv-basicstudies',
+          inputs: { length: 20 },
+        };
+      }
+      if (s === 'EMA50@tv-basicstudies' || s === 'EMA50') {
+        return {
+          id: 'Moving Average Exponential@tv-basicstudies',
+          inputs: { length: 50 },
+        };
+      }
+      return s;
+    });
     const config = {
       autosize: true,
       symbol: formattedSymbol,
@@ -125,7 +139,7 @@ export const TradingViewWidget: React.FC<TradingViewWidgetProps> = memo(({
       style={{ height: effectiveHeight }}
     >
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center text-slate-500 font-mono text-xs z-0 pointer-events-none bg-[#161B22]">
+        <div className="absolute inset-0 flex items-center justify-center text-slate-400 font-mono text-xs z-0 pointer-events-none bg-[#161B22]">
           <span className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             Loading TradingView Chart ({formattedSymbol})...

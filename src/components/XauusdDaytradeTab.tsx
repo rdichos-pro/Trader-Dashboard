@@ -694,21 +694,21 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
       {/* ========================================================================= */}
       {/* BACKGROUND ALERTS & AUDIO CONTROL BANNER */}
       {/* ========================================================================= */}
-      <div className="bg-[#0b1d30] border border-[#1d3f63] rounded-xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
+      <div className="bg-white border border-[#E6DDCF] rounded-xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-teal-500/10 border border-teal-500/30 text-teal-300 shrink-0">
-            <Radio className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
+          <div className="p-2 rounded-lg bg-[#FDF4DC] border border-[#F3DA90] text-[#845306] shrink-0">
+            <Radio className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse text-[#B8860B]" />
           </div>
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs sm:text-sm font-bold text-white">
+              <span className="text-xs sm:text-sm font-bold text-[#1C1917]">
                 Background Audio &amp; System Alerts
               </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-teal-950/80 text-teal-300 border border-teal-800/40 font-bold">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FDF4DC] text-[#845306] border border-[#F3DA90] font-bold">
                 ⚡ Unthrottled Worker Active
               </span>
             </div>
-            <p className="text-[11px] sm:text-xs text-slate-300 mt-0.5">
+            <p className="text-[11px] sm:text-xs text-[#78716C] mt-0.5">
               Notification sounds and lockscreen alerts trigger reliably even when this tab is in the background or minimized.
             </p>
           </div>
@@ -718,24 +718,24 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
         <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={handleTestAudio}
-            className="px-2.5 py-1.5 rounded-lg bg-[#0f243b] hover:bg-[#153454] text-teal-300 border border-[#1d3f63] text-xs font-semibold flex items-center gap-1.5 transition-colors touch-manipulation min-h-[38px]"
+            className="px-2.5 py-1.5 rounded-lg bg-[#F5EFEB] hover:bg-[#EFE8DC] text-[#1C1917] border border-[#E6DDCF] text-xs font-semibold flex items-center gap-1.5 transition-colors touch-manipulation min-h-[38px]"
             title="Play sample chime to confirm audio is active"
           >
-            <Volume2 className="w-3.5 h-3.5 text-teal-400" />
+            <Volume2 className="w-3.5 h-3.5 text-[#B8860B]" />
             <span>Test Sound</span>
           </button>
 
           {notificationPermission !== 'granted' ? (
             <button
               onClick={handleRequestNotifications}
-              className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-black flex items-center gap-1.5 shadow transition-colors touch-manipulation min-h-[38px]"
+              className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#C59B27] hover:from-[#E5C158] hover:to-[#D4AF37] text-[#1C1917] text-xs font-black flex items-center gap-1.5 shadow-sm transition-colors touch-manipulation min-h-[38px]"
             >
-              <Bell className="w-3.5 h-3.5" />
+              <Bell className="w-3.5 h-3.5 text-[#1C1917]" />
               <span>Enable Background Alerts</span>
             </button>
           ) : (
-            <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs font-semibold">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-semibold">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
               <span>Background Alerts Active</span>
             </div>
           )}
@@ -745,33 +745,33 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
       {/* ========================================================================= */}
       {/* TOP HEADER CARD: Asset Info, Live Quote & View Switcher */}
       {/* ========================================================================= */}
-      <div className="bg-[#0b1d30] border border-[#1d3f63] rounded-xl p-3.5 sm:p-5 shadow-xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-600/5 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+      <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-3.5 sm:p-5 shadow-sm relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
 
         <div className="flex flex-col gap-3 sm:gap-4 relative z-10">
           {/* Row 1: Asset Info & Live Price */}
           <div className="flex items-center justify-between gap-2 flex-wrap">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-amber-400/20 to-teal-500/10 border border-amber-500/40 flex items-center justify-center text-amber-300 font-black text-base sm:text-lg shadow-inner">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDF4DC] border border-[#F3DA90] flex items-center justify-center text-[#845306] font-black text-base sm:text-lg shadow-inner">
                 AU
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h1 className="text-lg sm:text-2xl font-black text-white tracking-tight flex items-center gap-1.5 sm:gap-2">
+                  <h1 className="text-lg sm:text-2xl font-black text-[#1C1917] tracking-tight flex items-center gap-1.5 sm:gap-2">
                     XAU/USD
-                    <span className="text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 tracking-normal">
+                    <span className="text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded-full bg-[#FDF4DC] text-[#845306] border border-[#F3DA90] tracking-normal">
                       Gold Daytrade
                     </span>
                   </h1>
                 </div>
-                <div className="text-[11px] sm:text-xs text-slate-300 flex items-center gap-1.5 sm:gap-2 mt-0.5 flex-wrap">
-                  <span className="text-teal-300 font-semibold">{entryTimeframe} Entry + {trendTimeframe} Reference TK Cross (Pure Ichimoku)</span>
+                <div className="text-[11px] sm:text-xs text-[#78716C] flex items-center gap-1.5 sm:gap-2 mt-0.5 flex-wrap">
+                  <span className="text-[#845306] font-semibold">{entryTimeframe} Entry + {trendTimeframe} Reference TK Cross (Pure Ichimoku)</span>
                   <span>•</span>
-                  <span className="text-teal-400 font-semibold flex items-center gap-0.5">
-                    <Check className="w-3 h-3" /> 1-Month Optimizer
+                  <span className="text-emerald-700 font-semibold flex items-center gap-0.5">
+                    <Check className="w-3 h-3 text-emerald-600" /> 1-Month Optimizer
                   </span>
                   <span>•</span>
-                  <span className="font-mono text-[10px] sm:text-[11px] text-slate-400">
+                  <span className="font-mono text-[10px] sm:text-[11px] text-[#A8A29E]">
                     {lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                   </span>
                 </div>
@@ -779,11 +779,11 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
             </div>
 
             {/* Price Pill */}
-            <div className="flex items-baseline gap-2 px-3 py-1.5 rounded-xl bg-[#071524] border border-[#1d3f63]">
-              <span className="text-xl sm:text-3xl font-black text-white font-mono tracking-tight">
+            <div className="flex items-baseline gap-2 px-3 py-1.5 rounded-xl bg-white border border-[#E6DDCF] shadow-sm">
+              <span className="text-xl sm:text-3xl font-black text-[#1C1917] font-mono tracking-tight">
                 ${(currentSpotPrice ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </span>
-              <span className={`text-[11px] sm:text-xs font-bold font-mono flex items-center ${(dayChange ?? 0) >= 0 ? 'text-teal-300' : 'text-rose-400'}`}>
+              <span className={`text-[11px] sm:text-xs font-bold font-mono flex items-center ${(dayChange ?? 0) >= 0 ? 'text-emerald-700' : 'text-rose-700'}`}>
                 {(dayChange ?? 0) >= 0 ? <ArrowUpRight className="w-3.5 h-3.5 mr-0.5" /> : <ArrowDownRight className="w-3.5 h-3.5 mr-0.5" />}
                 {(dayChange ?? 0) >= 0 ? `+${(dayChange ?? 0).toFixed(2)}` : (dayChange ?? 0).toFixed(2)} ({formatPercent(dayChangePct)})
               </span>
@@ -791,38 +791,38 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
           </div>
 
           {/* Row 2: View Switcher Tabs & Trend/Entry Timeframe Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2 border-t border-[#1d3f63]/80">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2 border-t border-[#E6DDCF]">
             {/* View Mode Switcher: Mobile Segmented Control */}
             <div className="flex flex-wrap items-center gap-2">
-              <div className="grid grid-cols-2 sm:flex sm:items-center bg-[#071524] rounded-xl p-1 border border-[#1d3f63] w-full sm:w-auto">
+              <div className="grid grid-cols-2 sm:flex sm:items-center bg-[#F5EFEB] rounded-xl p-1 border border-[#E6DDCF] w-full sm:w-auto">
                 <button
                   onClick={() => setViewMode('live')}
                   className={`py-2 px-3 sm:px-3.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation min-h-[42px] ${
                     viewMode === 'live'
-                      ? 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white shadow font-black'
-                      : 'text-slate-300 hover:text-white hover:bg-[#0f243b]'
+                      ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] shadow-sm font-black'
+                      : 'text-[#78716C] hover:text-[#1C1917] hover:bg-[#FAF7F2]'
                   }`}
                 >
-                  <Zap className="w-3.5 h-3.5 text-teal-200" />
+                  <Zap className="w-3.5 h-3.5 text-[#1C1917]" />
                   <span>Live {entryTimeframe}+{trendTimeframe}</span>
                 </button>
                 <button
                   onClick={() => setViewMode('backtest')}
                   className={`py-2 px-3 sm:px-3.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 touch-manipulation min-h-[42px] ${
                     viewMode === 'backtest'
-                      ? 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white shadow font-black'
-                      : 'text-slate-300 hover:text-white hover:bg-[#0f243b]'
+                      ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] shadow-sm font-black'
+                      : 'text-[#78716C] hover:text-[#1C1917] hover:bg-[#FAF7F2]'
                   }`}
                 >
-                  <Trophy className="w-3.5 h-3.5 text-amber-300" />
+                  <Trophy className="w-3.5 h-3.5 text-[#845306]" />
                   <span>Strategy Optimizer</span>
                 </button>
                 <button
                   onClick={() => setViewMode('split')}
                   className={`hidden md:flex py-2 px-3.5 rounded-lg text-xs font-bold transition-all items-center justify-center gap-1.5 ${
                     viewMode === 'split'
-                      ? 'bg-amber-500 text-slate-950 shadow font-black'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                      ? 'bg-[#D4AF37] text-[#1C1917] shadow-sm font-black'
+                      : 'text-[#78716C] hover:text-[#1C1917] hover:bg-[#FAF7F2]'
                   }`}
                 >
                   <Sliders className="w-3.5 h-3.5" />
@@ -832,18 +832,18 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                 {onNavigateToTab && (
                   <button
                     onClick={() => onNavigateToTab('daily-log')}
-                    className="py-2 px-3 rounded-lg text-xs font-semibold bg-blue-900/40 hover:bg-blue-800/60 text-blue-300 border border-blue-700/50 flex items-center gap-1.5 transition-colors touch-manipulation"
+                    className="py-2 px-3 rounded-lg text-xs font-semibold bg-[#F5EFEB] hover:bg-[#EFE8DC] text-[#7E5E14] border border-[#E6DDCF] flex items-center gap-1.5 transition-colors touch-manipulation"
                     title="Open Trading Journal / Daily Log spreadsheet"
                   >
-                    <BookOpen className="w-3.5 h-3.5 text-blue-400" />
+                    <BookOpen className="w-3.5 h-3.5 text-[#B8860B]" />
                     <span>Daily Log / Sheet</span>
                   </button>
                 )}
               </div>
 
               {/* Entry Timeframe Controls */}
-              <div className="flex items-center bg-slate-900 rounded-xl p-1 border border-slate-800 text-xs font-mono">
-                <span className="text-cyan-400 px-2 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
+              <div className="flex items-center bg-[#F5EFEB] rounded-xl p-1 border border-[#E6DDCF] text-xs font-mono">
+                <span className="text-[#845306] px-2 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
                   Entry:
                 </span>
                 {(['1M', '5M', '1HR'] as const).map(tf => (
@@ -858,8 +858,8 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                     }}
                     className={`py-1 px-2.5 rounded-lg text-xs font-bold transition-all min-h-[36px] ${
                       entryTimeframe === tf
-                        ? 'bg-cyan-500 text-slate-950 shadow font-black'
-                        : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                        ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] shadow-xs font-black'
+                        : 'text-[#78716C] hover:text-[#1C1917] hover:bg-[#FAF7F2]'
                     }`}
                   >
                     {tf}
@@ -868,8 +868,8 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
               </div>
 
               {/* Reference / Trend Timeframe Selection */}
-              <div className="flex items-center bg-slate-900 rounded-xl p-1 border border-slate-800 text-xs font-mono">
-                <span className="text-amber-400 px-2 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
+              <div className="flex items-center bg-[#F5EFEB] rounded-xl p-1 border border-[#E6DDCF] text-xs font-mono">
+                <span className="text-[#845306] px-2 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
                   Ref Trend:
                 </span>
                 {(['30M', '15M', '1D'] as const).map(tf => (
@@ -881,8 +881,8 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                     }}
                     className={`py-1 px-2.5 rounded-lg text-xs font-bold transition-all min-h-[36px] ${
                       trendTimeframe === tf
-                        ? 'bg-amber-500 text-slate-950 shadow font-black'
-                        : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                        ? 'bg-[#D4AF37] text-[#1C1917] shadow-xs font-black'
+                        : 'text-[#78716C] hover:text-[#1C1917] hover:bg-[#FAF7F2]'
                     }`}
                   >
                     {tf}
@@ -960,28 +960,28 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
       {(viewMode === 'backtest' || viewMode === 'split') && (
         <div className="space-y-4">
           {/* Winner Banner: Declares the strategy with the most stats */}
-          <div className="bg-gradient-to-r from-amber-950/90 via-[#1C180A] to-slate-900 border-2 border-amber-500/60 rounded-xl p-3.5 sm:p-6 shadow-2xl relative overflow-hidden">
+          <div className="bg-gradient-to-r from-[#FFFDF7] via-[#FAF7F2] to-[#F5EFEB] border-2 border-[#D4AF37] rounded-xl p-3.5 sm:p-6 shadow-sm relative overflow-hidden">
             <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
               <div className="flex items-start gap-3 sm:gap-3.5">
-                <div className="p-2.5 sm:p-3 rounded-2xl bg-amber-500/20 border border-amber-500/50 text-amber-300 shadow-inner shrink-0">
-                  <Trophy className="w-6 h-6 sm:w-8 sm:h-8 text-amber-400 animate-pulse" />
+                <div className="p-2.5 sm:p-3 rounded-2xl bg-amber-100 border border-amber-300 text-amber-800 shadow-inner shrink-0">
+                  <Trophy className="w-6 h-6 sm:w-8 sm:h-8 text-amber-600 animate-pulse" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-[10px] sm:text-xs font-black px-2 py-0.5 rounded-full bg-amber-500 text-slate-950 uppercase tracking-wide">
+                    <span className="text-[10px] sm:text-xs font-black px-2 py-0.5 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] uppercase tracking-wide shadow-2xs">
                       #1 Top Performing Strategy
                     </span>
-                    <span className="text-[10px] sm:text-xs text-amber-300/90 font-mono flex items-center gap-1.5 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20">
-                      <Calendar className="w-3 h-3 text-amber-400" />
+                    <span className="text-[10px] sm:text-xs text-[#845306] font-mono flex items-center gap-1.5 bg-white px-2 py-0.5 rounded-md border border-[#E6DDCF]">
+                      <Calendar className="w-3 h-3 text-amber-600" />
                       {backtestResults.periodLabel || 'Last Week (Aug 31 – Sep 5, 2026)'}
                     </span>
                   </div>
-                  <h2 className="text-base sm:text-2xl font-black text-white tracking-tight mt-1">
+                  <h2 className="text-base sm:text-2xl font-black text-[#1C1917] tracking-tight mt-1">
                     {backtestResults.topStrategy.name}
                   </h2>
-                  <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-3xl leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[#57534E] mt-1 max-w-3xl leading-relaxed">
                     All strategies strictly enforce that <strong>entries must trade over the last candle close with all confluences</strong> (Buy Stop breakout confirmation). Requiring higher-timeframe trend alignment plus candle breakout verification protects against false reversals and gap-down traps.
                   </p>
                 </div>
@@ -989,34 +989,34 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
 
               {/* Top Stats Highlight Cards */}
               <div className="grid grid-cols-3 gap-2 sm:gap-3 shrink-0">
-                <div className="bg-slate-950/80 border border-amber-500/40 rounded-xl p-2 sm:p-3 text-center">
-                  <span className="text-[9px] sm:text-[10px] text-slate-400 block font-semibold uppercase">Win Rate</span>
-                  <span className="text-lg sm:text-2xl font-black text-emerald-400 font-mono">
+                <div className="bg-white border border-[#E6DDCF] rounded-xl p-2 sm:p-3 text-center shadow-xs">
+                  <span className="text-[9px] sm:text-[10px] text-[#78716C] block font-semibold uppercase">Win Rate</span>
+                  <span className="text-lg sm:text-2xl font-black text-emerald-700 font-mono">
                     {backtestResults.topStrategy.winRatePct}%
                   </span>
-                  <span className="text-[9px] sm:text-[10px] text-slate-500 block font-mono">
+                  <span className="text-[9px] sm:text-[10px] text-[#A8A29E] block font-mono">
                     {backtestResults.topStrategy.winningTrades}W / {backtestResults.topStrategy.losingTrades}L
                   </span>
                 </div>
 
-                <div className="bg-slate-950/80 border border-amber-500/40 rounded-xl p-2 sm:p-3 text-center">
-                  <span className="text-[9px] sm:text-[10px] text-slate-400 block font-semibold uppercase">Profit Factor</span>
-                  <span className="text-lg sm:text-2xl font-black text-amber-300 font-mono">
+                <div className="bg-white border border-[#E6DDCF] rounded-xl p-2 sm:p-3 text-center shadow-xs">
+                  <span className="text-[9px] sm:text-[10px] text-[#78716C] block font-semibold uppercase">Profit Factor</span>
+                  <span className="text-lg sm:text-2xl font-black text-[#B8860B] font-mono">
                     {backtestResults.topStrategy.profitFactor}x
                   </span>
-                  <span className="text-[9px] sm:text-[10px] text-slate-500 block font-mono">
+                  <span className="text-[9px] sm:text-[10px] text-[#A8A29E] block font-mono">
                     {backtestResults.topStrategy.winLossRatio}x R:R
                   </span>
                 </div>
 
-                <div className="bg-slate-950/80 border border-amber-500/40 rounded-xl p-2 sm:p-3 text-center">
-                  <span className="text-[9px] sm:text-[10px] text-slate-400 block font-semibold uppercase">Net Profit</span>
-                  <span className={`text-lg sm:text-2xl font-black font-mono ${backtestResults.topStrategy.netProfitDollar >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                <div className="bg-white border border-[#E6DDCF] rounded-xl p-2 sm:p-3 text-center shadow-xs">
+                  <span className="text-[9px] sm:text-[10px] text-[#78716C] block font-semibold uppercase">Net Profit</span>
+                  <span className={`text-lg sm:text-2xl font-black font-mono ${backtestResults.topStrategy.netProfitDollar >= 0 ? 'text-emerald-700' : 'text-rose-700'}`}>
                     {backtestResults.topStrategy.netProfitDollar >= 0 
                       ? `+$${backtestResults.topStrategy.netProfitDollar.toLocaleString()}` 
                       : `-$${Math.abs(backtestResults.topStrategy.netProfitDollar).toLocaleString()}`}
                   </span>
-                  <span className={`text-[9px] sm:text-[10px] block font-mono ${backtestResults.topStrategy.netProfitPct >= 0 ? 'text-emerald-400/80' : 'text-rose-400/80'}`}>
+                  <span className={`text-[9px] sm:text-[10px] block font-mono ${backtestResults.topStrategy.netProfitPct >= 0 ? 'text-emerald-600' : 'text-rose-600'}`}>
                     {backtestResults.topStrategy.netProfitPct >= 0 
                       ? `+${backtestResults.topStrategy.netProfitPct}%` 
                       : `${backtestResults.topStrategy.netProfitPct}%`}
@@ -1027,14 +1027,14 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
           </div>
 
           {/* Strategy Optimizer Leaderboard Table */}
-          <div className="bg-[#161B22] border border-slate-800 rounded-xl shadow-xl overflow-hidden">
-            <div className="p-3.5 sm:p-4 bg-slate-900/80 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="bg-white border border-[#E6DDCF] rounded-xl shadow-sm overflow-hidden">
+            <div className="p-3.5 sm:p-4 bg-[#FAF7F2] border-b border-[#E6DDCF] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-                  <BarChart3 className="w-4 h-4 text-amber-400" />
+                <h3 className="text-sm sm:text-base font-bold text-[#1C1917] flex items-center gap-2">
+                  <BarChart3 className="w-4 h-4 text-[#B8860B]" />
                   Strategy Leaderboard (Ranked by Stats)
                 </h3>
-                <p className="text-[11px] sm:text-xs text-slate-400">
+                <p className="text-[11px] sm:text-xs text-[#78716C]">
                   Click any strategy below to inspect its equity curve, entry/exit blueprint, and trade log.
                 </p>
               </div>
@@ -1042,8 +1042,8 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
               {/* Sort controls, Entry & Trend Timeframes & Re-run button */}
               <div className="flex items-center gap-2 flex-wrap justify-between sm:justify-end">
                 {/* Entry Timeframe toggle for backtest */}
-                <div className="flex items-center bg-slate-950 rounded-lg p-1 border border-slate-800 text-xs">
-                  <span className="text-cyan-400 px-1.5 font-mono text-[9px] sm:text-[10px]">ENTRY:</span>
+                <div className="flex items-center bg-[#F5EFEB] rounded-lg p-1 border border-[#E6DDCF] text-xs">
+                  <span className="text-[#845306] px-1.5 font-mono text-[9px] sm:text-[10px] font-bold">ENTRY:</span>
                   {(['1M', '5M', '1HR'] as const).map(tf => (
                     <button
                       key={tf}
@@ -1051,7 +1051,7 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                         setEntryTimeframe(tf);
                         setChartIntervalBottom(tf === '1M' ? '1' : tf === '5M' ? '5' : '60');
                       }}
-                      className={`px-2 py-1 rounded font-semibold text-[11px] touch-manipulation ${entryTimeframe === tf ? 'bg-cyan-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'}`}
+                      className={`px-2 py-1 rounded font-semibold text-[11px] touch-manipulation transition-colors ${entryTimeframe === tf ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] font-bold shadow-2xs' : 'text-[#78716C] hover:text-[#1C1917]'}`}
                     >
                       {tf}
                     </button>
@@ -1059,8 +1059,8 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                 </div>
 
                 {/* Reference Trend Timeframe toggle for backtest */}
-                <div className="flex items-center bg-slate-950 rounded-lg p-1 border border-slate-800 text-xs">
-                  <span className="text-amber-400 px-1.5 font-mono text-[9px] sm:text-[10px]">REF:</span>
+                <div className="flex items-center bg-[#F5EFEB] rounded-lg p-1 border border-[#E6DDCF] text-xs">
+                  <span className="text-[#845306] px-1.5 font-mono text-[9px] sm:text-[10px] font-bold">REF:</span>
                   {(['30M', '15M', '1D'] as const).map(tf => (
                     <button
                       key={tf}
@@ -1068,30 +1068,30 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                         setTrendTimeframe(tf);
                         setChartIntervalTop(tf === '30M' ? '30' : tf === '15M' ? '15' : 'D');
                       }}
-                      className={`px-2 py-1 rounded font-semibold text-[11px] touch-manipulation ${trendTimeframe === tf ? 'bg-amber-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'}`}
+                      className={`px-2 py-1 rounded font-semibold text-[11px] touch-manipulation transition-colors ${trendTimeframe === tf ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] font-bold shadow-2xs' : 'text-[#78716C] hover:text-[#1C1917]'}`}
                     >
                       {tf}
                     </button>
                   ))}
                 </div>
 
-                <div className="flex items-center bg-slate-950 rounded-lg p-1 border border-slate-800 text-xs">
-                  <span className="text-slate-500 px-1.5 font-mono text-[9px] sm:text-[10px]">SORT:</span>
+                <div className="flex items-center bg-[#F5EFEB] rounded-lg p-1 border border-[#E6DDCF] text-xs">
+                  <span className="text-[#78716C] px-1.5 font-mono text-[9px] sm:text-[10px] font-bold">SORT:</span>
                   <button
                     onClick={() => setSortBy('SCORE')}
-                    className={`px-2 py-1 rounded font-semibold text-[11px] touch-manipulation ${sortBy === 'SCORE' ? 'bg-amber-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'}`}
+                    className={`px-2 py-1 rounded font-semibold text-[11px] touch-manipulation transition-colors ${sortBy === 'SCORE' ? 'bg-[#1C1917] text-white font-bold' : 'text-[#78716C] hover:text-[#1C1917]'}`}
                   >
                     Score
                   </button>
                   <button
                     onClick={() => setSortBy('WINRATE')}
-                    className={`px-2 py-1 rounded font-semibold text-[11px] touch-manipulation ${sortBy === 'WINRATE' ? 'bg-amber-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'}`}
+                    className={`px-2 py-1 rounded font-semibold text-[11px] touch-manipulation transition-colors ${sortBy === 'WINRATE' ? 'bg-[#1C1917] text-white font-bold' : 'text-[#78716C] hover:text-[#1C1917]'}`}
                   >
                     Win%
                   </button>
                   <button
                     onClick={() => setSortBy('PROFIT_FACTOR')}
-                    className={`px-2 py-1 rounded font-semibold text-[11px] touch-manipulation ${sortBy === 'PROFIT_FACTOR' ? 'bg-amber-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'}`}
+                    className={`px-2 py-1 rounded font-semibold text-[11px] touch-manipulation transition-colors ${sortBy === 'PROFIT_FACTOR' ? 'bg-[#1C1917] text-white font-bold' : 'text-[#78716C] hover:text-[#1C1917]'}`}
                   >
                     PF
                   </button>
@@ -1100,7 +1100,7 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                 <button
                   onClick={handleTriggerBacktest}
                   disabled={isBacktesting}
-                  className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors disabled:opacity-50 touch-manipulation min-h-[36px]"
+                  className="px-3 py-1.5 bg-gradient-to-r from-[#D4AF37] to-[#C59B27] hover:from-[#E5C158] hover:to-[#D4AF37] text-[#1C1917] rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all disabled:opacity-50 touch-manipulation min-h-[36px]"
                 >
                   <RefreshCw className={`w-3.5 h-3.5 ${isBacktesting ? 'animate-spin' : ''}`} />
                   <span>Re-Run</span>
@@ -1120,50 +1120,50 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                     onClick={() => setSelectedStrategyId(strat.id)}
                     className={`p-3 rounded-xl border transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-amber-500/10 border-amber-500/50 shadow-md'
-                        : 'bg-slate-900/50 border-slate-800/80 hover:bg-slate-800/40'
+                        ? 'bg-amber-50/80 border-[#D4AF37] shadow-xs'
+                        : 'bg-[#FFFDF7] border-[#E6DDCF] hover:bg-[#FAF7F2]'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex items-center gap-2">
                         <span className={`inline-flex items-center justify-center w-5 h-5 rounded-full font-black text-[10px] ${
                           idx === 0 
-                            ? 'bg-amber-500 text-slate-950' 
+                            ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917]' 
                             : idx === 1 
-                            ? 'bg-slate-300 text-slate-950' 
-                            : 'bg-slate-800 text-slate-400'
+                            ? 'bg-[#EFE8DC] text-[#1C1917]' 
+                            : 'bg-[#F5EFEB] text-[#78716C]'
                         }`}>
                           {idx + 1}
                         </span>
                         <div>
-                          <span className="font-bold text-white text-xs block">{strat.name}</span>
-                          <span className="text-[9px] font-mono text-amber-400/90">{strat.timeframeTag}</span>
+                          <span className="font-bold text-[#1C1917] text-xs block">{strat.name}</span>
+                          <span className="text-[9px] font-mono text-[#845306]">{strat.timeframeTag}</span>
                         </div>
                       </div>
 
                       {isTop && (
-                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500 text-slate-950 font-black flex items-center gap-0.5">
+                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] font-black flex items-center gap-0.5 shadow-2xs">
                           <Trophy className="w-2.5 h-2.5" /> TOP
                         </span>
                       )}
                     </div>
 
-                    <div className="grid grid-cols-4 gap-1.5 mt-2.5 pt-2 border-t border-slate-800/60 font-mono text-center">
-                      <div className="bg-slate-950/60 p-1 rounded">
-                        <span className="text-[8px] text-slate-500 block">Win Rate</span>
-                        <span className="text-xs font-black text-emerald-400">{strat.winRatePct}%</span>
+                    <div className="grid grid-cols-4 gap-1.5 mt-2.5 pt-2 border-t border-[#E6DDCF] font-mono text-center">
+                      <div className="bg-white border border-[#E6DDCF] p-1 rounded">
+                        <span className="text-[8px] text-[#78716C] block">Win Rate</span>
+                        <span className="text-xs font-black text-emerald-700">{strat.winRatePct}%</span>
                       </div>
-                      <div className="bg-slate-950/60 p-1 rounded">
-                        <span className="text-[8px] text-slate-500 block">Profit Factor</span>
-                        <span className="text-xs font-black text-amber-300">{strat.profitFactor}x</span>
+                      <div className="bg-white border border-[#E6DDCF] p-1 rounded">
+                        <span className="text-[8px] text-[#78716C] block">Profit Factor</span>
+                        <span className="text-xs font-black text-[#B8860B]">{strat.profitFactor}x</span>
                       </div>
-                      <div className="bg-slate-950/60 p-1 rounded">
-                        <span className="text-[8px] text-slate-500 block">Trades</span>
-                        <span className="text-xs font-bold text-slate-300">{strat.totalTrades}</span>
+                      <div className="bg-white border border-[#E6DDCF] p-1 rounded">
+                        <span className="text-[8px] text-[#78716C] block">Trades</span>
+                        <span className="text-xs font-bold text-[#1C1917]">{strat.totalTrades}</span>
                       </div>
-                      <div className="bg-slate-950/60 p-1 rounded">
-                        <span className="text-[8px] text-slate-500 block">Net PnL</span>
-                        <span className={`text-xs font-black ${strat.netProfitDollar >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                      <div className="bg-white border border-[#E6DDCF] p-1 rounded">
+                        <span className="text-[8px] text-[#78716C] block">Net PnL</span>
+                        <span className={`text-xs font-black ${strat.netProfitDollar >= 0 ? 'text-emerald-700' : 'text-rose-700'}`}>
                           {strat.netProfitDollar >= 0 ? `+$${strat.netProfitDollar}` : `-$${Math.abs(strat.netProfitDollar)}`}
                         </span>
                       </div>
@@ -1177,7 +1177,7 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
             <div className="hidden md:block overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="bg-slate-950/60 text-slate-400 uppercase tracking-wider font-mono border-b border-slate-800 text-[10px]">
+                  <tr className="bg-[#FAF7F2] text-[#78716C] uppercase tracking-wider font-mono border-b border-[#E6DDCF] text-[10px]">
                     <th className="py-2.5 px-4">Rank</th>
                     <th className="py-2.5 px-4">Strategy &amp; Indicator Combo</th>
                     <th className="py-2.5 px-4 text-center">Timeframe</th>
@@ -1190,7 +1190,7 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                     <th className="py-2.5 px-4 text-center">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 font-mono">
+                <tbody className="divide-y divide-[#E6DDCF] font-mono">
                   {sortedStrategies.map((strat, idx) => {
                     const isSelected = strat.id === selectedStrategyId;
                     const isTop = strat.id === backtestResults.topStrategy.id;
@@ -1201,20 +1201,20 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                         onClick={() => setSelectedStrategyId(strat.id)}
                         className={`cursor-pointer transition-colors ${
                           isSelected 
-                            ? 'bg-amber-500/10 hover:bg-amber-500/15' 
-                            : 'hover:bg-slate-800/40'
+                            ? 'bg-amber-50/70 hover:bg-amber-50' 
+                            : 'hover:bg-[#FAF7F2]'
                         }`}
                       >
                         {/* Rank */}
                         <td className="py-3 px-4">
                           <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full font-black text-xs ${
                             idx === 0 
-                              ? 'bg-amber-500 text-slate-950' 
+                              ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917]' 
                               : idx === 1 
-                              ? 'bg-slate-300 text-slate-950' 
+                              ? 'bg-[#EFE8DC] text-[#1C1917]' 
                               : idx === 2 
-                              ? 'bg-amber-800 text-amber-200' 
-                              : 'bg-slate-800 text-slate-400'
+                              ? 'bg-[#FAF7F2] text-[#845306] border border-[#E6DDCF]' 
+                              : 'bg-[#F5EFEB] text-[#78716C]'
                           }`}>
                             {idx + 1}
                           </span>
@@ -1223,16 +1223,16 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                         {/* Strategy Name & Details */}
                         <td className="py-3 px-4 font-sans">
                           <div className="flex items-center gap-2">
-                            <span className="font-bold text-white text-sm">{strat.name}</span>
+                            <span className="font-bold text-[#1C1917] text-sm">{strat.name}</span>
                             {isTop && (
-                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500 text-slate-950 font-black flex items-center gap-0.5">
+                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] font-black flex items-center gap-0.5 shadow-2xs">
                                 <Trophy className="w-2.5 h-2.5" /> TOP
                               </span>
                             )}
                           </div>
-                          <div className="text-[11px] text-slate-400 mt-0.5 flex flex-wrap gap-1">
+                          <div className="text-[11px] text-[#78716C] mt-0.5 flex flex-wrap gap-1">
                             {strat.indicatorsUsed.map((ind, i) => (
-                              <span key={i} className="px-1.5 py-0.2 rounded bg-slate-900 text-slate-400 border border-slate-800 text-[10px]">
+                              <span key={i} className="px-1.5 py-0.2 rounded bg-[#F5EFEB] text-[#57534E] border border-[#E6DDCF] text-[10px]">
                                 {ind}
                               </span>
                             ))}
@@ -1243,8 +1243,8 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                         <td className="py-3 px-4 text-center">
                           <span className={`text-[10px] px-2 py-0.5 rounded font-bold ${
                             strat.timeframeTag.includes('DUAL') 
-                              ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' 
-                              : 'bg-slate-800 text-slate-300'
+                              ? 'bg-amber-100 text-[#845306] border border-amber-300' 
+                              : 'bg-[#F5EFEB] text-[#57534E] border border-[#E6DDCF]'
                           }`}>
                             {strat.timeframeTag}
                           </span>
@@ -1254,43 +1254,43 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                         <td className="py-3 px-4 text-right">
                           <span className={`font-black text-sm px-2 py-0.5 rounded ${
                             strat.winRatePct >= 75 
-                              ? 'bg-emerald-950/70 text-emerald-400 border border-emerald-800/60' 
+                              ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
                               : strat.winRatePct >= 60 
-                              ? 'text-emerald-300' 
-                              : 'text-amber-300'
+                              ? 'text-emerald-700' 
+                              : 'text-amber-700'
                           }`}>
                             {strat.winRatePct}%
                           </span>
                         </td>
 
                         {/* Profit Factor */}
-                        <td className="py-3 px-4 text-right font-black text-slate-200">
+                        <td className="py-3 px-4 text-right font-black text-[#1C1917]">
                           {strat.profitFactor}x
                         </td>
 
                         {/* Trades */}
-                        <td className="py-3 px-4 text-right text-slate-300">
+                        <td className="py-3 px-4 text-right text-[#57534E]">
                           <span>{strat.totalTrades}</span>
-                          <span className="text-slate-500 text-[11px] ml-1">
+                          <span className="text-[#A8A29E] text-[11px] ml-1">
                             ({strat.winningTrades}W / {strat.losingTrades}L)
                           </span>
                         </td>
 
                         {/* Net Profit */}
                         <td className="py-3 px-4 text-right">
-                          <span className={`font-black ${strat.netProfitDollar >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                          <span className={`font-black ${strat.netProfitDollar >= 0 ? 'text-emerald-700' : 'text-rose-700'}`}>
                             {strat.netProfitDollar >= 0 ? `+$${strat.netProfitDollar.toLocaleString()}` : `-$${Math.abs(strat.netProfitDollar).toLocaleString()}`}
                           </span>
                         </td>
 
                         {/* Max Drawdown */}
-                        <td className="py-3 px-4 text-right text-rose-300 font-bold">
+                        <td className="py-3 px-4 text-right text-rose-700 font-bold">
                           {strat.maxDrawdownPct}%
                         </td>
 
                         {/* Composite Score */}
                         <td className="py-3 px-4 text-center">
-                          <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 font-black text-amber-300">
+                          <span className="px-2 py-0.5 rounded bg-[#FAF7F2] border border-[#E6DDCF] font-black text-[#845306]">
                             {strat.compositeScore}
                           </span>
                         </td>
@@ -1302,10 +1302,10 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                               e.stopPropagation();
                               setSelectedStrategyId(strat.id);
                             }}
-                            className={`px-2.5 py-1 rounded text-xs font-bold transition-colors ${
+                            className={`px-2.5 py-1 rounded text-xs font-bold transition-all ${
                               isSelected 
-                                ? 'bg-amber-500 text-slate-950 font-black' 
-                                : 'bg-slate-800 text-slate-300 hover:text-white'
+                                ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] font-black shadow-2xs' 
+                                : 'bg-[#F5EFEB] text-[#1C1917] hover:bg-[#EFE8DC] border border-[#E6DDCF]'
                             }`}
                           >
                             {isSelected ? 'Selected' : 'Inspect'}
@@ -1321,98 +1321,98 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
 
           {/* DEEP DIVE INSPECTOR FOR SELECTED STRATEGY */}
           {currentSelectedStrategy && (
-            <div className="bg-[#161B22] border border-slate-800 rounded-xl p-3.5 sm:p-6 shadow-xl space-y-4 sm:space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+            <div className="bg-white border border-[#E6DDCF] rounded-xl p-3.5 sm:p-6 shadow-sm space-y-4 sm:space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E6DDCF] pb-3">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] sm:text-xs font-mono text-amber-400 uppercase tracking-wider">
+                    <span className="text-[10px] sm:text-xs font-mono text-[#845306] uppercase tracking-wider font-bold">
                       Strategy Deep-Dive Analysis
                     </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800 font-bold">
+                    <span className="text-[10px] px-2 py-0.5 rounded bg-[#F5EFEB] text-[#57534E] border border-[#E6DDCF] font-bold">
                       {currentSelectedStrategy.timeframeTag}
                     </span>
                   </div>
-                  <h3 className="text-base sm:text-xl font-black text-white tracking-tight mt-0.5">
+                  <h3 className="text-base sm:text-xl font-black text-[#1C1917] tracking-tight mt-0.5">
                     {currentSelectedStrategy.name}
                   </h3>
-                  <p className="text-xs text-slate-400 mt-1 max-w-2xl">
+                  <p className="text-xs text-[#78716C] mt-1 max-w-2xl">
                     {currentSelectedStrategy.description}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
+                <div className="flex items-center gap-2 text-xs font-mono text-[#78716C]">
                   <span>Starting Capital: $10,000</span>
                 </div>
               </div>
 
               {/* 8 Metric Cards Grid (Responsive 2x4 on mobile, 8 on desktop) */}
               <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
-                <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 text-center">
-                  <span className="text-[9px] text-slate-500 block uppercase font-semibold">Win Rate</span>
-                  <span className="text-base sm:text-lg font-black text-emerald-400 font-mono">
+                <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-2.5 text-center shadow-2xs">
+                  <span className="text-[9px] text-[#78716C] block uppercase font-semibold">Win Rate</span>
+                  <span className="text-base sm:text-lg font-black text-emerald-700 font-mono">
                     {currentSelectedStrategy.winRatePct}%
                   </span>
                 </div>
 
-                <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 text-center">
-                  <span className="text-[9px] text-slate-500 block uppercase font-semibold">Profit Factor</span>
-                  <span className="text-base sm:text-lg font-black text-amber-300 font-mono">
+                <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-2.5 text-center shadow-2xs">
+                  <span className="text-[9px] text-[#78716C] block uppercase font-semibold">Profit Factor</span>
+                  <span className="text-base sm:text-lg font-black text-[#B8860B] font-mono">
                     {currentSelectedStrategy.profitFactor}x
                   </span>
                 </div>
 
-                <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 text-center">
-                  <span className="text-[9px] text-slate-500 block uppercase font-semibold">Net PnL</span>
-                  <span className={`text-base sm:text-lg font-black font-mono ${currentSelectedStrategy.netProfitDollar >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-2.5 text-center shadow-2xs">
+                  <span className="text-[9px] text-[#78716C] block uppercase font-semibold">Net PnL</span>
+                  <span className={`text-base sm:text-lg font-black font-mono ${currentSelectedStrategy.netProfitDollar >= 0 ? 'text-emerald-700' : 'text-rose-700'}`}>
                     +${currentSelectedStrategy.netProfitDollar.toLocaleString()}
                   </span>
                 </div>
 
-                <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 text-center">
-                  <span className="text-[9px] text-slate-500 block uppercase font-semibold">Total Trades</span>
-                  <span className="text-base sm:text-lg font-black text-white font-mono">
+                <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-2.5 text-center shadow-2xs">
+                  <span className="text-[9px] text-[#78716C] block uppercase font-semibold">Total Trades</span>
+                  <span className="text-base sm:text-lg font-black text-[#1C1917] font-mono">
                     {currentSelectedStrategy.totalTrades}
                   </span>
                 </div>
 
-                <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 text-center">
-                  <span className="text-[9px] text-slate-500 block uppercase font-semibold">R:R Ratio</span>
-                  <span className="text-base sm:text-lg font-black text-slate-200 font-mono">
+                <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-2.5 text-center shadow-2xs">
+                  <span className="text-[9px] text-[#78716C] block uppercase font-semibold">R:R Ratio</span>
+                  <span className="text-base sm:text-lg font-black text-[#1C1917] font-mono">
                     {currentSelectedStrategy.winLossRatio}x
                   </span>
                 </div>
 
-                <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 text-center">
-                  <span className="text-[9px] text-slate-500 block uppercase font-semibold">Drawdown</span>
-                  <span className="text-base sm:text-lg font-black text-rose-400 font-mono">
+                <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-2.5 text-center shadow-2xs">
+                  <span className="text-[9px] text-[#78716C] block uppercase font-semibold">Drawdown</span>
+                  <span className="text-base sm:text-lg font-black text-rose-700 font-mono">
                     {currentSelectedStrategy.maxDrawdownPct}%
                   </span>
                 </div>
 
-                <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 text-center">
-                  <span className="text-[9px] text-slate-500 block uppercase font-semibold">Streak</span>
-                  <span className="text-base sm:text-lg font-black text-emerald-400 font-mono">
+                <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-2.5 text-center shadow-2xs">
+                  <span className="text-[9px] text-[#78716C] block uppercase font-semibold">Streak</span>
+                  <span className="text-base sm:text-lg font-black text-emerald-700 font-mono">
                     {currentSelectedStrategy.maxConsecutiveWins}W
                   </span>
                 </div>
 
-                <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 text-center">
-                  <span className="text-[9px] text-slate-500 block uppercase font-semibold">Avg Hold</span>
-                  <span className="text-base sm:text-lg font-black text-slate-300 font-mono">
+                <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-2.5 text-center shadow-2xs">
+                  <span className="text-[9px] text-[#78716C] block uppercase font-semibold">Avg Hold</span>
+                  <span className="text-base sm:text-lg font-black text-[#57534E] font-mono">
                     {currentSelectedStrategy.avgHoldingMinutes}m
                   </span>
                 </div>
               </div>
 
               {/* Visual Interactive Equity Curve Chart (SVG Vector) */}
-              <div className="bg-slate-900/70 border border-slate-800 rounded-xl p-3 sm:p-5">
+              <div className="bg-[#FFFDF7] border border-[#E6DDCF] rounded-xl p-3 sm:p-5 shadow-2xs">
                 <div className="flex items-center justify-between mb-2 sm:mb-3">
                   <div className="flex items-center gap-1.5 sm:gap-2">
-                    <TrendingUp className="w-4 h-4 text-emerald-400" />
-                    <span className="text-xs sm:text-sm font-bold text-white">Simulated Account Equity Curve</span>
+                    <TrendingUp className="w-4 h-4 text-emerald-600" />
+                    <span className="text-xs sm:text-sm font-bold text-[#1C1917]">Simulated Account Equity Curve</span>
                   </div>
-                  <div className="text-[10px] sm:text-xs font-mono text-slate-400">
-                    Ending: <strong className="text-emerald-400">${currentSelectedStrategy.endingCapital.toLocaleString()}</strong>
+                  <div className="text-[10px] sm:text-xs font-mono text-[#78716C]">
+                    Ending: <strong className="text-emerald-700 font-bold">${currentSelectedStrategy.endingCapital.toLocaleString()}</strong>
                   </div>
                 </div>
 
@@ -1440,15 +1440,15 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                         <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full overflow-visible">
                           <defs>
                             <linearGradient id="eqGradient" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0%" stopColor="#10b981" stopOpacity="0.35" />
+                              <stop offset="0%" stopColor="#10b981" stopOpacity="0.2" />
                               <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
                             </linearGradient>
                           </defs>
 
                           {/* Horizontal Grid lines */}
-                          <line x1="0" y1={height * 0.25} x2={width} y2={height * 0.25} stroke="#334155" strokeDasharray="4 4" strokeWidth="0.8" />
-                          <line x1="0" y1={height * 0.50} x2={width} y2={height * 0.50} stroke="#334155" strokeDasharray="4 4" strokeWidth="0.8" />
-                          <line x1="0" y1={height * 0.75} x2={width} y2={height * 0.75} stroke="#334155" strokeDasharray="4 4" strokeWidth="0.8" />
+                          <line x1="0" y1={height * 0.25} x2={width} y2={height * 0.25} stroke="#E6DDCF" strokeDasharray="4 4" strokeWidth="0.8" />
+                          <line x1="0" y1={height * 0.50} x2={width} y2={height * 0.50} stroke="#E6DDCF" strokeDasharray="4 4" strokeWidth="0.8" />
+                          <line x1="0" y1={height * 0.75} x2={width} y2={height * 0.75} stroke="#E6DDCF" strokeDasharray="4 4" strokeWidth="0.8" />
 
                           {/* Shaded Area */}
                           <polygon points={areaPoints} fill="url(#eqGradient)" />
@@ -1456,7 +1456,7 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                           {/* Stroke Line */}
                           <polyline
                             fill="none"
-                            stroke="#10b981"
+                            stroke="#059669"
                             strokeWidth="2.5"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -1464,13 +1464,13 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                           />
 
                           {/* Starting point & Ending point circles */}
-                          <circle cx="0" cy={height - ((curve[0].equity - minEq) / range) * height} r="4" fill="#10b981" />
-                          <circle cx={width} cy={height - ((curve[curve.length - 1].equity - minEq) / range) * height} r="5" fill="#34d399" stroke="#ffffff" strokeWidth="1.5" />
+                          <circle cx="0" cy={height - ((curve[0].equity - minEq) / range) * height} r="4" fill="#059669" />
+                          <circle cx={width} cy={height - ((curve[curve.length - 1].equity - minEq) / range) * height} r="5" fill="#10b981" stroke="#ffffff" strokeWidth="1.5" />
                         </svg>
                       );
                     })()
                   ) : (
-                    <div className="h-full flex items-center justify-center text-slate-500 text-xs">
+                    <div className="h-full flex items-center justify-center text-[#A8A29E] text-xs">
                       No trades triggered yet for this strategy.
                     </div>
                   )}
@@ -1479,15 +1479,15 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
 
               {/* Day-by-Day Performance Breakdown for Last Week */}
               {currentSelectedStrategy.dailyBreakdown && currentSelectedStrategy.dailyBreakdown.length > 0 && (
-                <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3 sm:p-4">
+                <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-xl p-3 sm:p-4">
                   <div className="flex items-center justify-between mb-2.5">
                     <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-amber-400" />
-                      <span className="text-xs sm:text-sm font-bold text-white">
+                      <Calendar className="w-4 h-4 text-[#B8860B]" />
+                      <span className="text-xs sm:text-sm font-bold text-[#1C1917]">
                         Last Week Daily Performance Breakdown
                       </span>
                     </div>
-                    <span className="text-[10px] font-mono text-slate-400">
+                    <span className="text-[10px] font-mono text-[#78716C]">
                       {backtestResults.periodLabel || 'Last Week'}
                     </span>
                   </div>
@@ -1496,22 +1496,22 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                     {currentSelectedStrategy.dailyBreakdown.map((day) => (
                       <div
                         key={day.date}
-                        className="bg-slate-950/80 border border-slate-800/90 rounded-lg p-2.5 text-center hover:border-slate-700 transition-colors"
+                        className="bg-white border border-[#E6DDCF] rounded-lg p-2.5 text-center shadow-2xs hover:border-[#D4AF37] transition-colors"
                       >
-                        <div className="text-[11px] font-bold text-slate-200 font-mono">
+                        <div className="text-[11px] font-bold text-[#1C1917] font-mono">
                           {day.formattedDate}
                         </div>
-                        <div className="text-[9px] text-slate-500 font-mono mt-0.5">
+                        <div className="text-[9px] text-[#78716C] font-mono mt-0.5">
                           {day.tradesCount} Trade{day.tradesCount !== 1 ? 's' : ''} ({day.wins}W / {day.losses}L)
                         </div>
                         <div className="mt-1.5 flex items-center justify-center">
                           <span
                             className={`text-xs font-black font-mono ${
                               day.pnlDollar > 0
-                                ? 'text-emerald-400'
+                                ? 'text-emerald-700'
                                 : day.pnlDollar < 0
-                                ? 'text-rose-400'
-                                : 'text-slate-400'
+                                ? 'text-rose-700'
+                                : 'text-[#78716C]'
                             }`}
                           >
                             {day.pnlDollar > 0 ? `+$${day.pnlDollar.toFixed(1)}` : day.pnlDollar < 0 ? `-$${Math.abs(day.pnlDollar).toFixed(1)}` : '$0.00'}
@@ -1521,10 +1521,10 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                           <span
                             className={`text-[9px] px-1.5 py-0.5 rounded font-bold font-mono ${
                               day.winRatePct >= 60
-                                ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-800/40'
+                                ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                                 : day.winRatePct >= 40
-                                ? 'bg-amber-950/80 text-amber-300 border border-amber-800/40'
-                                : 'bg-rose-950/80 text-rose-300 border border-rose-800/40'
+                                ? 'bg-amber-50 text-amber-800 border border-amber-200'
+                                : 'bg-rose-50 text-rose-800 border border-rose-200'
                             }`}
                           >
                             {day.winRatePct}% Win Rate
@@ -1540,29 +1540,29 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
               <div>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-2.5">
                   <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-amber-400" />
-                    <h4 className="text-xs sm:text-sm font-bold text-white">
+                    <Clock className="w-4 h-4 text-[#B8860B]" />
+                    <h4 className="text-xs sm:text-sm font-bold text-[#1C1917]">
                       Historical Trade Accuracy Log ({filteredTrades.length} Trades)
                     </h4>
                   </div>
 
                   {/* Filter Trades: All / Wins / Losses */}
-                  <div className="flex items-center bg-slate-900 rounded-lg p-1 border border-slate-800 text-xs self-start sm:self-auto">
+                  <div className="flex items-center bg-[#F5EFEB] rounded-lg p-1 border border-[#E6DDCF] text-xs self-start sm:self-auto">
                     <button
                       onClick={() => setTradeFilter('ALL')}
-                      className={`px-2.5 py-1 rounded font-bold touch-manipulation min-h-[34px] ${tradeFilter === 'ALL' ? 'bg-amber-500 text-slate-950' : 'text-slate-400 hover:text-white'}`}
+                      className={`px-2.5 py-1 rounded font-bold touch-manipulation min-h-[34px] transition-colors ${tradeFilter === 'ALL' ? 'bg-[#1C1917] text-white' : 'text-[#78716C] hover:text-[#1C1917]'}`}
                     >
                       All ({currentSelectedStrategy.totalTrades})
                     </button>
                     <button
                       onClick={() => setTradeFilter('WINS')}
-                      className={`px-2.5 py-1 rounded font-bold touch-manipulation min-h-[34px] ${tradeFilter === 'WINS' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                      className={`px-2.5 py-1 rounded font-bold touch-manipulation min-h-[34px] transition-colors ${tradeFilter === 'WINS' ? 'bg-emerald-600 text-white' : 'text-[#78716C] hover:text-[#1C1917]'}`}
                     >
                       Wins ({currentSelectedStrategy.winningTrades})
                     </button>
                     <button
                       onClick={() => setTradeFilter('LOSSES')}
-                      className={`px-2.5 py-1 rounded font-bold touch-manipulation min-h-[34px] ${tradeFilter === 'LOSSES' ? 'bg-rose-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                      className={`px-2.5 py-1 rounded font-bold touch-manipulation min-h-[34px] transition-colors ${tradeFilter === 'LOSSES' ? 'bg-rose-600 text-white' : 'text-[#78716C] hover:text-[#1C1917]'}`}
                     >
                       Losses ({currentSelectedStrategy.losingTrades})
                     </button>
@@ -1570,18 +1570,18 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                 </div>
 
                 {/* Click-to-Chart Instruction & Selection Banner */}
-                <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-xs font-mono">
-                  <div className="flex items-center gap-2 text-amber-300">
-                    <Target className="w-4 h-4 text-amber-400 shrink-0" />
+                <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-lg bg-[#FFFDF7] border border-[#E6DDCF] text-xs font-mono">
+                  <div className="flex items-center gap-2 text-[#845306]">
+                    <Target className="w-4 h-4 text-amber-600 shrink-0" />
                     <span className="font-sans text-[11px] sm:text-xs">
                       <strong>Click any trade below</strong> to automatically update <strong>Entry</strong> &amp; <strong>Stop Loss</strong> and reflect it on the chart.
-                      <span className="text-amber-200/90 ml-1">Amount is reset to <strong>0</strong> for historical trades, but preserved for running trades.</span>
+                      <span className="text-[#B8860B] ml-1">Amount is reset to <strong>0</strong> for historical trades, but preserved for running trades.</span>
                     </span>
                   </div>
                   {selectedTrade && (
                     <button
                       onClick={handleClearSelectedTrade}
-                      className="ml-auto px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[10px] font-bold border border-slate-700 flex items-center gap-1 transition-colors"
+                      className="ml-auto px-2 py-0.5 rounded bg-[#F5EFEB] hover:bg-[#EFE8DC] text-[#1C1917] text-[10px] font-bold border border-[#E6DDCF] flex items-center gap-1 transition-colors"
                     >
                       <X className="w-3 h-3" />
                       <span>Clear Selected Trade</span>
@@ -1591,9 +1591,9 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
 
                 {/* Active Running Trades (Live / Open Positions) */}
                 {(runningPaperTrades.length > 0 || (currentSelectedStrategy?.trades && currentSelectedStrategy.trades.some(t => t.isRunning))) && (
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-1.5 text-xs font-mono text-emerald-400 font-bold">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                  <div className="space-y-2 mt-2">
+                    <div className="flex items-center gap-1.5 text-xs font-mono text-emerald-700 font-bold">
+                      <span className="w-2 h-2 rounded-full bg-emerald-600 animate-ping" />
                       <span>Active Running Trades ({runningPaperTrades.length + (currentSelectedStrategy?.trades.filter(t => t.isRunning).length || 0)})</span>
                     </div>
 
@@ -1619,30 +1619,30 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                             })}
                             className={`p-2.5 rounded-lg border cursor-pointer transition-all flex items-center justify-between gap-2 ${
                               isSelected
-                                ? 'bg-emerald-950/70 border-emerald-400 ring-2 ring-emerald-400/80 shadow-lg'
-                                : 'bg-[#0D1117] border-emerald-600/50 hover:border-emerald-400'
+                                ? 'bg-emerald-50 border-emerald-500 ring-2 ring-emerald-500 shadow-xs'
+                                : 'bg-[#FFFDF7] border-[#E6DDCF] hover:border-emerald-500/60'
                             }`}
                           >
                             <div>
                               <div className="flex items-center gap-1.5 font-mono text-xs">
-                                <span className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-black text-[10px]">
+                                <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-black text-[10px]">
                                   {pos.type}
                                 </span>
-                                <span className="font-bold text-white">XAUUSD</span>
-                                <span className="text-[10px] text-emerald-400 font-bold">
+                                <span className="font-bold text-[#1C1917]">XAUUSD</span>
+                                <span className="text-[10px] text-emerald-700 font-bold">
                                   ● {pos.quantity} Oz (Running)
                                 </span>
                               </div>
-                              <div className="text-[11px] font-mono text-slate-400 mt-1">
-                                Entry: <strong className="text-white">${pos.entryPrice.toFixed(2)}</strong> | SL: <span className="text-rose-400">${(pos.stopLossPrice ?? (isShort ? pos.entryPrice + 8 : pos.entryPrice - 8)).toFixed(2)}</span>
+                              <div className="text-[11px] font-mono text-[#78716C] mt-1">
+                                Entry: <strong className="text-[#1C1917]">${pos.entryPrice.toFixed(2)}</strong> | SL: <span className="text-rose-700">${(pos.stopLossPrice ?? (isShort ? pos.entryPrice + 8 : pos.entryPrice - 8)).toFixed(2)}</span>
                               </div>
                             </div>
 
                             <div className="text-right">
-                              <span className={`text-xs font-black font-mono block ${pos.unrealizedPnlDollars >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                              <span className={`text-xs font-black font-mono block ${pos.unrealizedPnlDollars >= 0 ? 'text-emerald-700' : 'text-rose-700'}`}>
                                 {pos.unrealizedPnlDollars >= 0 ? `+$${pos.unrealizedPnlDollars.toFixed(2)}` : `-$${Math.abs(pos.unrealizedPnlDollars).toFixed(2)}`}
                               </span>
-                              <span className="text-[10px] text-slate-400 font-mono">
+                              <span className="text-[10px] text-[#A8A29E] font-mono">
                                 Click to reflect
                               </span>
                             </div>
@@ -1659,30 +1659,30 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                             onClick={() => handleSelectTrade(t)}
                             className={`p-2.5 rounded-lg border cursor-pointer transition-all flex items-center justify-between gap-2 ${
                               isSelected
-                                ? 'bg-emerald-950/70 border-emerald-400 ring-2 ring-emerald-400/80 shadow-lg'
-                                : 'bg-[#0D1117] border-emerald-600/50 hover:border-emerald-400'
+                                ? 'bg-emerald-50 border-emerald-500 ring-2 ring-emerald-500 shadow-xs'
+                                : 'bg-[#FFFDF7] border-[#E6DDCF] hover:border-emerald-500/60'
                             }`}
                           >
                             <div>
                               <div className="flex items-center gap-1.5 font-mono text-xs">
-                                <span className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-black text-[10px]">
+                                <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-black text-[10px]">
                                   {t.direction}
                                 </span>
-                                <span className="font-bold text-white">XAUUSD</span>
-                                <span className="text-[10px] text-emerald-400 font-bold">
+                                <span className="font-bold text-[#1C1917]">XAUUSD</span>
+                                <span className="text-[10px] text-emerald-700 font-bold">
                                   ● {t.quantity ?? 10} Oz (Running)
                                 </span>
                               </div>
-                              <div className="text-[11px] font-mono text-slate-400 mt-1">
-                                Entry: <strong className="text-white">${t.entryPrice.toFixed(2)}</strong> | SL: <span className="text-rose-400">${(t.stopLossPrice ?? (t.direction === 'SHORT' ? t.entryPrice + 8 : t.entryPrice - 8)).toFixed(2)}</span>
+                              <div className="text-[11px] font-mono text-[#78716C] mt-1">
+                                Entry: <strong className="text-[#1C1917]">${t.entryPrice.toFixed(2)}</strong> | SL: <span className="text-rose-700">${(t.stopLossPrice ?? (t.direction === 'SHORT' ? t.entryPrice + 8 : t.entryPrice - 8)).toFixed(2)}</span>
                               </div>
                             </div>
 
                             <div className="text-right">
-                              <span className="text-xs font-black font-mono text-emerald-400 block">
+                              <span className="text-xs font-black font-mono text-emerald-700 block">
                                 RUNNING
                               </span>
-                              <span className="text-[10px] text-slate-400 font-mono">
+                              <span className="text-[10px] text-[#A8A29E] font-mono">
                                 Click to reflect
                               </span>
                             </div>
@@ -1695,13 +1695,13 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
 
                 {/* Closed Gold Trade Log — separate from the stock Trade Journal in Positions & Exits */}
                 {closedGoldTrades.length > 0 && (
-                  <div className="space-y-2">
+                  <div className="space-y-2 mt-2">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1.5 text-xs font-mono text-slate-300 font-bold">
-                        <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                      <div className="flex items-center gap-1.5 text-xs font-mono text-[#1C1917] font-bold">
+                        <Calendar className="w-3.5 h-3.5 text-[#B8860B]" />
                         <span>XAUUSD Closed Trade Log ({closedGoldTrades.length})</span>
                       </div>
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-950/60 text-amber-300 border border-amber-800/60">
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#FAF7F2] text-[#845306] border border-[#E6DDCF]">
                         5M Entry / 30M Trend
                       </span>
                     </div>
@@ -1712,29 +1712,29 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                         return (
                           <div
                             key={pos.id}
-                            className="p-2.5 rounded-lg border border-slate-800 bg-[#0D1117] flex items-center justify-between gap-2"
+                            className="p-2.5 rounded-lg border border-[#E6DDCF] bg-[#FFFDF7] flex items-center justify-between gap-2 shadow-2xs"
                           >
                             <div>
                               <div className="flex items-center gap-1.5 font-mono text-xs">
                                 <span className={`px-1.5 py-0.5 rounded font-black text-[10px] ${
-                                  pos.type === 'LONG' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'
+                                  pos.type === 'LONG' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
                                 }`}>
                                   {pos.type}
                                 </span>
-                                <span className="font-bold text-white">XAUUSD</span>
-                                <span className="text-[10px] text-slate-500">{pos.quantity} Oz</span>
+                                <span className="font-bold text-[#1C1917]">XAUUSD</span>
+                                <span className="text-[10px] text-[#78716C]">{pos.quantity} Oz</span>
                               </div>
-                              <div className="text-[11px] font-mono text-slate-400 mt-1">
-                                Entry: <strong className="text-white">${pos.entryPrice.toFixed(2)}</strong>
-                                {pos.closePrice != null && <> {'->'} Exit: <strong className="text-white">${pos.closePrice.toFixed(2)}</strong></>}
-                                <span className="text-slate-600 ml-1.5">{pos.closeDate ? new Date(pos.closeDate).toLocaleDateString() : pos.entryDate}</span>
+                              <div className="text-[11px] font-mono text-[#78716C] mt-1">
+                                Entry: <strong className="text-[#1C1917]">${pos.entryPrice.toFixed(2)}</strong>
+                                {pos.closePrice != null && <> {'->'} Exit: <strong className="text-[#1C1917]">${pos.closePrice.toFixed(2)}</strong></>}
+                                <span className="text-[#A8A29E] ml-1.5">{pos.closeDate ? new Date(pos.closeDate).toLocaleDateString() : pos.entryDate}</span>
                               </div>
                             </div>
                             <div className="text-right">
-                              <span className={`text-xs font-black font-mono block ${isWin ? 'text-emerald-400' : 'text-rose-400'}`}>
+                              <span className={`text-xs font-black font-mono block ${isWin ? 'text-emerald-700' : 'text-rose-700'}`}>
                                 {isWin ? '+' : ''}{formatCurrency(pos.realizedPnlDollars ?? 0)}
                               </span>
-                              <span className={`text-[10px] font-mono ${isWin ? 'text-emerald-500/80' : 'text-rose-500/80'}`}>
+                              <span className={`text-[10px] font-mono ${isWin ? 'text-emerald-700/80' : 'text-rose-700/80'}`}>
                                 {(pos.realizedPnlPercent ?? 0).toFixed(2)}%
                               </span>
                             </div>
@@ -1746,7 +1746,7 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                 )}
 
                 {/* Mobile Trade Cards (< md) */}
-                <div className="md:hidden space-y-2 max-h-80 overflow-y-auto pr-1">
+                <div className="md:hidden space-y-2 max-h-80 overflow-y-auto pr-1 mt-2">
                   {filteredTrades.length > 0 ? (
                     filteredTrades.map((t, idx) => {
                       const isSelected = selectedTrade?.id === t.id;
@@ -1756,49 +1756,51 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                           onClick={() => handleSelectTrade(t)}
                           className={`rounded-lg p-2.5 text-xs cursor-pointer transition-all ${
                             isSelected
-                              ? 'bg-amber-500/15 border-2 border-amber-400 ring-2 ring-amber-400/50 shadow-lg'
-                              : 'bg-slate-900/70 border border-slate-800 hover:bg-slate-800/80'
+                              ? 'bg-amber-50/80 border-2 border-[#D4AF37] ring-2 ring-[#D4AF37]/50 shadow-sm'
+                              : 'bg-[#FFFDF7] border border-[#E6DDCF] hover:bg-[#FAF7F2]'
                           }`}
                         >
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-1.5">
-                              <span className="font-mono text-slate-500 text-[10px]">#{idx + 1}</span>
-                              <span className="px-1.5 py-0.2 rounded bg-emerald-950 text-emerald-300 font-bold text-[10px]">
+                              <span className="font-mono text-[#78716C] text-[10px]">#{idx + 1}</span>
+                              <span className={`px-1.5 py-0.2 rounded font-bold text-[10px] ${
+                                t.direction === 'SHORT' ? 'bg-rose-100 text-rose-800' : 'bg-emerald-100 text-emerald-800'
+                              }`}>
                                 {t.direction}
                               </span>
-                              <span className="font-mono text-[10px] text-slate-400">{new Date(t.entryTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                              <span className="font-mono text-[10px] text-[#78716C]">{new Date(t.entryTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                               {isSelected && (
-                                <span className="px-1.5 py-0.2 rounded bg-amber-500 text-slate-950 font-black text-[9px] uppercase">
+                                <span className="px-1.5 py-0.2 rounded bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] font-black text-[9px] uppercase shadow-2xs">
                                   Selected
                                 </span>
                               )}
                             </div>
                             <span className={`px-2 py-0.5 rounded text-[10px] font-black ${
-                              t.isWin ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'
+                              t.isWin ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-rose-50 text-rose-800 border border-rose-200'
                             }`}>
                               {t.isWin ? `+$${t.pnlDollar.toFixed(1)} (+${t.pnlPct.toFixed(1)}%)` : `-$${Math.abs(t.pnlDollar).toFixed(1)} (${t.pnlPct.toFixed(1)}%)`}
                             </span>
                           </div>
-                          <div className="flex items-center justify-between text-[11px] font-mono text-slate-300 mt-1.5 pt-1.5 border-t border-slate-800/60">
-                            <span>Entry: <strong className="text-cyan-300">${t.entryPrice.toFixed(2)}</strong></span>
-                            <span>Stop Loss: <strong className="text-rose-300">${(t.stopLossPrice ?? (t.direction === 'SHORT' ? t.entryPrice + 8 : t.entryPrice - 8)).toFixed(2)}</strong></span>
+                          <div className="flex items-center justify-between text-[11px] font-mono text-[#1C1917] mt-1.5 pt-1.5 border-t border-[#E6DDCF]">
+                            <span>Entry: <strong className="text-[#845306]">${t.entryPrice.toFixed(2)}</strong></span>
+                            <span>Stop Loss: <strong className="text-rose-700">${(t.stopLossPrice ?? (t.direction === 'SHORT' ? t.entryPrice + 8 : t.entryPrice - 8)).toFixed(2)}</strong></span>
                           </div>
-                          <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 mt-1">
+                          <div className="flex items-center justify-between text-[10px] font-mono text-[#78716C] mt-1">
                             <span>Out: ${t.exitPrice.toFixed(2)} ({t.holdingMinutes}m)</span>
-                            <span className="text-amber-400/90 font-sans">Amt: 0 oz (Reset)</span>
+                            <span className="text-[#845306] font-sans font-semibold">Amt: 0 oz (Reset)</span>
                           </div>
                         </div>
                       );
                     })
                   ) : (
-                    <div className="p-4 text-center text-slate-500 text-xs">No trades matching filter.</div>
+                    <div className="p-4 text-center text-[#78716C] text-xs">No trades matching filter.</div>
                   )}
                 </div>
 
                 {/* Desktop Trades Table (>= md) */}
-                <div className="hidden md:block overflow-x-auto border border-slate-800 rounded-xl max-h-80 overflow-y-auto">
+                <div className="hidden md:block overflow-x-auto border border-[#E6DDCF] rounded-xl max-h-80 overflow-y-auto mt-2">
                   <table className="w-full text-left text-xs">
-                    <thead className="sticky top-0 bg-[#0B0E14] z-10 border-b border-slate-800 text-slate-400 uppercase font-mono text-[10px]">
+                    <thead className="sticky top-0 bg-[#FAF7F2] z-10 border-b border-[#E6DDCF] text-[#78716C] uppercase font-mono text-[10px]">
                       <tr>
                         <th className="py-2.5 px-3">#</th>
                         <th className="py-2.5 px-3">Direction</th>
@@ -1814,7 +1816,7 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                         <th className="py-2.5 px-3 text-center">Status</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/60 font-mono text-[11px]">
+                    <tbody className="divide-y divide-[#E6DDCF] font-mono text-[11px]">
                       {filteredTrades.length > 0 ? (
                         filteredTrades.map((t, idx) => {
                           const isSelected = selectedTrade?.id === t.id;
@@ -1827,38 +1829,38 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                               title="Click to reflect on chart, update Entry & Stop Loss, and reset amount to 0"
                               className={`cursor-pointer transition-colors ${
                                 isSelected
-                                  ? 'bg-amber-500/20 text-white font-bold ring-1 ring-inset ring-amber-400'
-                                  : 'hover:bg-slate-800/60'
+                                  ? 'bg-amber-50/80 text-[#1C1917] font-bold ring-1 ring-inset ring-[#D4AF37]'
+                                  : 'hover:bg-[#FAF7F2]'
                               }`}
                             >
-                              <td className="py-2 px-3 text-slate-500">
+                              <td className="py-2 px-3 text-[#78716C]">
                                 {isSelected ? '👉 ' : ''}{idx + 1}
                               </td>
                               <td className="py-2 px-3">
                                 <span className={`px-1.5 py-0.5 rounded font-black text-[9px] ${
                                   t.direction === 'SHORT'
-                                    ? 'bg-rose-950 text-rose-300 border border-rose-800/60'
-                                    : 'bg-emerald-950 text-emerald-300 border border-emerald-800/60'
+                                    ? 'bg-rose-100 text-rose-800 border border-rose-200'
+                                    : 'bg-emerald-100 text-emerald-800 border border-emerald-200'
                                 }`}>
                                   {t.direction}
                                 </span>
                               </td>
-                              <td className="py-2 px-3 text-slate-300">{new Date(t.entryTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
-                              <td className="py-2 px-3 text-cyan-300 font-bold">${t.entryPrice.toFixed(2)}</td>
-                              <td className="py-2 px-3 text-rose-300 font-semibold">${slVal.toFixed(2)}</td>
-                              <td className="py-2 px-3 text-emerald-300 font-semibold">${tpVal.toFixed(2)}</td>
-                              <td className="py-2 px-3 text-white font-bold">${t.exitPrice.toFixed(2)}</td>
-                              <td className="py-2 px-3 text-slate-400">{t.holdingMinutes}m ({t.holdingBars} bars)</td>
-                              <td className="py-2 px-3 text-slate-300 font-sans text-xs">{t.exitReason}</td>
-                              <td className={`py-2 px-3 text-right font-black ${t.isWin ? 'text-emerald-400' : 'text-rose-400'}`}>
+                              <td className="py-2 px-3 text-[#57534E]">{new Date(t.entryTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+                              <td className="py-2 px-3 text-[#845306] font-bold">${t.entryPrice.toFixed(2)}</td>
+                              <td className="py-2 px-3 text-rose-700 font-semibold">${slVal.toFixed(2)}</td>
+                              <td className="py-2 px-3 text-emerald-700 font-semibold">${tpVal.toFixed(2)}</td>
+                              <td className="py-2 px-3 text-[#1C1917] font-bold">${t.exitPrice.toFixed(2)}</td>
+                              <td className="py-2 px-3 text-[#78716C]">{t.holdingMinutes}m ({t.holdingBars} bars)</td>
+                              <td className="py-2 px-3 text-[#57534E] font-sans text-xs">{t.exitReason}</td>
+                              <td className={`py-2 px-3 text-right font-black ${t.isWin ? 'text-emerald-700' : 'text-rose-700'}`}>
                                 {t.pnlDollar >= 0 ? `+$${t.pnlDollar.toFixed(2)}` : `-$${Math.abs(t.pnlDollar).toFixed(2)}`}
                               </td>
-                              <td className={`py-2 px-3 text-right font-bold ${t.isWin ? 'text-emerald-400' : 'text-rose-400'}`}>
+                              <td className={`py-2 px-3 text-right font-bold ${t.isWin ? 'text-emerald-700' : 'text-rose-700'}`}>
                                 {t.pnlPct >= 0 ? `+${t.pnlPct.toFixed(2)}%` : `${t.pnlPct.toFixed(2)}%`}
                               </td>
                               <td className="py-2 px-3 text-center">
                                 <span className={`px-2 py-0.5 rounded text-[10px] font-black ${
-                                  t.isWin ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+                                  t.isWin ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-rose-50 text-rose-800 border border-rose-200'
                                 }`}>
                                   {t.isWin ? 'WIN' : 'LOSS'}
                                 </span>
@@ -1868,7 +1870,7 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                         })
                       ) : (
                         <tr>
-                          <td colSpan={12} className="py-6 text-center text-slate-500 font-sans text-xs">
+                          <td colSpan={12} className="py-6 text-center text-[#78716C] font-sans text-xs">
                             No trades matching filter.
                           </td>
                         </tr>
@@ -1918,49 +1920,49 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
             />
           )}
 
-          <div className={`relative bg-[#161B22] border border-slate-800 rounded-xl shadow-2xl overflow-hidden ${
-            isChartFullscreen ? 'fixed inset-0 z-50 rounded-none bg-[#0B0E14]' : ''
+          <div className={`relative bg-white border border-[#E6DDCF] rounded-xl shadow-sm overflow-hidden ${
+            isChartFullscreen ? 'fixed inset-0 z-50 rounded-none bg-white' : ''
           }`}>
             {/* Interactive On-Chart Trade Reflection & Levels Overlay HUD */}
             {selectedTrade && (
-              <div className="bg-gradient-to-r from-[#0B0E14] via-[#161B22] to-[#0B0E14] border-b border-amber-500/40 p-2.5 sm:px-4 flex flex-wrap items-center justify-between gap-2 shadow-inner">
+              <div className="bg-[#FFFDF7] border-b border-[#E6DDCF] p-2.5 sm:px-4 flex flex-wrap items-center justify-between gap-2 shadow-2xs">
                 <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-                  <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase flex items-center gap-1.5 shadow-sm ${
+                  <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase flex items-center gap-1.5 shadow-2xs ${
                     selectedTrade.isRunning
-                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 animate-pulse'
-                      : 'bg-amber-500/20 text-amber-300 border border-amber-500/50'
+                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-300 animate-pulse'
+                      : 'bg-amber-50 text-amber-900 border border-amber-300'
                   }`}>
-                    <span className={`w-2 h-2 rounded-full ${selectedTrade.isRunning ? 'bg-emerald-400' : 'bg-amber-400'}`} />
+                    <span className={`w-2 h-2 rounded-full ${selectedTrade.isRunning ? 'bg-emerald-600' : 'bg-amber-600'}`} />
                     {selectedTrade.isRunning ? 'Running Trade on Chart' : 'Selected Trade on Chart'}
                   </span>
 
-                  <span className="font-bold text-white uppercase px-1.5 py-0.5 rounded bg-slate-800">
+                  <span className="font-bold text-white uppercase px-1.5 py-0.5 rounded bg-[#1C1917]">
                     {selectedTrade.direction}
                   </span>
 
                   {/* Entry Price Tag */}
-                  <span className="text-cyan-300 bg-cyan-950/80 border border-cyan-500/60 px-2 py-0.5 rounded font-black flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                  <span className="text-cyan-800 bg-cyan-50 border border-cyan-200 px-2 py-0.5 rounded font-black flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-600" />
                     Entry: ${selectedTrade.entryPrice.toFixed(2)}
                   </span>
 
                   {/* Stop Loss Price Tag */}
-                  <span className="text-rose-300 bg-rose-950/80 border border-rose-500/60 px-2 py-0.5 rounded font-black flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
+                  <span className="text-rose-800 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded font-black flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-rose-600" />
                     Stop Loss: ${(selectedTrade.stopLossPrice ?? customStopLossPrice ?? dynamicStopLoss).toFixed(2)}
                   </span>
 
                   {/* Target Price Tag */}
-                  <span className="text-emerald-300 bg-emerald-950/80 border border-emerald-500/60 px-2 py-0.5 rounded font-black hidden sm:flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  <span className="text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded font-black hidden sm:flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
                     Target TP: ${(selectedTrade.targetPrice ?? customTargetPrice ?? target1Price).toFixed(2)}
                   </span>
 
                   {/* Amount Tag */}
                   <span className={`px-2 py-0.5 rounded font-black text-[11px] ${
                     tradeAmount > 0
-                      ? 'bg-emerald-950 text-emerald-300 border border-emerald-600/60'
-                      : 'bg-slate-900 text-amber-400 border border-amber-500/40'
+                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                      : 'bg-[#FDF4DC] text-[#845306] border border-[#F3DA90]'
                   }`}>
                     Amount: {tradeAmount} Oz {tradeAmount === 0 ? '(Reset to 0 for historical trade)' : '(Active Running Position)'}
                   </span>
@@ -1969,14 +1971,14 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                 <div className="flex items-center gap-1.5 ml-auto">
                   <button
                     onClick={() => setShowForecastTool(!showForecastTool)}
-                    className="px-2.5 py-1 rounded bg-cyan-950 hover:bg-cyan-900 text-cyan-200 text-[11px] font-bold border border-cyan-500/50 flex items-center gap-1 transition-colors"
+                    className="px-2.5 py-1 rounded bg-[#F5EFEB] hover:bg-[#EFE8DC] text-[#1C1917] text-[11px] font-bold border border-[#E6DDCF] flex items-center gap-1 transition-colors"
                   >
-                    <Target className="w-3 h-3 text-cyan-400" />
+                    <Target className="w-3 h-3 text-[#B8860B]" />
                     <span>{showForecastTool ? 'Hide Forecast Tool' : 'Forecast Tool'}</span>
                   </button>
                   <button
                     onClick={handleClearSelectedTrade}
-                    className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[11px] font-mono border border-slate-700 flex items-center gap-1 transition-colors"
+                    className="px-2 py-1 rounded bg-[#F5EFEB] hover:bg-[#EFE8DC] text-[#57534E] hover:text-[#1C1917] text-[11px] font-mono border border-[#E6DDCF] flex items-center gap-1 transition-colors"
                   >
                     <RefreshCw className="w-3 h-3" />
                     <span>Snap Live Spot (${(currentSpotPrice ?? 0).toFixed(2)})</span>
@@ -1988,35 +1990,35 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
             {/* Visual Floating On-Chart Price Tag Overlay */}
             {selectedTrade && (
               <div className="pointer-events-none absolute right-4 top-16 z-20 hidden sm:flex flex-col items-end gap-1 font-mono text-[10px]">
-                <div className="bg-cyan-950/90 text-cyan-300 border border-cyan-400/80 px-2 py-0.5 rounded shadow-lg flex items-center gap-1.5 backdrop-blur font-black">
-                  <span className="w-1.5 h-1.5 bg-cyan-400 rotate-45" />
+                <div className="bg-white/95 text-cyan-800 border border-cyan-400 px-2 py-0.5 rounded shadow-md flex items-center gap-1.5 backdrop-blur font-black">
+                  <span className="w-1.5 h-1.5 bg-cyan-600 rotate-45" />
                   <span>CHART ENTRY: ${selectedTrade.entryPrice.toFixed(2)}</span>
                 </div>
-                <div className="bg-rose-950/90 text-rose-300 border border-rose-400/80 px-2 py-0.5 rounded shadow-lg flex items-center gap-1.5 backdrop-blur font-black">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
+                <div className="bg-white/95 text-rose-800 border border-rose-400 px-2 py-0.5 rounded shadow-md flex items-center gap-1.5 backdrop-blur font-black">
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-600" />
                   <span>CHART STOP LOSS: ${(selectedTrade.stopLossPrice ?? customStopLossPrice ?? dynamicStopLoss).toFixed(2)}</span>
                 </div>
-                <div className="bg-emerald-950/90 text-emerald-300 border border-emerald-400/80 px-2 py-0.5 rounded shadow-lg flex items-center gap-1.5 backdrop-blur font-black">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <div className="bg-white/95 text-emerald-800 border border-emerald-400 px-2 py-0.5 rounded shadow-md flex items-center gap-1.5 backdrop-blur font-black">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
                   <span>CHART TARGET: ${(selectedTrade.targetPrice ?? customTargetPrice ?? target1Price).toFixed(2)}</span>
                 </div>
-                <div className="bg-slate-900/90 text-slate-300 border border-slate-700 px-2 py-0.5 rounded shadow backdrop-blur font-sans text-[9px]">
-                  Amount: <strong className={tradeAmount > 0 ? "text-emerald-400" : "text-amber-400"}>{tradeAmount} oz</strong> ({tradeAmount === 0 ? "Reset to 0" : "Running Trade"})
+                <div className="bg-white/95 text-[#57534E] border border-[#E6DDCF] px-2 py-0.5 rounded shadow backdrop-blur font-sans text-[9px]">
+                  Amount: <strong className={tradeAmount > 0 ? "text-emerald-700" : "text-[#B8860B]"}>{tradeAmount} oz</strong> ({tradeAmount === 0 ? "Reset to 0" : "Running Trade"})
                 </div>
               </div>
             )}
 
             {/* Chart Header Bar with Layout Switcher, Timeframe, Forecast & Drawing Tools */}
-            <div className="p-2.5 sm:p-4 bg-[#0B0E14] border-b border-slate-800 flex flex-wrap items-center justify-between gap-2">
+            <div className="p-2.5 sm:p-4 bg-[#FAF7F2] border-b border-[#E6DDCF] flex flex-wrap items-center justify-between gap-2">
               <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                <span className="font-black text-xs sm:text-sm text-white tracking-wide flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                <span className="font-black text-xs sm:text-sm text-[#1C1917] tracking-wide flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
                   Live Gold Chart
                 </span>
-                <span className="text-[11px] sm:text-xs text-slate-400 font-mono">
+                <span className="text-[11px] sm:text-xs text-[#78716C] font-mono">
                   OANDA:XAUUSD
                 </span>
-                <span className="text-xs font-mono font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30">
+                <span className="text-xs font-mono font-bold text-[#845306] bg-[#FDF4DC] px-2 py-0.5 rounded border border-[#F3DA90]">
                   ${(currentSpotPrice ?? 0).toFixed(2)}
                 </span>
               </div>
@@ -2024,14 +2026,14 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
               {/* Layout controls & Tools Toolbar */}
               <div className="flex flex-wrap items-center gap-2">
                 {/* 2-Split Layout Setup Switcher */}
-                <div className="bg-slate-900 rounded-lg p-0.5 border border-slate-800 flex items-center text-xs font-mono">
+                <div className="bg-[#F5EFEB] rounded-lg p-0.5 border border-[#E6DDCF] flex items-center text-xs font-mono">
                   <button
                     onClick={() => setChartLayout('single')}
                     title="Single Full View"
-                    className={`px-2 py-1 rounded text-[11px] font-bold transition-colors flex items-center gap-1 ${
+                    className={`px-2 py-1 rounded text-[11px] font-bold transition-all flex items-center gap-1 ${
                       chartLayout === 'single'
-                        ? 'bg-amber-500 text-slate-950 shadow'
-                        : 'text-slate-400 hover:text-white'
+                        ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] shadow-2xs'
+                        : 'text-[#78716C] hover:text-[#1C1917]'
                     }`}
                   >
                     <Square className="w-3 h-3" />
@@ -2040,10 +2042,10 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                   <button
                     onClick={() => setChartLayout('split-vertical')}
                     title={`2-Split Vertical Layout (${trendTimeframe} Trend Top / 5M Entry Bottom)`}
-                    className={`px-2 py-1 rounded text-[11px] font-bold transition-colors flex items-center gap-1 ${
+                    className={`px-2 py-1 rounded text-[11px] font-bold transition-all flex items-center gap-1 ${
                       chartLayout === 'split-vertical'
-                        ? 'bg-amber-500 text-slate-950 shadow'
-                        : 'text-slate-400 hover:text-white'
+                        ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] shadow-2xs'
+                        : 'text-[#78716C] hover:text-[#1C1917]'
                     }`}
                   >
                     <Rows className="w-3 h-3" />
@@ -2052,10 +2054,10 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                   <button
                     onClick={() => setChartLayout('split-horizontal')}
                     title="2-Split Columns Layout (Side-by-Side)"
-                    className={`px-2 py-1 rounded text-[11px] font-bold transition-colors flex items-center gap-1 hidden sm:flex ${
+                    className={`px-2 py-1 rounded text-[11px] font-bold transition-all flex items-center gap-1 hidden sm:flex ${
                       chartLayout === 'split-horizontal'
-                        ? 'bg-amber-500 text-slate-950 shadow'
-                        : 'text-slate-400 hover:text-white'
+                        ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] shadow-2xs'
+                        : 'text-[#78716C] hover:text-[#1C1917]'
                     }`}
                   >
                     <Columns className="w-3 h-3" />
@@ -2067,13 +2069,13 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                 <button
                   onClick={() => setShowForecastTool(!showForecastTool)}
                   title="Open Long & Short Position Forecast Planner and Risk/Reward Box"
-                  className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow ${
+                  className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs ${
                     showForecastTool
-                      ? 'bg-cyan-500 text-slate-950 ring-2 ring-cyan-300 font-black'
-                      : 'bg-slate-900 text-cyan-300 border border-cyan-500/40 hover:bg-slate-800'
+                      ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] font-black'
+                      : 'bg-[#F5EFEB] text-[#1C1917] border border-[#E6DDCF] hover:bg-[#EFE8DC]'
                   }`}
                 >
-                  <Target className="w-3.5 h-3.5" />
+                  <Target className="w-3.5 h-3.5 text-[#B8860B]" />
                   <span>Forecast Tool</span>
                 </button>
 
@@ -2083,8 +2085,8 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                   title="Toggle TradingView's left drawing toolbar (includes native Long Position and Short Position tools, Fibonacci, Trendlines)"
                   className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-colors flex items-center gap-1.5 ${
                     showDrawingTools
-                      ? 'bg-amber-950/80 border border-amber-500/60 text-amber-300 font-bold'
-                      : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200'
+                      ? 'bg-amber-100 border border-amber-300 text-[#845306] font-bold'
+                      : 'bg-[#F5EFEB] border border-[#E6DDCF] text-[#78716C] hover:text-[#1C1917]'
                   }`}
                 >
                   <Pencil className="w-3.5 h-3.5" />
@@ -2093,7 +2095,7 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
 
                 {/* Quick Single-Chart Interval Selector (shown when in single view) */}
                 {chartLayout === 'single' && (
-                  <div className="flex items-center gap-0.5 bg-slate-900 rounded-lg p-0.5 border border-slate-800">
+                  <div className="flex items-center gap-0.5 bg-[#F5EFEB] rounded-lg p-0.5 border border-[#E6DDCF]">
                     {[
                       { val: '1', label: '1m' },
                       { val: '5', label: '5m' },
@@ -2106,10 +2108,10 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                       <button
                         key={val}
                         onClick={() => setChartInterval(val)}
-                        className={`px-2 py-1 rounded text-[11px] font-mono font-bold transition-colors touch-manipulation min-h-[32px] ${
+                        className={`px-2 py-1 rounded text-[11px] font-mono font-bold transition-all touch-manipulation min-h-[32px] ${
                           chartInterval === val
-                            ? 'bg-amber-500 text-slate-950 shadow'
-                            : 'text-slate-400 hover:text-white'
+                            ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] shadow-2xs'
+                            : 'text-[#78716C] hover:text-[#1C1917]'
                         }`}
                       >
                         {label}
@@ -2121,10 +2123,10 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                 {/* Fullscreen Button */}
                 <button
                   onClick={() => setIsChartFullscreen(!isChartFullscreen)}
-                  className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition-colors touch-manipulation min-h-[34px] min-w-[34px] flex items-center justify-center"
+                  className="p-1.5 rounded-lg bg-[#F5EFEB] border border-[#E6DDCF] text-[#57534E] hover:text-[#1C1917] transition-colors touch-manipulation min-h-[34px] min-w-[34px] flex items-center justify-center"
                   title={isChartFullscreen ? 'Exit Fullscreen' : 'Expand Chart to Full Screen'}
                 >
-                  {isChartFullscreen ? <Minimize2 className="w-4 h-4 text-amber-400" /> : <Maximize2 className="w-4 h-4" />}
+                  {isChartFullscreen ? <Minimize2 className="w-4 h-4 text-amber-600" /> : <Maximize2 className="w-4 h-4" />}
                 </button>
               </div>
             </div>
@@ -2139,8 +2141,11 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                   theme="dark"
                   hideSideToolbar={!showDrawingTools}
                   studies={[
-                    'IchimokuCloud@tv-basicstudies',
                     'Volume@tv-basicstudies',
+                    'IchimokuCloud@tv-basicstudies',
+                    'EMA20@tv-basicstudies',
+                    'EMA50@tv-basicstudies',
+                    'CCI@tv-basicstudies',
                   ]}
                   containerId="xauusd_tradingview_widget"
                   height="100%"
@@ -2150,19 +2155,19 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
 
             {/* 2-Split Vertical Layout: Stacked Top (30M Reference Trend) & Bottom (1M Scalp Trigger/Entry) */}
             {chartLayout === 'split-vertical' && (
-              <div className="w-full space-y-3 p-3 bg-[#0B0E14]">
+              <div className="w-full space-y-3 p-3 bg-[#FAF7F2]">
                 {/* Top Pane: 30M Reference Trend */}
-                <div className="border border-slate-800 rounded-xl overflow-hidden bg-[#161B22]">
-                  <div className="p-2 bg-[#0D1117] border-b border-slate-800 flex items-center justify-between gap-2">
+                <div className="border border-[#E6DDCF] rounded-xl overflow-hidden bg-white shadow-sm">
+                  <div className="p-2 bg-[#FAF7F2] border-b border-[#E6DDCF] flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold border border-amber-500/40">
+                      <span className="px-2 py-0.5 rounded bg-amber-100 text-[#845306] font-mono text-[10px] font-bold border border-amber-300">
                         PANE 1 (REFERENCE)
                       </span>
-                      <span className="font-mono font-bold text-white text-xs">
-                        XAUUSD {chartIntervalTop === '30' ? '30M' : chartIntervalTop === '15' ? '15M' : `${chartIntervalTop}m`} Reference Trend &amp; Ichimoku Cloud
+                      <span className="font-mono font-bold text-[#1C1917] text-xs">
+                        XAUUSD {chartIntervalTop === '30' ? '30M' : chartIntervalTop === '15' ? '15M' : `${chartIntervalTop}m`} Reference Trend • EMA 20/50 &amp; Ichimoku
                       </span>
                     </div>
-                    <div className="flex items-center gap-1 bg-[#0B0E14] p-0.5 rounded border border-slate-800 font-mono text-xs">
+                    <div className="flex items-center gap-1 bg-[#F5EFEB] p-0.5 rounded border border-[#E6DDCF] font-mono text-xs">
                       {[
                         { val: '5', label: '5m' },
                         { val: '15', label: '15m' },
@@ -2174,10 +2179,10 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                         <button
                           key={val}
                           onClick={() => setChartIntervalTop(val)}
-                          className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                          className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all ${
                             chartIntervalTop === val
-                              ? 'bg-amber-500 text-slate-950'
-                              : 'text-slate-400 hover:text-white'
+                              ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] shadow-2xs'
+                              : 'text-[#78716C] hover:text-[#1C1917]'
                           }`}
                         >
                           {label}
@@ -2192,8 +2197,11 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                     theme="dark"
                     hideSideToolbar={!showDrawingTools}
                     studies={[
-                      'IchimokuCloud@tv-basicstudies',
                       'Volume@tv-basicstudies',
+                      'IchimokuCloud@tv-basicstudies',
+                      'EMA20@tv-basicstudies',
+                      'EMA50@tv-basicstudies',
+                      'CCI@tv-basicstudies',
                     ]}
                     containerId="xauusd_chart_top"
                     containerHeight="500px"
@@ -2201,17 +2209,17 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                 </div>
 
                 {/* Bottom Pane: 1M Scalp Trigger & Execution */}
-                <div className="border border-slate-800 rounded-xl overflow-hidden bg-[#161B22]">
-                  <div className="p-2 bg-[#0D1117] border-b border-slate-800 flex items-center justify-between gap-2">
+                <div className="border border-[#E6DDCF] rounded-xl overflow-hidden bg-white shadow-sm">
+                  <div className="p-2 bg-[#FAF7F2] border-b border-[#E6DDCF] flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold border border-cyan-500/40">
+                      <span className="px-2 py-0.5 rounded bg-cyan-100 text-cyan-800 font-mono text-[10px] font-bold border border-cyan-300">
                         PANE 2 (ENTRY)
                       </span>
-                      <span className="font-mono font-bold text-white text-xs">
+                      <span className="font-mono font-bold text-[#1C1917] text-xs">
                         XAUUSD {chartIntervalBottom === '1' ? '1M' : `${chartIntervalBottom}M`} Entry, TK Cross &amp; Execution
                       </span>
                     </div>
-                    <div className="flex items-center gap-1 bg-[#0B0E14] p-0.5 rounded border border-slate-800 font-mono text-xs">
+                    <div className="flex items-center gap-1 bg-[#F5EFEB] p-0.5 rounded border border-[#E6DDCF] font-mono text-xs">
                       {[
                         { val: '1', label: '1m' },
                         { val: '3', label: '3m' },
@@ -2223,10 +2231,10 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                         <button
                           key={val}
                           onClick={() => setChartIntervalBottom(val)}
-                          className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                          className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all ${
                             chartIntervalBottom === val
-                              ? 'bg-cyan-500 text-slate-950'
-                              : 'text-slate-400 hover:text-white'
+                              ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] shadow-2xs'
+                              : 'text-[#78716C] hover:text-[#1C1917]'
                           }`}
                         >
                           {label}
@@ -2241,8 +2249,11 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                     theme="dark"
                     hideSideToolbar={!showDrawingTools}
                     studies={[
-                      'IchimokuCloud@tv-basicstudies',
                       'Volume@tv-basicstudies',
+                      'IchimokuCloud@tv-basicstudies',
+                      'EMA20@tv-basicstudies',
+                      'EMA50@tv-basicstudies',
+                      'CCI@tv-basicstudies',
                     ]}
                     containerId="xauusd_chart_bottom"
                     containerHeight="500px"
@@ -2253,20 +2264,20 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
 
             {/* 2-Split Columns Layout: Side-by-Side (30M Left, 1M Right) */}
             {chartLayout === 'split-horizontal' && (
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-3 p-3 bg-[#0B0E14]">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-3 p-3 bg-[#FAF7F2]">
                 {/* Left Column Pane: 30M Reference Trend */}
-                <div className="border border-slate-800 rounded-xl overflow-hidden bg-[#161B22]">
-                  <div className="p-2 bg-[#0D1117] border-b border-slate-800 flex items-center justify-between gap-2">
-                    <span className="font-mono font-bold text-amber-400 text-xs">{trendTimeframe} Reference Trend</span>
-                    <div className="flex items-center gap-1 bg-[#0B0E14] p-0.5 rounded border border-slate-800 font-mono text-xs">
+                <div className="border border-[#E6DDCF] rounded-xl overflow-hidden bg-white shadow-sm">
+                  <div className="p-2 bg-[#FAF7F2] border-b border-[#E6DDCF] flex items-center justify-between gap-2">
+                    <span className="font-mono font-bold text-[#845306] text-xs">{trendTimeframe} Reference Trend</span>
+                    <div className="flex items-center gap-1 bg-[#F5EFEB] p-0.5 rounded border border-[#E6DDCF] font-mono text-xs">
                       {['5', '15', '30', '60', '240'].map(interval => (
                         <button
                           key={interval}
                           onClick={() => setChartIntervalTop(interval)}
-                          className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                          className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all ${
                             chartIntervalTop === interval
-                              ? 'bg-amber-500 text-slate-950'
-                              : 'text-slate-400 hover:text-white'
+                              ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] shadow-2xs'
+                              : 'text-[#78716C] hover:text-[#1C1917]'
                           }`}
                         >
                           {interval}m
@@ -2280,25 +2291,31 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                     interval={chartIntervalTop}
                     theme="dark"
                     hideSideToolbar={!showDrawingTools}
-                    studies={['IchimokuCloud@tv-basicstudies', 'Volume@tv-basicstudies']}
+                    studies={[
+                      'Volume@tv-basicstudies',
+                      'IchimokuCloud@tv-basicstudies',
+                      'EMA20@tv-basicstudies',
+                      'EMA50@tv-basicstudies',
+                      'CCI@tv-basicstudies',
+                    ]}
                     containerId="xauusd_chart_col_left"
                     containerHeight="640px"
                   />
                 </div>
 
                 {/* Right Column Pane: 1M Execution */}
-                <div className="border border-slate-800 rounded-xl overflow-hidden bg-[#161B22]">
-                  <div className="p-2 bg-[#0D1117] border-b border-slate-800 flex items-center justify-between gap-2">
-                    <span className="font-mono font-bold text-cyan-400 text-xs">1M Scalp Execution</span>
-                    <div className="flex items-center gap-1 bg-[#0B0E14] p-0.5 rounded border border-slate-800 font-mono text-xs">
+                <div className="border border-[#E6DDCF] rounded-xl overflow-hidden bg-white shadow-sm">
+                  <div className="p-2 bg-[#FAF7F2] border-b border-[#E6DDCF] flex items-center justify-between gap-2">
+                    <span className="font-mono font-bold text-cyan-800 text-xs">1M Scalp Execution</span>
+                    <div className="flex items-center gap-1 bg-[#F5EFEB] p-0.5 rounded border border-[#E6DDCF] font-mono text-xs">
                       {['1', '3', '5', '15', '60'].map(interval => (
                         <button
                           key={interval}
                           onClick={() => setChartIntervalBottom(interval)}
-                          className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                          className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all ${
                             chartIntervalBottom === interval
-                              ? 'bg-cyan-500 text-slate-950'
-                              : 'text-slate-400 hover:text-white'
+                              ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] shadow-2xs'
+                              : 'text-[#78716C] hover:text-[#1C1917]'
                           }`}
                         >
                           {interval}m
@@ -2312,7 +2329,13 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
                     interval={chartIntervalBottom}
                     theme="dark"
                     hideSideToolbar={!showDrawingTools}
-                    studies={['IchimokuCloud@tv-basicstudies', 'Volume@tv-basicstudies']}
+                    studies={[
+                      'Volume@tv-basicstudies',
+                      'IchimokuCloud@tv-basicstudies',
+                      'EMA20@tv-basicstudies',
+                      'EMA50@tv-basicstudies',
+                      'CCI@tv-basicstudies',
+                    ]}
                     containerId="xauusd_chart_col_right"
                     containerHeight="640px"
                   />
@@ -2326,17 +2349,17 @@ export const XauusdDaytradeTab: React.FC<XauusdDaytradeTabProps> = ({
       {/* ========================================================================= */}
       {/* 4. MOBILE STICKY QUICK TRADE EXECUTION BAR (VISIBLE ONLY ON MOBILE < sm) */}
       {/* ========================================================================= */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0B0E14]/95 border-t border-slate-800/90 px-3 py-2.5 backdrop-blur shadow-2xl flex items-center justify-between gap-2.5">
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 border-t border-[#E6DDCF] px-3 py-2.5 backdrop-blur shadow-xl flex items-center justify-between gap-2.5">
         <div className="flex flex-col">
-          <span className="text-[9px] text-slate-400 font-mono">
+          <span className="text-[9px] text-[#78716C] font-mono">
             {selectedTrade ? `${selectedTrade.direction} (Reflected)` : 'XAUUSD Spot'}
           </span>
-          <span className="text-sm font-black text-white font-mono leading-none">
+          <span className="text-sm font-black text-[#1C1917] font-mono leading-none">
             ${(customEntryPrice ?? currentSpotPrice ?? 0).toFixed(2)}
           </span>
-          <span className="text-[9px] text-rose-400 font-semibold font-mono">
+          <span className="text-[9px] text-rose-700 font-semibold font-mono">
             SL: ${(customStopLossPrice ?? dynamicStopLoss ?? 0).toFixed(2)}
-            <span className="text-slate-400 ml-1">| {tradeAmount} oz</span>
+            <span className="text-[#78716C] ml-1">| {tradeAmount} oz</span>
           </span>
         </div>
 

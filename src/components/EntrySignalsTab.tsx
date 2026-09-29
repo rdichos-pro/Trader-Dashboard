@@ -201,16 +201,16 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
   return (
     <div className="space-y-4">
       {/* Top Overview & Sub-tab navigation */}
-      <div className="bg-[#111215] p-4 rounded-xl border border-[#202227] flex flex-col lg:flex-row lg:items-center justify-between gap-3 shadow-md">
+      <div className="bg-white p-4 rounded-xl border border-[#E6DDCF] flex flex-col lg:flex-row lg:items-center justify-between gap-3 shadow-xs">
         <div>
           <div className="flex items-center space-x-2">
-            <Cloud className="w-5 h-5 text-emerald-400" />
-            <h2 className="text-base font-bold text-white tracking-tight">Multi-Timeframe Confluence Engine</h2>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-zinc-800 text-zinc-300 border border-zinc-700">
+            <Cloud className="w-5 h-5 text-amber-600" />
+            <h2 className="text-base font-bold text-[#1C1917] tracking-tight">Multi-Timeframe Confluence Engine</h2>
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#FDF4DC] text-[#845306] border border-[#F3DA90]">
               STOCKS (1H/4H/1D) • METALS &amp; CRYPTO (1m/5m/15m)
             </span>
           </div>
-          <p className="text-xs text-zinc-400 mt-0.5">
+          <p className="text-xs text-[#57534E] mt-0.5">
             Simultaneous 3-Timeframe Confluence: 1) Tenkan &gt; Kijun &amp; both above cloud, 2) CCI (40) &gt; 100, 3) Stoch (12,3,3) Main &gt; Signal &amp; &gt; 80. Stop loss at bottom of the bar close after TK crossover.
           </p>
         </div>
@@ -218,42 +218,42 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
         {/* Action Controls & Sub Navigation */}
         <div className="flex flex-wrap items-center gap-2">
           {/* Notification Permission Toggle */}
-          <div className="flex items-center gap-1.5 bg-[#0D0E11] px-2.5 py-1.5 rounded-lg border border-zinc-800 text-xs">
+          <div className="flex items-center gap-1.5 bg-[#FAF7F2] px-2.5 py-1.5 rounded-lg border border-[#E6DDCF] text-xs">
             {notifPermission === 'granted' ? (
-              <span className="flex items-center gap-1 text-emerald-400 font-medium">
-                <BellRing className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Desktop Alerts Active</span>
+              <span className="flex items-center gap-1 text-emerald-700 font-medium">
+                <BellRing className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="hidden sm:inline font-bold">Desktop Alerts Active</span>
               </span>
             ) : (
               <button
                 onClick={handleRequestPermission}
-                className="flex items-center gap-1 text-zinc-300 hover:text-white font-semibold"
+                className="flex items-center gap-1 text-[#57534E] hover:text-[#1C1917] font-semibold"
                 title="Enable browser system notifications"
               >
-                <Bell className="w-3.5 h-3.5 text-zinc-400" />
+                <Bell className="w-3.5 h-3.5 text-amber-600" />
                 Enable System Alerts
               </button>
             )}
             <button
               onClick={handleTestAlert}
-              className="ml-1 px-1.5 py-0.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white text-[10px] font-mono border border-zinc-750"
+              className="ml-1 px-1.5 py-0.5 rounded bg-white hover:bg-[#F5EFEB] text-[#845306] hover:text-[#59410E] text-[10px] font-mono border border-[#E6DDCF] font-bold"
               title="Test notification and audio chime"
             >
               {testedNotif ? 'Pinged ✓' : 'Test Ping'}
             </button>
           </div>
 
-          <div className="bg-[#0D0E11] p-1 rounded-lg border border-zinc-800 flex items-center text-xs">
+          <div className="bg-[#FAF7F2] p-1 rounded-lg border border-[#E6DDCF] flex items-center text-xs">
             <button
               id="subtab-confluence-scanner"
               onClick={() => setActiveSubTab('confluence')}
               className={`px-3 py-1.5 rounded-md font-medium transition-colors flex items-center gap-1.5 ${
                 activeSubTab === 'confluence'
-                  ? 'bg-zinc-800 text-white font-semibold shadow-sm border border-zinc-700'
-                  : 'text-zinc-400 hover:text-zinc-200'
+                  ? 'bg-[#1C1917] text-white font-bold shadow-xs'
+                  : 'text-[#57534E] hover:text-[#1C1917]'
               }`}
             >
-              <Zap className="w-3.5 h-3.5 text-emerald-400" />
+              <Zap className="w-3.5 h-3.5 text-amber-400" />
               Live Scanner
             </button>
             <button
@@ -261,8 +261,8 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
               onClick={() => setActiveSubTab('feed')}
               className={`px-3 py-1.5 rounded-md font-medium transition-colors flex items-center gap-1.5 ${
                 activeSubTab === 'feed'
-                  ? 'bg-zinc-800 text-white font-semibold shadow-sm border border-zinc-700'
-                  : 'text-zinc-400 hover:text-zinc-200'
+                  ? 'bg-[#1C1917] text-white font-bold shadow-xs'
+                  : 'text-[#57534E] hover:text-[#1C1917]'
               }`}
             >
               <Bell className="w-3.5 h-3.5" />
@@ -273,8 +273,8 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
               onClick={() => setActiveSubTab('rules')}
               className={`px-3 py-1.5 rounded-md font-medium transition-colors flex items-center gap-1.5 ${
                 activeSubTab === 'rules'
-                  ? 'bg-zinc-800 text-white font-semibold shadow-sm border border-zinc-700'
-                  : 'text-zinc-400 hover:text-zinc-200'
+                  ? 'bg-[#1C1917] text-white font-bold shadow-xs'
+                  : 'text-[#57534E] hover:text-[#1C1917]'
               }`}
             >
               <Sliders className="w-3.5 h-3.5" />
@@ -285,8 +285,8 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
               onClick={() => setActiveSubTab('accuracy')}
               className={`px-3 py-1.5 rounded-md font-medium transition-colors flex items-center gap-1.5 ${
                 activeSubTab === 'accuracy'
-                  ? 'bg-zinc-800 text-white font-semibold shadow-sm border border-zinc-700'
-                  : 'text-zinc-400 hover:text-zinc-200'
+                  ? 'bg-[#1C1917] text-white font-bold shadow-xs'
+                  : 'text-[#57534E] hover:text-[#1C1917]'
               }`}
             >
               <Award className="w-3.5 h-3.5" />
@@ -295,10 +295,10 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
             <button
               id="subtab-goto-daily-log"
               onClick={() => onNavigateToTab('daily-log')}
-              className="px-3 py-1.5 rounded-md font-semibold text-zinc-300 hover:text-white bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-700 flex items-center gap-1.5 transition-colors"
+              className="px-3 py-1.5 rounded-md font-semibold text-[#57534E] hover:text-[#1C1917] bg-white hover:bg-[#F5EFEB] border border-[#E6DDCF] flex items-center gap-1.5 transition-colors"
               title="View the Daily Log spreadsheet matching your Google Sheets"
             >
-              <BookOpen className="w-3.5 h-3.5 text-zinc-400" />
+              <BookOpen className="w-3.5 h-3.5 text-amber-600" />
               <span>Daily Log</span>
             </button>
           </div>
@@ -311,130 +311,130 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
           {/* Dual Strict Confluence Formula Breakdown */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* 1. Strict Long Entry Logic Box (Bullish) */}
-            <div className="bg-[#111215] p-4 rounded-xl border border-[#202227] hover:border-emerald-500/30 space-y-3 shadow-md transition-colors">
-              <div className="flex items-center justify-between border-b border-[#202227] pb-2.5">
+            <div className="bg-[#FFFDF7] p-4 rounded-xl border border-[#E6DDCF] hover:border-emerald-500/40 space-y-3 shadow-xs transition-colors">
+              <div className="flex items-center justify-between border-b border-[#E6DDCF] pb-2.5">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-md bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                    <TrendingUp className="w-4 h-4" />
+                  <div className="w-7 h-7 rounded-md bg-emerald-100 border border-emerald-300 flex items-center justify-center text-emerald-800">
+                    <TrendingUp className="w-4 h-4 text-emerald-700" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+                    <h3 className="text-sm font-bold text-[#1C1917] flex items-center gap-1.5">
                       8-Pillar Confluence ENTRY
                     </h3>
-                    <span className="text-[11px] text-zinc-400 font-mono">Tenkan &gt; Kijun &gt; Cloud • CCI &gt; 100 • Stoch &gt; 80 • Closed Bar</span>
+                    <span className="text-[11px] text-[#57534E] font-mono">Tenkan &gt; Kijun &gt; Cloud • CCI &gt; 100 • Stoch &gt; 80 • Closed Bar</span>
                   </div>
                 </div>
-                <span className="text-[11px] font-mono font-bold px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded">
+                <span className="text-[11px] font-mono font-bold px-2 py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded">
                   {totalBuySignals} Active BUYs
                 </span>
               </div>
 
               <div className="space-y-1.5 text-xs">
-                <div className="p-2 rounded bg-[#16171B] border border-[#22242B] flex items-center justify-between font-mono">
-                  <span className="text-zinc-200">1. 1D Macro Tenkan &gt;= Kijun-sen</span>
-                  <span className="text-emerald-400 font-semibold text-[11px]">1D Macro Golden Cross</span>
+                <div className="p-2 rounded bg-white border border-[#E6DDCF] flex items-center justify-between font-mono">
+                  <span className="text-[#1C1917]">1. 1D Macro Tenkan &gt;= Kijun-sen</span>
+                  <span className="text-emerald-700 font-semibold text-[11px]">1D Macro Golden Cross</span>
                 </div>
-                <div className="p-2 rounded bg-[#16171B] border border-[#22242B] flex items-center justify-between font-mono">
-                  <span className="text-zinc-200">2. 1HR Tenkan &gt;= Kijun-sen</span>
-                  <span className="text-emerald-400 font-semibold text-[11px]">TK Bullish Alignment</span>
+                <div className="p-2 rounded bg-white border border-[#E6DDCF] flex items-center justify-between font-mono">
+                  <span className="text-[#1C1917]">2. 1HR Tenkan &gt;= Kijun-sen</span>
+                  <span className="text-emerald-700 font-semibold text-[11px]">TK Bullish Alignment</span>
                 </div>
-                <div className="p-2 rounded bg-[#16171B] border border-[#22242B] flex items-center justify-between font-mono">
-                  <span className="text-zinc-200">3. 1HR Tenkan &amp; Kijun &gt; Cloud Top</span>
-                  <span className="text-emerald-400 font-semibold text-[11px]">Both Above Active Cloud</span>
+                <div className="p-2 rounded bg-white border border-[#E6DDCF] flex items-center justify-between font-mono">
+                  <span className="text-[#1C1917]">3. 1HR Tenkan &amp; Kijun &gt; Cloud Top</span>
+                  <span className="text-emerald-700 font-semibold text-[11px]">Both Above Active Cloud</span>
                 </div>
-                <div className="p-2 rounded bg-[#16171B] border border-[#22242B] flex items-center justify-between font-mono">
-                  <span className="text-zinc-200">4. 1HR Closed Price &gt; Cloud Top</span>
-                  <span className="text-emerald-400 font-semibold text-[11px]">Clean Cloud Breakout</span>
+                <div className="p-2 rounded bg-white border border-[#E6DDCF] flex items-center justify-between font-mono">
+                  <span className="text-[#1C1917]">4. 1HR Closed Price &gt; Cloud Top</span>
+                  <span className="text-emerald-700 font-semibold text-[11px]">Clean Cloud Breakout</span>
                 </div>
-                <div className="p-2 rounded bg-[#16171B] border border-[#22242B] flex items-center justify-between font-mono">
-                  <span className="text-zinc-200">5. 1HR Chikou: Close &gt; Close[-26]</span>
-                  <span className="text-emerald-400 font-semibold text-[11px]">Macro Clearance</span>
+                <div className="p-2 rounded bg-white border border-[#E6DDCF] flex items-center justify-between font-mono">
+                  <span className="text-[#1C1917]">5. 1HR Chikou: Close &gt; Close[-26]</span>
+                  <span className="text-emerald-700 font-semibold text-[11px]">Macro Clearance</span>
                 </div>
-                <div className="p-2 rounded bg-[#16171B] border border-[#22242B] flex items-center justify-between font-mono">
-                  <span className="text-zinc-200">6. 1HR Future Cloud: Span A &gt; Span B</span>
-                  <span className="text-emerald-400 font-semibold text-[11px]">Forward Cloud Green</span>
+                <div className="p-2 rounded bg-white border border-[#E6DDCF] flex items-center justify-between font-mono">
+                  <span className="text-[#1C1917]">6. 1HR Future Cloud: Span A &gt; Span B</span>
+                  <span className="text-emerald-700 font-semibold text-[11px]">Forward Cloud Green</span>
                 </div>
-                <div className="p-2 rounded bg-[#16171B] border border-[#22242B] flex items-center justify-between font-mono">
-                  <span className="text-zinc-200 font-bold">7. 📊 CCI (40) &gt; +100</span>
-                  <span className="text-emerald-400 font-semibold text-[11px]">Strong Trend Impulse</span>
+                <div className="p-2 rounded bg-white border border-[#E6DDCF] flex items-center justify-between font-mono">
+                  <span className="text-[#1C1917] font-bold">7. 📊 CCI (40) &gt; +100</span>
+                  <span className="text-emerald-700 font-semibold text-[11px]">Strong Trend Impulse</span>
                 </div>
-                <div className="p-2 rounded bg-[#16171B] border border-[#22242B] flex items-center justify-between font-mono">
-                  <span className="text-zinc-200 font-bold">8. ⚡ Stoch (12,3,3) Main &gt; Signal &amp; &gt; 80</span>
-                  <span className="text-emerald-400 font-semibold text-[11px]">Breakout Momentum Confirmed</span>
+                <div className="p-2 rounded bg-white border border-[#E6DDCF] flex items-center justify-between font-mono">
+                  <span className="text-[#1C1917] font-bold">8. ⚡ Stoch (12,3,3) Main &gt; Signal &amp; &gt; 80</span>
+                  <span className="text-emerald-700 font-semibold text-[11px]">Breakout Momentum Confirmed</span>
                 </div>
               </div>
-              <div className="bg-[#141519] border border-[#242630] rounded p-2 text-[11px] text-zinc-300 flex items-center gap-1.5 font-mono">
-                <span className="font-bold text-emerald-400">🛑 Stop Loss:</span>
+              <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded p-2 text-[11px] text-[#57534E] flex items-center gap-1.5 font-mono">
+                <span className="font-bold text-emerald-700">🛑 Stop Loss:</span>
                 <span>Bottom of the bar close immediately after Tenkan-Kijun crossover</span>
               </div>
             </div>
 
             {/* 2. Strict Bearish Exit Logic Box (Bearish) */}
-            <div className="bg-[#111215] p-4 rounded-xl border border-[#202227] hover:border-rose-500/30 space-y-3 shadow-md transition-colors">
-              <div className="flex items-center justify-between border-b border-[#202227] pb-2.5">
+            <div className="bg-[#FFFDF7] p-4 rounded-xl border border-[#E6DDCF] hover:border-rose-500/40 space-y-3 shadow-xs transition-colors">
+              <div className="flex items-center justify-between border-b border-[#E6DDCF] pb-2.5">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-md bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400">
-                    <TrendingDown className="w-4 h-4" />
+                  <div className="w-7 h-7 rounded-md bg-rose-100 border border-rose-300 flex items-center justify-center text-rose-800">
+                    <TrendingDown className="w-4 h-4 text-rose-700" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+                    <h3 className="text-sm font-bold text-[#1C1917] flex items-center gap-1.5">
                       Confluence EXIT / SHORT
                     </h3>
-                    <span className="text-[11px] text-zinc-400 font-mono">Strictly on completed bar close • Benchmark level breakdown</span>
+                    <span className="text-[11px] text-[#57534E] font-mono">Strictly on completed bar close • Benchmark level breakdown</span>
                   </div>
                 </div>
-                <span className="text-[11px] font-mono font-bold px-2 py-0.5 bg-rose-500/10 text-rose-400 border border-rose-500/30 rounded">
+                <span className="text-[11px] font-mono font-bold px-2 py-0.5 bg-rose-100 text-rose-800 border border-rose-300 rounded">
                   {totalSellSignals} Active SELLs
                 </span>
               </div>
 
               <div className="space-y-1.5 text-xs">
-                <div className="p-2 rounded bg-[#16171B] border border-[#22242B] flex items-center justify-between font-mono">
-                  <span className="text-zinc-200">1. 1HR Tenkan-sen &lt; Kijun-sen</span>
-                  <span className="text-rose-400 font-semibold text-[11px]">Reversal Cross Event</span>
+                <div className="p-2 rounded bg-white border border-[#E6DDCF] flex items-center justify-between font-mono">
+                  <span className="text-[#1C1917]">1. 1HR Tenkan-sen &lt; Kijun-sen</span>
+                  <span className="text-rose-700 font-semibold text-[11px]">Reversal Cross Event</span>
                 </div>
-                <div className="p-2 rounded bg-[#16171B] border border-[#22242B] flex items-center justify-between font-mono">
-                  <span className="text-zinc-200">2. First Closed 1HR Bar After Cross</span>
-                  <span className="text-zinc-400 font-semibold text-[11px]">Benchmark Exit Level ($P_reversal)</span>
+                <div className="p-2 rounded bg-white border border-[#E6DDCF] flex items-center justify-between font-mono">
+                  <span className="text-[#1C1917]">2. First Closed 1HR Bar After Cross</span>
+                  <span className="text-[#57534E] font-semibold text-[11px]">Benchmark Exit Level ($P_reversal)</span>
                 </div>
-                <div className="p-2 rounded bg-[#16171B] border border-[#22242B] flex items-center justify-between font-mono">
-                  <span className="text-zinc-200">3. Exit Signal: 1HR Price &lt; $P_reversal</span>
-                  <span className="text-rose-400 font-bold text-[11px]">Confirmed Breakdown Exit</span>
+                <div className="p-2 rounded bg-white border border-[#E6DDCF] flex items-center justify-between font-mono">
+                  <span className="text-[#1C1917]">3. Exit Signal: 1HR Price &lt; $P_reversal</span>
+                  <span className="text-rose-700 font-bold text-[11px]">Confirmed Breakdown Exit</span>
                 </div>
-                <div className="p-2 rounded bg-[#16171B] border border-[#22242B] flex items-center justify-between font-mono">
-                  <span className="text-zinc-200">4. Hold Protection: Price &gt;= $P_reversal</span>
-                  <span className="text-zinc-400 font-semibold text-[11px]">Continues Riding While Above</span>
+                <div className="p-2 rounded bg-white border border-[#E6DDCF] flex items-center justify-between font-mono">
+                  <span className="text-[#1C1917]">4. Hold Protection: Price &gt;= $P_reversal</span>
+                  <span className="text-[#57534E] font-semibold text-[11px]">Continues Riding While Above</span>
                 </div>
-                <div className="p-2 rounded bg-[#16171B] border border-[#22242B] flex items-center justify-between font-mono">
-                  <span className="text-zinc-200 font-bold">5. 📊 CCI (40) &lt; -100</span>
-                  <span className="text-rose-400 font-semibold text-[11px]">Strong Bearish Impulse (Short)</span>
+                <div className="p-2 rounded bg-white border border-[#E6DDCF] flex items-center justify-between font-mono">
+                  <span className="text-[#1C1917] font-bold">5. 📊 CCI (40) &lt; -100</span>
+                  <span className="text-rose-700 font-semibold text-[11px]">Strong Bearish Impulse (Short)</span>
                 </div>
-                <div className="p-2 rounded bg-[#16171B] border border-[#22242B] flex items-center justify-between font-mono">
-                  <span className="text-zinc-200 font-bold">6. ⚡ Stoch (12,3,3) Main &lt; Signal &amp; &lt; 20</span>
-                  <span className="text-rose-400 font-semibold text-[11px]">Oversold Breakdown Confluence</span>
+                <div className="p-2 rounded bg-white border border-[#E6DDCF] flex items-center justify-between font-mono">
+                  <span className="text-[#1C1917] font-bold">6. ⚡ Stoch (12,3,3) Main &lt; Signal &amp; &lt; 20</span>
+                  <span className="text-rose-700 font-semibold text-[11px]">Oversold Breakdown Confluence</span>
                 </div>
               </div>
-              <div className="bg-[#141519] border border-[#242630] rounded p-2 text-[11px] text-zinc-300 flex items-center gap-1.5 font-mono">
-                <span className="font-bold text-rose-400">🛑 Short Stop Loss:</span>
+              <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded p-2 text-[11px] text-[#57534E] flex items-center gap-1.5 font-mono">
+                <span className="font-bold text-rose-700">🛑 Short Stop Loss:</span>
                 <span>Top of the bar close immediately after Tenkan-Kijun bearish crossover</span>
               </div>
             </div>
           </div>
 
           {/* Execution Integrity Bar */}
-          <div className="bg-[#111215] border border-[#202227] rounded-xl p-3 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
-            <div className="flex items-center gap-2 text-zinc-300">
-              <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+          <div className="bg-white border border-[#E6DDCF] rounded-xl p-3 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xs">
+            <div className="flex items-center gap-2 text-[#57534E]">
+              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>
-                <strong className="text-white">Closed-Candle Execution:</strong> Entry evaluated strictly on the completed closed bar (<code className="bg-[#18191E] px-1 py-0.5 rounded text-emerald-400 font-mono">index [length - 2]</code>). Exit signal is strictly below the first closed bar after a reversal cross.
+                <strong className="text-[#1C1917]">Closed-Candle Execution:</strong> Entry evaluated strictly on the completed closed bar (<code className="bg-[#FAF7F2] border border-[#E6DDCF] px-1 py-0.5 rounded text-emerald-800 font-mono">index [length - 2]</code>). Exit signal is strictly below the first closed bar after a reversal cross.
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] text-zinc-400">Filter View:</span>
-              <div className="bg-[#0D0E11] p-0.5 rounded-lg border border-zinc-800 flex flex-wrap text-[11px]">
+              <span className="text-[11px] text-[#57534E] font-semibold">Filter View:</span>
+              <div className="bg-[#FAF7F2] p-0.5 rounded-lg border border-[#E6DDCF] flex flex-wrap text-[11px]">
                 <button
                   onClick={() => setDirectionFilter('ALL')}
-                  className={`px-2.5 py-1 rounded transition-colors ${directionFilter === 'ALL' ? 'bg-zinc-700 text-white font-bold' : 'text-zinc-400 hover:text-zinc-200'}`}
+                  className={`px-2.5 py-1 rounded transition-colors ${directionFilter === 'ALL' ? 'bg-[#1C1917] text-white font-bold' : 'text-[#57534E] hover:text-[#1C1917]'}`}
                 >
                   All ({confluenceTableData.length})
                 </button>
@@ -472,23 +472,23 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
           </div>
 
           {/* Live Scanner Table */}
-          <div className="bg-[#161B22] rounded-lg border border-slate-800 overflow-hidden shadow-lg">
-            <div className="p-3 bg-[#0B0E14]/70 border-b border-slate-800 flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
-                <Activity className="w-4 h-4 text-emerald-400" />
+          <div className="bg-white rounded-xl border border-[#E6DDCF] overflow-hidden shadow-xs">
+            <div className="p-3 bg-[#FAF7F2] border-b border-[#E6DDCF] flex items-center justify-between">
+              <span className="text-xs font-bold text-[#1C1917] uppercase tracking-wider flex items-center gap-2">
+                <Activity className="w-4 h-4 text-emerald-600" />
                 Live Confluence Matrix (Ichimoku + CCI 40 + Stoch 12,3,3)
               </span>
               <div className="flex items-center gap-3">
-                <span className="text-xs text-slate-400 font-mono hidden sm:inline">
-                  {totalBuySignals} BUYs | <span className="text-amber-400 font-semibold">{totalAlmostBuySignals} ALMOST BUY</span> | {totalSellSignals} SELLs
+                <span className="text-xs text-[#57534E] font-mono hidden sm:inline">
+                  <span className="text-emerald-700 font-bold">{totalBuySignals} BUYs</span> | <span className="text-amber-700 font-bold">{totalAlmostBuySignals} ALMOST BUY</span> | <span className="text-rose-700 font-bold">{totalSellSignals} SELLs</span>
                 </span>
                 <button
                   onClick={handleSyncLive1HCandles}
                   disabled={isSyncing4H}
-                  className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 disabled:opacity-60 text-slate-200 rounded border border-slate-750 flex items-center gap-1.5 text-xs transition-colors cursor-pointer"
+                  className="px-2.5 py-1 bg-white hover:bg-[#F5EFEB] disabled:opacity-60 text-[#1C1917] font-semibold rounded border border-[#E6DDCF] flex items-center gap-1.5 text-xs transition-colors cursor-pointer shadow-2xs"
                   title="Force re-fetch of live exchange candles"
                 >
-                  <RotateCcw className={`w-3.5 h-3.5 text-emerald-400 ${isSyncing4H ? 'animate-spin' : ''}`} />
+                  <RotateCcw className={`w-3.5 h-3.5 text-amber-600 ${isSyncing4H ? 'animate-spin' : ''}`} />
                   <span>{isSyncing4H ? 'Syncing...' : 'Sync Live'}</span>
                 </button>
               </div>
@@ -496,7 +496,7 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
 
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs font-mono">
-                <thead className="bg-[#0B0E14]/40 border-b border-slate-800 text-slate-400 uppercase">
+                <thead className="bg-[#FAF7F2]/60 border-b border-[#E6DDCF] text-[#57534E] uppercase font-bold text-[11px]">
                   <tr>
                     <th className="py-3 px-4">Ticker</th>
                     <th className="py-3 px-3">Live Price</th>
@@ -505,15 +505,15 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
                     <th className="py-3 px-3">TK Cross</th>
                     <th className="py-3 px-3">Kumo Cloud</th>
                     <th className="py-3 px-3">Future Cloud</th>
-                    <th className="py-3 px-3 text-blue-300">📊 CCI (40)</th>
-                    <th className="py-3 px-3 text-amber-300">⚡ Stoch (12,3,3)</th>
-                    <th className="py-3 px-3 text-amber-400">🛑 TK Cross SL</th>
+                    <th className="py-3 px-3 text-sky-700 font-bold">📊 CCI (40)</th>
+                    <th className="py-3 px-3 text-amber-800 font-bold">⚡ Stoch (12,3,3)</th>
+                    <th className="py-3 px-3 text-amber-800 font-bold">🛑 TK Cross SL</th>
                     <th className="py-3 px-3">Reversal Exit</th>
                     <th className="py-3 px-3 text-center">Status</th>
                     <th className="py-3 px-4 text-right">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-[#E6DDCF]">
                   {filteredData.map(({ quote, evaluation }) => {
                     const isBuy = evaluation.isMasterEntryTriggered;
                     const isExitTriggered = evaluation.isExitTriggered;
@@ -528,31 +528,31 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
                     return (
                       <tr
                         key={quote.symbol}
-                        className={`transition-colors hover:bg-slate-800/40 ${
+                        className={`transition-colors hover:bg-[#FAF7F2] ${
                           isBuy
-                            ? 'bg-emerald-950/20'
+                            ? 'bg-emerald-50/50'
                             : isAlmostBuy
-                            ? 'bg-amber-950/20'
+                            ? 'bg-amber-50/40'
                             : isExitTriggered
-                            ? 'bg-rose-950/20'
+                            ? 'bg-rose-50/50'
                             : hasReversal
-                            ? 'bg-amber-950/10'
+                            ? 'bg-amber-50/30'
                             : isSell
-                            ? 'bg-rose-950/20'
-                            : ''
+                            ? 'bg-rose-50/50'
+                            : 'bg-white'
                         }`}
                       >
-                        <td className="py-3 px-4 font-bold text-slate-100">
+                        <td className="py-3 px-4 font-bold text-[#1C1917]">
                           <button
                             onClick={() => {
                               onSelectTicker(quote.symbol);
                               onNavigateToTab('charts');
                             }}
-                            className="hover:text-emerald-400 transition-colors text-left flex items-center gap-1.5"
+                            className="hover:text-amber-700 transition-colors text-left flex items-center gap-1.5"
                           >
                             <span>{quote.symbol}</span>
                             {inChop && (
-                              <span className="text-[10px] px-1 py-0.2 bg-amber-950 text-amber-300 border border-amber-800 rounded font-normal">
+                              <span className="text-[10px] px-1 py-0.2 bg-amber-100 text-amber-800 border border-amber-300 rounded font-normal">
                                 Consolidation
                               </span>
                             )}
@@ -560,11 +560,11 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
                           {(() => {
                             const conf = getTickerConfidenceScore(quote.symbol);
                             const styles: Record<string, string> = {
-                              HIGH: 'bg-emerald-950 text-emerald-300 border-emerald-800',
-                              MEDIUM: 'bg-amber-950 text-amber-300 border-amber-800',
-                              LOW: 'bg-orange-950 text-orange-300 border-orange-800',
-                              AVOID: 'bg-rose-950 text-rose-300 border-rose-800',
-                              UNKNOWN: 'bg-slate-800 text-slate-400 border-slate-700',
+                              HIGH: 'bg-emerald-100 text-emerald-800 border-emerald-300',
+                              MEDIUM: 'bg-amber-100 text-amber-800 border-amber-300',
+                              LOW: 'bg-orange-100 text-orange-800 border-orange-300',
+                              AVOID: 'bg-rose-100 text-rose-800 border-rose-300',
+                              UNKNOWN: 'bg-[#FAF7F2] text-[#57534E] border-[#E6DDCF]',
                             };
                             return (
                               <span
@@ -577,19 +577,19 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
                           })()}
                         </td>
 
-                        <td className="py-3 px-3 text-slate-200 font-semibold">
+                        <td className="py-3 px-3 text-[#1C1917] font-semibold">
                           {formatCurrency(quote.price)}
                         </td>
 
-                        <td className="py-3 px-3 text-slate-400 text-[11px]">
+                        <td className="py-3 px-3 text-[#57534E] text-[11px]">
                           ${evaluation.closedCandleClose}
                         </td>
 
                         {/* 1D TK Macro Crossover */}
                         <td className="py-3 px-3">
                           <div className="flex items-center gap-1.5">
-                            <span className={`w-1.5 h-1.5 rounded-full ${evaluation.entryDailyTkCross ? 'bg-emerald-400' : 'bg-rose-500'}`} />
-                            <span className={`text-[11px] font-semibold ${evaluation.entryDailyTkCross ? 'text-emerald-300' : 'text-rose-300'}`}>
+                            <span className={`w-1.5 h-1.5 rounded-full ${evaluation.entryDailyTkCross ? 'bg-emerald-500' : 'bg-rose-500'}`} />
+                            <span className={`text-[11px] font-semibold ${evaluation.entryDailyTkCross ? 'text-emerald-700' : 'text-rose-700'}`}>
                               {evaluation.entryDailyTkCross ? 'Golden Cross (T≥K)' : 'Bearish (T<K)'}
                             </span>
                           </div>
@@ -598,8 +598,8 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
                         {/* 1HR Tenkan vs Kijun */}
                         <td className="py-3 px-3">
                           <div className="flex items-center gap-1.5">
-                            <span className={`w-1.5 h-1.5 rounded-full ${evaluation.entry1hTkBullish ? 'bg-emerald-400' : 'bg-rose-500'}`} />
-                            <span className={evaluation.entry1hTkBullish ? 'text-emerald-300 font-semibold' : 'text-rose-300'}>
+                            <span className={`w-1.5 h-1.5 rounded-full ${evaluation.entry1hTkBullish ? 'bg-emerald-500' : 'bg-rose-500'}`} />
+                            <span className={evaluation.entry1hTkBullish ? 'text-emerald-700 font-semibold' : 'text-rose-700'}>
                               T:${evaluation.tenkan} {evaluation.entry1hTkBullish ? '≥' : '<'} K:${evaluation.kijun}
                             </span>
                           </div>
@@ -608,10 +608,10 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
                         {/* 1HR Kumo Cloud */}
                         <td className="py-3 px-3">
                           <div className="text-[11px]">
-                            <span className={evaluation.entry1hPriceAboveCloud && evaluation.entry1hTkAboveCloud ? 'text-emerald-300 font-semibold' : 'text-slate-400'}>
+                            <span className={evaluation.entry1hPriceAboveCloud && evaluation.entry1hTkAboveCloud ? 'text-emerald-700 font-semibold' : 'text-[#78716C]'}>
                               {evaluation.entry1hPriceAboveCloud && evaluation.entry1hTkAboveCloud ? 'Above Kumo' : 'Below/In Kumo'}
                             </span>
-                            <div className="text-[10px] text-slate-500 font-mono">
+                            <div className="text-[10px] text-[#78716C] font-mono">
                               Top: ${evaluation.cloudTop} | Bot: ${evaluation.cloudBottom}
                             </div>
                           </div>
@@ -621,8 +621,8 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
                         <td className="py-3 px-3">
                           <span className={`text-[11px] px-1.5 py-0.5 rounded font-mono ${
                             evaluation.entry1hChikouBullish
-                              ? 'bg-emerald-950/60 text-emerald-300 border border-emerald-800/60'
-                              : 'bg-rose-950/60 text-rose-300 border border-rose-800/60'
+                              ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                              : 'bg-rose-100 text-rose-800 border border-rose-300'
                           }`}>
                             {evaluation.entry1hChikouBullish ? 'Bullish (C>C[-26])' : 'Bearish (C≤C[-26])'}
                           </span>
@@ -632,8 +632,8 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
                         <td className="py-3 px-3">
                           <span className={`text-[11px] px-1.5 py-0.5 rounded font-mono ${
                             evaluation.entry1hFutureCloudBullish
-                              ? 'bg-emerald-950/60 text-emerald-300 border border-emerald-800/60'
-                              : 'bg-rose-950/60 text-rose-300 border border-rose-800/60'
+                              ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                              : 'bg-rose-100 text-rose-800 border border-rose-300'
                           }`}>
                             {evaluation.entry1hFutureCloudBullish ? 'Green (A>B)' : 'Red (A≤B)'}
                           </span>
@@ -644,15 +644,15 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
                           <div className="flex flex-col">
                             <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded font-mono ${
                               evaluation.entryCciBullish
-                                ? 'bg-blue-950/80 text-blue-300 border border-blue-600'
+                                ? 'bg-sky-100 text-sky-800 border border-sky-300'
                                 : evaluation.exitCciBearish
-                                ? 'bg-rose-950/80 text-rose-300 border border-rose-700'
-                                : 'bg-slate-800/80 text-slate-400 border border-slate-700'
+                                ? 'bg-rose-100 text-rose-800 border border-rose-300'
+                                : 'bg-[#FAF7F2] text-[#57534E] border border-[#E6DDCF]'
                             }`}>
                               {evaluation.cci.toFixed(1)} {evaluation.entryCciBullish ? '(>100)' : evaluation.exitCciBearish ? '(<-100)' : ''}
                             </span>
                             <span className={`text-[9px] font-mono mt-0.5 ${
-                              evaluation.entryCciBullish ? 'text-blue-400' : evaluation.exitCciBearish ? 'text-rose-400' : 'text-slate-500'
+                              evaluation.entryCciBullish ? 'text-sky-700' : evaluation.exitCciBearish ? 'text-rose-700' : 'text-[#78716C]'
                             }`}>
                               {evaluation.entryCciBullish ? 'Strong Impulse' : evaluation.exitCciBearish ? 'Bear Impulse' : 'Neutral'}
                             </span>
@@ -664,15 +664,15 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
                           <div className="flex flex-col">
                             <span className={`text-[11px] font-bold px-1.5 py-0.5 rounded font-mono ${
                               evaluation.entryStochBullish
-                                ? 'bg-amber-950/80 text-amber-300 border border-amber-600'
+                                ? 'bg-amber-100 text-amber-800 border border-amber-300'
                                 : evaluation.exitStochBearish
-                                ? 'bg-rose-950/80 text-rose-300 border border-rose-700'
-                                : 'bg-slate-800/80 text-slate-400 border border-slate-700'
+                                ? 'bg-rose-100 text-rose-800 border border-rose-300'
+                                : 'bg-[#FAF7F2] text-[#57534E] border border-[#E6DDCF]'
                             }`}>
                               {evaluation.stochK.toFixed(0)} / {evaluation.stochD.toFixed(0)} {evaluation.entryStochBullish ? '(>80)' : evaluation.exitStochBearish ? '(<20)' : ''}
                             </span>
                             <span className={`text-[9px] font-mono mt-0.5 ${
-                              evaluation.entryStochBullish ? 'text-amber-400' : evaluation.exitStochBearish ? 'text-rose-400' : 'text-slate-500'
+                              evaluation.entryStochBullish ? 'text-amber-700' : evaluation.exitStochBearish ? 'text-rose-700' : 'text-[#78716C]'
                             }`}>
                               {evaluation.entryStochBullish ? 'K>D Momentum' : evaluation.exitStochBearish ? 'K<D Oversold' : evaluation.stochK > evaluation.stochD ? 'K>D' : 'K<D'}
                             </span>
@@ -682,11 +682,11 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
                         {/* 🛑 TK Cross SL */}
                         <td className="py-3 px-3">
                           {evaluation.tkCrossoverStopLoss && evaluation.tkCrossoverStopLoss > 0 ? (
-                            <span className="text-[11px] font-mono text-amber-400 font-bold px-1.5 py-0.5 rounded bg-amber-950/40 border border-amber-800/40">
+                            <span className="text-[11px] font-mono text-amber-800 font-bold px-1.5 py-0.5 rounded bg-amber-100 border border-amber-300">
                               ${evaluation.tkCrossoverStopLoss.toFixed(2)}
                             </span>
                           ) : (
-                            <span className="text-[11px] text-slate-500 font-mono">
+                            <span className="text-[11px] text-[#78716C] font-mono">
                               —
                             </span>
                           )}
@@ -696,24 +696,24 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
                         <td className="py-3 px-3">
                           {isExitTriggered ? (
                             <div className="flex flex-col">
-                              <span className="text-[11px] px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-700 font-bold font-mono">
+                              <span className="text-[11px] px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-300 font-bold font-mono">
                                 EXIT &lt; ${evaluation.reversalCrossBarClose}
                               </span>
-                              <span className="text-[9px] text-rose-400 font-mono mt-0.5">
+                              <span className="text-[9px] text-rose-700 font-mono mt-0.5">
                                 Price ${quote.price} &lt; ${evaluation.reversalCrossBarClose}
                               </span>
                             </div>
                           ) : hasReversal ? (
                             <div className="flex flex-col">
-                              <span className="text-[11px] px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-700 font-mono">
+                              <span className="text-[11px] px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300 font-mono">
                                 Watch: Stop &lt; ${evaluation.reversalCrossBarClose}
                               </span>
-                              <span className="text-[9px] text-emerald-400 font-mono mt-0.5">
+                              <span className="text-[9px] text-emerald-700 font-mono mt-0.5 font-bold">
                                 Holding (${quote.price} ≥ ${evaluation.reversalCrossBarClose})
                               </span>
                             </div>
                           ) : (
-                            <span className="text-[11px] text-slate-500 font-mono">
+                            <span className="text-[11px] text-[#78716C] font-mono">
                               Holding (No Cross)
                             </span>
                           )}
@@ -722,38 +722,38 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
                         {/* Overall Status Badge */}
                         <td className="py-3 px-3 text-center">
                           {isBuy ? (
-                            <span className="px-2 py-1 rounded bg-emerald-950 text-emerald-300 border border-emerald-700 font-bold text-[11px] inline-flex items-center gap-1 shadow-sm">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                            <span className="px-2 py-1 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold text-[11px] inline-flex items-center gap-1 shadow-2xs">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                               {isFresh ? '8/8 TREND INCEPTION' : isRiding ? '8/8 RIDING TREND' : '8/8 BUY SIGNAL'}
                             </span>
                           ) : isAlmostBuy ? (
                             <div className="flex flex-col items-center">
-                              <span className="px-2 py-0.5 rounded bg-amber-950/90 text-amber-300 border border-amber-600 font-bold text-[11px] inline-flex items-center gap-1 shadow-sm whitespace-nowrap">
-                                <Zap className="w-3 h-3 text-amber-400" /> ALMOST BUY ({evaluation.totalPillarsPassed ?? evaluation.entryPassedCount}/8)
+                              <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300 font-bold text-[11px] inline-flex items-center gap-1 shadow-2xs whitespace-nowrap">
+                                <Zap className="w-3 h-3 text-amber-600" /> ALMOST BUY ({evaluation.totalPillarsPassed ?? evaluation.entryPassedCount}/8)
                               </span>
-                              <span className="text-[9px] text-amber-400/90 font-mono mt-0.5 max-w-[140px] truncate" title={evaluation.almostBuyMissingConditions.join('; ')}>
+                              <span className="text-[9px] text-amber-700 font-mono mt-0.5 max-w-[140px] truncate" title={evaluation.almostBuyMissingConditions.join('; ')}>
                                 Awaiting: {evaluation.almostBuyMissingConditions[0] || '1 condition'}
                               </span>
                             </div>
                           ) : isExitTriggered ? (
-                            <span className="px-2 py-1 rounded bg-rose-950 text-rose-300 border border-rose-700 font-bold text-[11px] inline-flex items-center gap-1 shadow-sm">
-                              <TrendingDown className="w-3.5 h-3.5 text-rose-400" /> 1HR EXIT TRIGGERED
+                            <span className="px-2 py-1 rounded bg-rose-100 text-rose-800 border border-rose-300 font-bold text-[11px] inline-flex items-center gap-1 shadow-2xs">
+                              <TrendingDown className="w-3.5 h-3.5 text-rose-600" /> 1HR EXIT TRIGGERED
                             </span>
                           ) : hasReversal ? (
                             <div className="flex flex-col items-center">
-                              <span className="px-2 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-700/70 font-bold text-[11px] inline-flex items-center gap-1 shadow-sm whitespace-nowrap">
-                                <AlertCircle className="w-3 h-3 text-amber-400" /> 1HR REVERSAL WATCH
+                              <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300 font-bold text-[11px] inline-flex items-center gap-1 shadow-2xs whitespace-nowrap">
+                                <AlertCircle className="w-3 h-3 text-amber-600" /> 1HR REVERSAL WATCH
                               </span>
-                              <span className="text-[9px] text-amber-400/90 font-mono mt-0.5">
+                              <span className="text-[9px] text-amber-700 font-mono mt-0.5">
                                 Stop &lt; ${evaluation.reversalCrossBarClose}
                               </span>
                             </div>
                           ) : inChop ? (
-                            <span className="px-2 py-0.5 rounded bg-amber-950/60 text-amber-300 border border-amber-800 text-[10px]">
+                            <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300 text-[10px]">
                               Chop Suppressed
                             </span>
                           ) : (
-                            <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]">
+                            <span className="px-2 py-0.5 rounded bg-[#FAF7F2] text-[#57534E] border border-[#E6DDCF] text-[10px]">
                               {evaluation.totalPillarsPassed ?? evaluation.entryPassedCount}/8 Pillars
                             </span>
                           )}
@@ -767,18 +767,18 @@ export const EntrySignalsTab: React.FC<EntrySignalsTabProps> = ({
                                 onSelectTicker(quote.symbol);
                                 onNavigateToTab('charts');
                               }}
-                              className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded text-xs transition-colors flex items-center gap-1"
+                              className="px-2.5 py-1 bg-white hover:bg-[#F5EFEB] text-[#1C1917] font-semibold border border-[#E6DDCF] rounded text-xs transition-colors flex items-center gap-1 shadow-2xs"
                             >
-                              <Eye className="w-3 h-3 text-emerald-400" /> Chart
+                              <Eye className="w-3 h-3 text-amber-600" /> Chart
                             </button>
                             <button
                               onClick={() => onOpenNewPositionWithTicker(quote.symbol, quote.price, evaluation.cloudBottom > 0 ? evaluation.cloudBottom : undefined)}
-                              className={`px-2.5 py-1 rounded text-xs font-semibold transition-colors flex items-center gap-1 ${
+                              className={`px-2.5 py-1 rounded text-xs font-semibold transition-colors flex items-center gap-1 shadow-2xs ${
                                 isBuy
-                                  ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm'
+                                  ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
                                   : isAlmostBuy
-                                  ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold shadow-sm'
-                                  : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                                  ? 'bg-amber-600 hover:bg-amber-700 text-white font-bold'
+                                  : 'bg-[#FAF7F2] hover:bg-[#F5EFEB] text-[#1C1917] border border-[#E6DDCF]'
                               }`}
                             >
                               <Plus className="w-3 h-3" /> {isAlmostBuy ? 'Prepare' : 'Trade'}

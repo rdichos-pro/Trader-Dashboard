@@ -329,7 +329,7 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Bell className="w-4 h-4 text-[#57534E]" />
               {unreadAlertsCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#D4AF37] text-[#1C1917] font-bold text-[10px] w-4 h-4 rounded-full flex items-center justify-center animate-pulse font-mono shadow-sm">
+                <span className="absolute -top-1 -right-1 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold text-[10px] w-4 h-4 rounded-full flex items-center justify-center animate-pulse font-mono shadow-sm">
                   {unreadAlertsCount}
                 </span>
               )}
@@ -390,11 +390,11 @@ export const Header: React.FC<HeaderProps> = ({
               id="header-clear-cache-btn"
               onClick={onClearCache}
               disabled={isResettingCache}
-              className="p-2 bg-[#0f243b] hover:bg-rose-950/40 hover:text-rose-300 text-slate-400 border border-[#1d3f63] rounded-lg transition-colors flex items-center gap-1.5 text-xs font-mono disabled:opacity-50"
+              className="p-2 bg-[#F5EFEB] hover:bg-rose-50 hover:text-rose-700 hover:border-rose-200 text-[#78716C] border border-[#E6DDCF] rounded-lg transition-colors flex items-center gap-1.5 text-xs font-mono disabled:opacity-50"
               title="Clear Cache & Refetch Finnhub 4H Data"
             >
-              <RefreshCw className={`w-4 h-4 ${isResettingCache ? 'animate-spin text-rose-400' : ''}`} />
-              <span className="hidden xl:inline text-[11px] font-sans font-medium text-slate-300">Clear Cache</span>
+              <RefreshCw className={`w-4 h-4 ${isResettingCache ? 'animate-spin text-rose-500' : ''}`} />
+              <span className="hidden xl:inline text-[11px] font-sans font-medium text-[#57534E]">Clear Cache</span>
             </button>
           )}
 
@@ -402,7 +402,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             id="settings-btn"
             onClick={onOpenSettings}
-            className="p-2 bg-[#0f243b] hover:bg-[#153454] border border-[#1d3f63] text-slate-300 rounded-lg transition-colors"
+            className="p-2 bg-[#F5EFEB] hover:bg-[#EFE8DC] border border-[#E6DDCF] text-[#78716C] hover:text-[#1C1917] rounded-lg transition-colors"
             title="Settings & Data Provider"
           >
             <SettingsIcon className="w-4 h-4" />
@@ -414,30 +414,30 @@ export const Header: React.FC<HeaderProps> = ({
       {isSearchOpen && (
         <div className="px-3 pb-3 md:hidden">
           <div className="relative">
-            <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
+            <Search className="w-4 h-4 absolute left-3 top-2.5 text-[#78716C]" />
             <input
               type="text"
               autoFocus
               placeholder="Search ticker (e.g. NVDA, PLTR)..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full bg-[#0B0E14] border border-slate-800 rounded-lg pl-9 pr-4 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+              className="w-full bg-[#FFFFFF] border border-[#E6DDCF] rounded-lg pl-9 pr-4 py-2 text-sm text-[#1C1917] placeholder-[#A8A29E] focus:outline-none focus:border-[#D4AF37]"
             />
           </div>
           {filteredUniverse.length > 0 && (
-            <div className="mt-1 bg-[#0f243b] border border-[#1d3f63] rounded-lg shadow-xl overflow-hidden max-h-60 overflow-y-auto divide-y divide-[#1d3f63]/80">
+            <div className="mt-1 bg-[#FFFFFF] border border-[#E6DDCF] rounded-lg shadow-xl overflow-hidden max-h-60 overflow-y-auto divide-y divide-[#EFE8DC]">
               {filteredUniverse.slice(0, 6).map(quote => (
                 <div
                   key={`mob-search-${quote.symbol}`}
                   onClick={() => handleSelectSymbol(quote.symbol)}
-                  className="px-3 py-2.5 hover:bg-[#163654] flex items-center justify-between text-sm"
+                  className="px-3 py-2.5 hover:bg-[#FAF7F2] flex items-center justify-between text-sm cursor-pointer"
                 >
                   <div>
-                    <span className="font-bold text-white font-mono">{quote.symbol}</span>
-                    <span className="text-slate-400 text-xs ml-2">{quote.name}</span>
+                    <span className="font-bold text-[#1C1917] font-mono">{quote.symbol}</span>
+                    <span className="text-[#78716C] text-xs ml-2">{quote.name}</span>
                   </div>
                   <div className="text-right font-mono text-xs">
-                    <span className="text-slate-100 font-semibold">{formatCurrency(quote.price)}</span>
+                    <span className="text-[#1C1917] font-semibold">{formatCurrency(quote.price)}</span>
                   </div>
                 </div>
               ))}
@@ -448,8 +448,8 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Collapsible Navigation Drawer */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-[#0b1d30] border-b border-[#1d3f63] px-4 py-3 space-y-2 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="text-xs font-semibold text-teal-400 uppercase tracking-wider pb-1 border-b border-[#1d3f63]">
+        <div className="md:hidden bg-[#FFFDF7] border-b border-[#E6DDCF] px-4 py-3 space-y-2 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="text-xs font-semibold text-[#845306] uppercase tracking-wider pb-1 border-b border-[#E6DDCF]">
             Navigation Menu
           </div>
           <div className="grid grid-cols-2 gap-1.5 pt-1">
@@ -462,19 +462,19 @@ export const Header: React.FC<HeaderProps> = ({
                 }}
                 className={`px-3 py-2 rounded-lg text-left text-xs font-medium flex items-center justify-between transition-colors ${
                   activeTab === tab.id
-                    ? (tab.isGold ? 'bg-amber-400 text-slate-950 font-black' : 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold')
-                    : (tab.isGold ? 'text-amber-300 hover:bg-[#132e4d] font-semibold' : 'text-slate-300 hover:bg-[#132e4d]')
+                    ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] font-bold shadow-xs'
+                    : 'text-[#57534E] hover:bg-[#F5EFEB] hover:text-[#1C1917]'
                 }`}
               >
                 <span className="flex items-center gap-1.5">
-                  {tab.isGold && <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />}
+                  {tab.isGold && <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />}
                   {tab.label}
                 </span>
                 {tab.badge !== undefined && (
-                  <span className={`text-[10px] font-mono px-1 rounded ${
+                  <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full font-bold shadow-2xs ${
                     activeTab === tab.id 
-                      ? (tab.isGold ? 'bg-slate-950/40 text-slate-900 font-bold' : 'bg-teal-800 text-white')
-                      : (tab.isGold ? 'bg-amber-500/20 text-amber-300' : 'bg-[#153454] text-slate-400')
+                      ? 'bg-stone-900 text-white' 
+                      : 'bg-gradient-to-r from-amber-500 to-amber-600 text-white'
                   }`}>
                     {tab.badge}
                   </span>
@@ -482,13 +482,13 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             ))}
           </div>
-          <div className="pt-2 border-t border-[#1d3f63] flex items-center justify-between gap-2">
+          <div className="pt-2 border-t border-[#E6DDCF] flex items-center justify-between gap-2">
             <button
               onClick={() => {
                 onOpenNewPosition();
                 setIsMobileMenuOpen(false);
               }}
-              className="px-3 py-1.5 bg-gradient-to-r from-teal-600 to-cyan-600 text-white rounded-lg text-xs font-semibold flex items-center gap-1"
+              className="px-3 py-1.5 bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] rounded-lg text-xs font-bold flex items-center gap-1 shadow-sm"
             >
               <Plus className="w-3.5 h-3.5" />
               Log Trade
@@ -500,7 +500,7 @@ export const Header: React.FC<HeaderProps> = ({
                   setIsMobileMenuOpen(false);
                 }}
                 disabled={isResettingCache}
-                className="px-2.5 py-1.5 bg-[#0f243b] hover:bg-rose-950 text-rose-300 border border-[#1d3f63] rounded-lg text-xs font-semibold flex items-center gap-1"
+                className="px-2.5 py-1.5 bg-[#F5EFEB] hover:bg-rose-50 text-rose-700 border border-[#E6DDCF] rounded-lg text-xs font-semibold flex items-center gap-1"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${isResettingCache ? 'animate-spin' : ''}`} />
                 Reset Data
@@ -511,7 +511,7 @@ export const Header: React.FC<HeaderProps> = ({
                 onOpenSettings();
                 setIsMobileMenuOpen(false);
               }}
-              className="px-3 py-1.5 bg-[#0f243b] border border-[#1d3f63] text-slate-300 rounded-lg text-xs font-semibold flex items-center gap-1"
+              className="px-3 py-1.5 bg-[#F5EFEB] border border-[#E6DDCF] text-[#57534E] rounded-lg text-xs font-semibold flex items-center gap-1"
             >
               <SettingsIcon className="w-3.5 h-3.5" />
               Settings
@@ -521,7 +521,7 @@ export const Header: React.FC<HeaderProps> = ({
       )}
 
       {/* Mobile Horizontal Quick-Nav Bar (Visible on mobile < md) */}
-      <nav className="md:hidden flex items-center space-x-1.5 px-3 py-1.5 overflow-x-auto no-scrollbar border-t border-[#1d3f63]/80 bg-[#071524]/95">
+      <nav className="md:hidden flex items-center space-x-1.5 px-3 py-1.5 overflow-x-auto no-scrollbar border-t border-[#E6DDCF] bg-[#FAF7F2]">
         {navTabs.map(tab => (
           <button
             key={`mob-strip-${tab.id}`}
@@ -529,21 +529,17 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setActiveTab(tab.id)}
             className={`px-3 py-2 min-h-[42px] rounded-lg text-xs whitespace-nowrap transition-all flex items-center gap-1.5 font-bold shrink-0 touch-manipulation ${
               activeTab === tab.id
-                ? (tab.isGold 
-                    ? 'bg-amber-400 text-slate-950 font-black shadow-md shadow-amber-500/20' 
-                    : 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white shadow-md shadow-teal-500/20')
-                : (tab.isGold
-                    ? 'bg-amber-500/10 text-amber-300 border border-amber-500/30'
-                    : 'bg-[#0f243b] text-slate-400 border border-[#1d3f63] hover:text-white')
+                ? 'bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#1C1917] shadow-sm'
+                : 'bg-[#F5EFEB] text-[#78716C] border border-[#E6DDCF] hover:text-[#1C1917]'
             }`}
           >
-            {tab.isGold && <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />}
+            {tab.isGold && <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />}
             {tab.label}
             {tab.badge !== undefined && (
-              <span className={`text-[9px] font-mono px-1 py-0.2 rounded ${
+              <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded-full font-bold shadow-2xs ${
                 activeTab === tab.id 
-                  ? 'bg-slate-950/40 text-white font-bold' 
-                  : (tab.isGold ? 'bg-amber-500/20 text-amber-300' : 'bg-[#153454] text-slate-400')
+                  ? 'bg-stone-900 text-white' 
+                  : 'bg-gradient-to-r from-amber-500 to-amber-600 text-white'
               }`}>
                 {tab.badge}
               </span>
@@ -561,21 +557,23 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setActiveTab(tab.id)}
             className={`pb-3 whitespace-nowrap transition-colors flex items-center gap-1.5 border-b-2 ${
               activeTab === tab.id
-                ? (tab.isGold ? 'text-amber-300 border-amber-400 font-black' : 'text-teal-300 border-teal-400')
-                : (tab.isGold ? 'text-amber-400/90 border-transparent hover:text-amber-300 hover:border-amber-500/50' : 'text-slate-400 border-transparent hover:text-slate-200 hover:border-teal-500/40')
+                ? (tab.isGold ? 'text-amber-800 border-amber-600 font-black' : 'text-[#1C1917] border-[#D4AF37] font-black')
+                : (tab.isGold ? 'text-amber-700/80 border-transparent hover:text-amber-900 hover:border-amber-500/50' : 'text-[#78716C] border-transparent hover:text-[#1C1917] hover:border-[#D4AF37]/50')
             }`}
           >
-            {tab.isGold && <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />}
+            {tab.isGold && <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />}
             {tab.label}
             {tab.badge !== undefined && (
-              <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold ${
+              <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-mono font-bold shadow-2xs ${
                 tab.isGold
-                  ? (activeTab === tab.id ? 'bg-amber-400 text-slate-950 font-black' : 'bg-amber-500/15 text-amber-300 border border-amber-500/30')
+                  ? (activeTab === tab.id ? 'bg-amber-600 text-white font-black' : 'bg-gradient-to-r from-amber-500 to-amber-600 text-white')
                   : typeof tab.badge === 'string' && tab.badge.startsWith('+') 
-                  ? 'text-teal-300 bg-teal-950/60 border border-teal-800/40' 
+                  ? 'bg-emerald-600 text-white' 
                   : typeof tab.badge === 'string' && tab.badge.startsWith('-')
-                  ? 'text-rose-400 bg-rose-950/60 border border-rose-800/40'
-                  : 'text-slate-400 bg-[#153454] border border-[#1d3f63]'
+                  ? 'bg-rose-600 text-white'
+                  : activeTab === tab.id
+                  ? 'bg-[#B8860B] text-white font-bold'
+                  : 'bg-gradient-to-r from-amber-500 to-amber-600 text-white'
               }`}>
                 {tab.badge}
               </span>

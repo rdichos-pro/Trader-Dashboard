@@ -2,11 +2,11 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -25,15 +25,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build client bundle only
         env:
           GH_PAGES_BUILD: 'true'
-        run: npx vite build
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          npx vite build
+          touch dist/.nojekyll
+          cp dist/index.html dist/404.html
 
       - name: Upload build output
         uses: actions/upload-pages-artifact@v3
@@ -50,3 +54,11 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Deploy to gh-pages branch fallback
+        if: steps.deployment.outcome != 'success'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist

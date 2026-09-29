@@ -233,23 +233,23 @@ export const PositionForecastDrawer: React.FC<PositionForecastDrawerProps> = ({
   };
 
   return (
-    <div className="bg-[#161B22] border border-slate-700/80 rounded-xl shadow-2xl p-3 sm:p-4 text-xs font-sans text-slate-200">
+    <div className="bg-white border border-[#E6DDCF] rounded-xl shadow-md p-3 sm:p-4 text-xs font-sans text-[#1C1917]">
       {/* Header Bar */}
-      <div className="flex items-center justify-between pb-3 border-b border-slate-800 gap-2">
+      <div className="flex items-center justify-between pb-3 border-b border-[#E6DDCF] gap-2">
         <div className="flex items-center gap-2">
-          <div className={`p-1.5 rounded-lg ${direction === 'LONG' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}`}>
+          <div className={`p-1.5 rounded-lg border ${direction === 'LONG' ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-rose-50 border-rose-300 text-rose-800'}`}>
             {direction === 'LONG' ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-white text-sm">
+              <span className="font-bold text-[#1C1917] text-sm">
                 {direction === 'LONG' ? 'Long Position Forecast' : 'Short Position Forecast'}
               </span>
-              <span className="font-mono font-bold text-amber-400 text-xs px-1.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/30">
+              <span className="font-mono font-bold text-[#845306] text-xs px-1.5 py-0.5 rounded bg-[#FDF4DC] border border-[#F3DA90]">
                 {symbol}
               </span>
             </div>
-            <div className="text-[10px] text-slate-400">
+            <div className="text-[10px] text-[#57534E]">
               TradingView Risk/Reward &amp; Target Forecast Tool
             </div>
           </div>
@@ -259,7 +259,7 @@ export const PositionForecastDrawer: React.FC<PositionForecastDrawerProps> = ({
         <div className="flex items-center gap-1">
           <button
             onClick={() => setIsMinimized(!isMinimized)}
-            className="p-1 rounded text-slate-400 hover:text-white hover:bg-slate-800"
+            className="p-1 rounded text-[#57534E] hover:text-[#1C1917] hover:bg-[#FAF7F2]"
             title={isMinimized ? 'Expand Forecast Tool' : 'Minimize'}
           >
             {isMinimized ? <Maximize2 className="w-3.5 h-3.5" /> : <Minimize2 className="w-3.5 h-3.5" />}
@@ -267,7 +267,7 @@ export const PositionForecastDrawer: React.FC<PositionForecastDrawerProps> = ({
           {onClose && (
             <button
               onClick={onClose}
-              className="p-1 rounded text-slate-400 hover:text-rose-400 hover:bg-slate-800"
+              className="p-1 rounded text-[#57534E] hover:text-rose-600 hover:bg-[#FAF7F2]"
               title="Close Forecast Tool"
             >
               <X className="w-3.5 h-3.5" />
@@ -279,13 +279,13 @@ export const PositionForecastDrawer: React.FC<PositionForecastDrawerProps> = ({
       {!isMinimized && (
         <div className="space-y-3 pt-3">
           {/* Direction Segmented Control */}
-          <div className="grid grid-cols-2 gap-1 bg-[#0B0E14] p-1 rounded-lg border border-slate-800 font-mono text-xs">
+          <div className="grid grid-cols-2 gap-1 bg-[#FAF7F2] p-1 rounded-lg border border-[#E6DDCF] font-mono text-xs">
             <button
               onClick={() => handleSwitchDirection('LONG')}
               className={`py-1.5 px-3 rounded-md font-bold transition-all flex items-center justify-center gap-1.5 ${
                 direction === 'LONG'
-                  ? 'bg-emerald-600 text-white shadow-md'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-emerald-600 text-white shadow-xs'
+                  : 'text-[#57534E] hover:text-[#1C1917]'
               }`}
             >
               <TrendingUp className="w-3.5 h-3.5" />
@@ -295,8 +295,8 @@ export const PositionForecastDrawer: React.FC<PositionForecastDrawerProps> = ({
               onClick={() => handleSwitchDirection('SHORT')}
               className={`py-1.5 px-3 rounded-md font-bold transition-all flex items-center justify-center gap-1.5 ${
                 direction === 'SHORT'
-                  ? 'bg-rose-600 text-white shadow-md'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-rose-600 text-white shadow-xs'
+                  : 'text-[#57534E] hover:text-[#1C1917]'
               }`}
             >
               <TrendingDown className="w-3.5 h-3.5" />
@@ -305,14 +305,14 @@ export const PositionForecastDrawer: React.FC<PositionForecastDrawerProps> = ({
           </div>
 
           {/* Quick Setup helpers */}
-          <div className="flex flex-wrap items-center justify-between gap-1 text-[11px] text-slate-400">
+          <div className="flex flex-wrap items-center justify-between gap-1 text-[11px] text-[#57534E]">
             <div className="flex items-center gap-1">
               <span>Quick R:R Multipliers:</span>
               {[1.5, 2.0, 2.5, 3.0].map(m => (
                 <button
                   key={m}
                   onClick={() => applyRrMultiplier(m)}
-                  className="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-mono text-[10px] border border-slate-700"
+                  className="px-1.5 py-0.5 rounded bg-white hover:bg-[#FAF7F2] text-[#845306] font-mono text-[10px] border border-[#E6DDCF] font-bold"
                 >
                   {m}R
                 </button>
@@ -321,14 +321,14 @@ export const PositionForecastDrawer: React.FC<PositionForecastDrawerProps> = ({
             <div className="flex items-center gap-1">
               <button
                 onClick={handleUseCurrentPrice}
-                className="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 font-mono text-[10px] border border-slate-700"
+                className="px-2 py-0.5 rounded bg-white hover:bg-[#FAF7F2] text-[#845306] font-mono text-[10px] border border-[#E6DDCF] font-bold"
               >
                 Snap to Spot (${currentPrice?.toFixed(2)})
               </button>
               {(defaultStopLoss || defaultTarget1) && (
                 <button
                   onClick={handleApplyConfluenceLevels}
-                  className="px-2 py-0.5 rounded bg-amber-950/80 hover:bg-amber-900/90 text-amber-300 font-mono text-[10px] border border-amber-500/40"
+                  className="px-2 py-0.5 rounded bg-[#FDF4DC] hover:bg-[#FBECC4] text-[#845306] font-mono text-[10px] border border-[#F3DA90] font-bold"
                 >
                   Apply Strategy SL/TP
                 </button>
@@ -339,25 +339,25 @@ export const PositionForecastDrawer: React.FC<PositionForecastDrawerProps> = ({
           {/* Input Controls Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 font-mono">
             {/* Entry Price */}
-            <div className="bg-[#0B0E14] border border-slate-800 rounded-lg p-2">
-              <div className="flex items-center justify-between text-[10px] text-slate-400 mb-1">
+            <div className="bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2">
+              <div className="flex items-center justify-between text-[10px] text-[#78716C] mb-1">
                 <span>Entry Price</span>
-                <span className="text-slate-500">USD</span>
+                <span className="text-[#A8A29E]">USD</span>
               </div>
               <input
                 type="number"
                 step="0.01"
                 value={entryPrice}
                 onChange={e => setEntryPrice(parseFloat(e.target.value) || 0)}
-                className="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-white font-bold text-xs focus:border-cyan-400 focus:outline-none"
+                className="w-full bg-white border border-[#E6DDCF] rounded px-2 py-1 text-[#1C1917] font-bold text-xs focus:border-amber-500 focus:outline-none"
               />
             </div>
 
             {/* Target Price */}
-            <div className="bg-[#0B0E14] border border-emerald-900/50 rounded-lg p-2">
-              <div className="flex items-center justify-between text-[10px] text-emerald-400 mb-1">
-                <span className="flex items-center gap-1">
-                  <Target className="w-3 h-3" /> Target (TP)
+            <div className="bg-emerald-50/40 border border-emerald-300 rounded-lg p-2">
+              <div className="flex items-center justify-between text-[10px] text-emerald-800 mb-1">
+                <span className="flex items-center gap-1 font-bold">
+                  <Target className="w-3 h-3 text-emerald-600" /> Target (TP)
                 </span>
                 <span className="font-bold">+{calculations.rewardPct}%</span>
               </div>
@@ -366,15 +366,15 @@ export const PositionForecastDrawer: React.FC<PositionForecastDrawerProps> = ({
                 step="0.01"
                 value={targetPrice}
                 onChange={e => setTargetPrice(parseFloat(e.target.value) || 0)}
-                className="w-full bg-slate-900 border border-emerald-600/70 rounded px-2 py-1 text-emerald-300 font-bold text-xs focus:border-emerald-400 focus:outline-none"
+                className="w-full bg-white border border-emerald-300 rounded px-2 py-1 text-emerald-800 font-bold text-xs focus:border-emerald-500 focus:outline-none"
               />
             </div>
 
             {/* Stop Loss Price */}
-            <div className="bg-[#0B0E14] border border-rose-900/50 rounded-lg p-2">
-              <div className="flex items-center justify-between text-[10px] text-rose-400 mb-1">
-                <span className="flex items-center gap-1">
-                  <ShieldAlert className="w-3 h-3" /> Stop Loss (SL)
+            <div className="bg-rose-50/40 border border-rose-300 rounded-lg p-2">
+              <div className="flex items-center justify-between text-[10px] text-rose-800 mb-1">
+                <span className="flex items-center gap-1 font-bold">
+                  <ShieldAlert className="w-3 h-3 text-rose-600" /> Stop Loss (SL)
                 </span>
                 <span className="font-bold">-{calculations.riskPct}%</span>
               </div>
@@ -383,15 +383,15 @@ export const PositionForecastDrawer: React.FC<PositionForecastDrawerProps> = ({
                 step="0.01"
                 value={stopLossPrice}
                 onChange={e => setStopLossPrice(parseFloat(e.target.value) || 0)}
-                className="w-full bg-slate-900 border border-rose-600/70 rounded px-2 py-1 text-rose-300 font-bold text-xs focus:border-rose-400 focus:outline-none"
+                className="w-full bg-white border border-rose-300 rounded px-2 py-1 text-rose-800 font-bold text-xs focus:border-rose-500 focus:outline-none"
               />
             </div>
           </div>
 
           {/* Sizing & Account Risk Row */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 bg-[#0B0E14] border border-slate-800/80 rounded-lg p-2.5 font-mono text-[11px]">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 bg-[#FAF7F2] border border-[#E6DDCF] rounded-lg p-2.5 font-mono text-[11px]">
             <div>
-              <span className="text-[10px] text-slate-500 block">Trade Amount</span>
+              <span className="text-[10px] text-[#78716C] block">Trade Amount</span>
               <div className="flex items-center gap-1 mt-0.5">
                 <input
                   type="number"
@@ -399,100 +399,100 @@ export const PositionForecastDrawer: React.FC<PositionForecastDrawerProps> = ({
                   step="1"
                   value={tradeAmount}
                   onChange={e => setTradeAmount(Math.max(0, parseFloat(e.target.value) || 0))}
-                  className="w-16 bg-slate-900 border border-slate-700 rounded px-1.5 py-0.5 text-white font-bold text-xs focus:outline-none focus:border-cyan-400"
+                  className="w-16 bg-white border border-[#E6DDCF] rounded px-1.5 py-0.5 text-[#1C1917] font-bold text-xs focus:outline-none focus:border-amber-500"
                 />
-                <span className="text-[10px] text-slate-400">{isGold ? 'Oz' : 'Qty'}</span>
+                <span className="text-[10px] text-[#57534E]">{isGold ? 'Oz' : 'Qty'}</span>
               </div>
               {tradeAmount === 0 ? (
-                <span className="text-[9px] text-amber-400 block font-sans">Reset to 0 (Historical)</span>
+                <span className="text-[9px] text-amber-700 block font-sans">Reset to 0 (Historical)</span>
               ) : externalTrade?.isRunning ? (
-                <span className="text-[9px] text-emerald-400 block font-sans">● Running Trade</span>
+                <span className="text-[9px] text-emerald-700 block font-sans font-bold">● Running Trade</span>
               ) : null}
             </div>
 
             <div>
-              <span className="text-[10px] text-slate-500 block">Account Size</span>
+              <span className="text-[10px] text-[#78716C] block">Account Size</span>
               <div className="flex items-center gap-1 mt-0.5">
-                <span className="text-slate-400">$</span>
+                <span className="text-[#57534E]">$</span>
                 <input
                   type="number"
                   step="500"
                   value={accountSize}
                   onChange={e => setAccountSize(parseFloat(e.target.value) || 1000)}
-                  className="w-20 bg-slate-900 border border-slate-700 rounded px-1.5 py-0.5 text-white font-bold text-xs focus:outline-none"
+                  className="w-20 bg-white border border-[#E6DDCF] rounded px-1.5 py-0.5 text-[#1C1917] font-bold text-xs focus:outline-none"
                 />
               </div>
             </div>
 
             <div>
-              <span className="text-[10px] text-slate-500 block">Risk Per Trade</span>
+              <span className="text-[10px] text-[#78716C] block">Risk Per Trade</span>
               <div className="flex items-center gap-1 mt-0.5">
                 <input
                   type="number"
                   step="0.5"
                   value={riskPercent}
                   onChange={e => setRiskPercent(parseFloat(e.target.value) || 1)}
-                  className="w-14 bg-slate-900 border border-slate-700 rounded px-1.5 py-0.5 text-white font-bold text-xs focus:outline-none"
+                  className="w-14 bg-white border border-[#E6DDCF] rounded px-1.5 py-0.5 text-[#1C1917] font-bold text-xs focus:outline-none"
                 />
-                <span className="text-slate-400">%</span>
+                <span className="text-[#57534E]">%</span>
               </div>
             </div>
 
             <div>
-              <span className="text-[10px] text-slate-500 block">Position Sizing</span>
-              <span className="text-white font-bold text-xs block mt-0.5">
+              <span className="text-[10px] text-[#78716C] block">Position Sizing</span>
+              <span className="text-[#1C1917] font-bold text-xs block mt-0.5">
                 {calculations.sharesOrUnits} {isGold ? 'Oz / Lots' : 'Shares'}
               </span>
-              <span className="text-[9px] text-slate-500 block">
+              <span className="text-[9px] text-[#78716C] block">
                 (Rec: {calculations.formulaShares} oz)
               </span>
             </div>
 
             <div>
-              <span className="text-[10px] text-slate-500 block">Risk / Reward Ratio</span>
-              <span className={`font-black text-xs block mt-0.5 ${calculations.isFavorable ? 'text-emerald-400' : 'text-amber-400'}`}>
+              <span className="text-[10px] text-[#78716C] block">Risk / Reward Ratio</span>
+              <span className={`font-black text-xs block mt-0.5 ${calculations.isFavorable ? 'text-emerald-700' : 'text-amber-700'}`}>
                 1 : {calculations.rrRatio} {calculations.isFavorable ? '✓ (Good)' : '⚠️ (< 1.5)'}
               </span>
             </div>
           </div>
 
           {/* Visual Position Box Overlay / Forecast Preview */}
-          <div className="border border-slate-700 rounded-lg overflow-hidden bg-slate-950 font-mono">
+          <div className="border border-[#E6DDCF] rounded-lg overflow-hidden bg-[#FAF7F2] font-mono">
             {/* Visual Risk/Reward Box Replica */}
             <div className="p-2.5 flex flex-col">
               {direction === 'LONG' ? (
                 <>
                   {/* Take Profit Box (Top Green) */}
-                  <div className="bg-emerald-950/70 border border-emerald-500/60 rounded-t p-2 flex items-center justify-between text-emerald-200">
+                  <div className="bg-emerald-50 border border-emerald-300 rounded-t p-2 flex items-center justify-between text-emerald-800">
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                      <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
                       <span className="font-bold">TARGET (TP): ${calculations.tp.toFixed(2)}</span>
                     </div>
                     <div className="text-right">
-                      <span className="font-bold text-emerald-400">+{calculations.rewardPct}%</span>
+                      <span className="font-bold text-emerald-700">+{calculations.rewardPct}%</span>
                       <span className="text-[10px] opacity-80 block">+${calculations.projectedProfitDollar}</span>
                     </div>
                   </div>
 
                   {/* Entry Line (Center) */}
-                  <div className="bg-cyan-950 border-y-2 border-cyan-400 px-3 py-1 flex items-center justify-between text-cyan-200 text-xs font-black shadow">
+                  <div className="bg-white border-y-2 border-amber-500 px-3 py-1 flex items-center justify-between text-[#1C1917] text-xs font-black shadow-xs">
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 bg-cyan-400 rotate-45"></span>
+                      <span className="w-2 h-2 bg-amber-500 rotate-45"></span>
                       <span>ENTRY PRICE: ${calculations.entry.toFixed(2)}</span>
                     </div>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-900 border border-cyan-500/50">
+                    <span className="text-[10px] px-2 py-0.5 rounded bg-[#FDF4DC] border border-[#F3DA90] text-[#845306]">
                       R:R 1:{calculations.rrRatio}
                     </span>
                   </div>
 
                   {/* Stop Loss Box (Bottom Red) */}
-                  <div className="bg-rose-950/70 border border-rose-500/60 rounded-b p-2 flex items-center justify-between text-rose-200">
+                  <div className="bg-rose-50 border border-rose-300 rounded-b p-2 flex items-center justify-between text-rose-800">
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-rose-400"></span>
+                      <span className="w-2 h-2 rounded-full bg-rose-600"></span>
                       <span className="font-bold">STOP LOSS (SL): ${calculations.sl.toFixed(2)}</span>
                     </div>
                     <div className="text-right">
-                      <span className="font-bold text-rose-400">-{calculations.riskPct}%</span>
+                      <span className="font-bold text-rose-700">-{calculations.riskPct}%</span>
                       <span className="text-[10px] opacity-80 block">-${calculations.projectedLossDollar}</span>
                     </div>
                   </div>
@@ -500,36 +500,36 @@ export const PositionForecastDrawer: React.FC<PositionForecastDrawerProps> = ({
               ) : (
                 <>
                   {/* Stop Loss Box (Top Red for Short) */}
-                  <div className="bg-rose-950/70 border border-rose-500/60 rounded-t p-2 flex items-center justify-between text-rose-200">
+                  <div className="bg-rose-50 border border-rose-300 rounded-t p-2 flex items-center justify-between text-rose-800">
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-rose-400"></span>
+                      <span className="w-2 h-2 rounded-full bg-rose-600"></span>
                       <span className="font-bold">STOP LOSS (SL): ${calculations.sl.toFixed(2)}</span>
                     </div>
                     <div className="text-right">
-                      <span className="font-bold text-rose-400">-{calculations.riskPct}%</span>
+                      <span className="font-bold text-rose-700">-{calculations.riskPct}%</span>
                       <span className="text-[10px] opacity-80 block">-${calculations.projectedLossDollar}</span>
                     </div>
                   </div>
 
                   {/* Entry Line (Center) */}
-                  <div className="bg-cyan-950 border-y-2 border-cyan-400 px-3 py-1 flex items-center justify-between text-cyan-200 text-xs font-black shadow">
+                  <div className="bg-white border-y-2 border-amber-500 px-3 py-1 flex items-center justify-between text-[#1C1917] text-xs font-black shadow-xs">
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 bg-cyan-400 rotate-45"></span>
+                      <span className="w-2 h-2 bg-amber-500 rotate-45"></span>
                       <span>SHORT ENTRY: ${calculations.entry.toFixed(2)}</span>
                     </div>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-900 border border-cyan-500/50">
+                    <span className="text-[10px] px-2 py-0.5 rounded bg-[#FDF4DC] border border-[#F3DA90] text-[#845306]">
                       R:R 1:{calculations.rrRatio}
                     </span>
                   </div>
 
                   {/* Take Profit Box (Bottom Green for Short) */}
-                  <div className="bg-emerald-950/70 border border-emerald-500/60 rounded-b p-2 flex items-center justify-between text-emerald-200">
+                  <div className="bg-emerald-50 border border-emerald-300 rounded-b p-2 flex items-center justify-between text-emerald-800">
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                      <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
                       <span className="font-bold">TARGET (TP): ${calculations.tp.toFixed(2)}</span>
                     </div>
                     <div className="text-right">
-                      <span className="font-bold text-emerald-400">+{calculations.rewardPct}%</span>
+                      <span className="font-bold text-emerald-700">+{calculations.rewardPct}%</span>
                       <span className="text-[10px] opacity-80 block">+${calculations.projectedProfitDollar}</span>
                     </div>
                   </div>
@@ -540,8 +540,8 @@ export const PositionForecastDrawer: React.FC<PositionForecastDrawerProps> = ({
 
           {/* Footer Action Bar */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
-            <div className="text-[10px] text-slate-400 flex items-center gap-1 font-sans">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+            <div className="text-[10px] text-[#57534E] flex items-center gap-1 font-sans">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
               <span>
                 Tip: On the TradingView chart, enable <strong>Drawing Tools</strong> to use TradingView's native <strong>Long / Short Position</strong> interactive pencil tool.
               </span>
@@ -550,8 +550,8 @@ export const PositionForecastDrawer: React.FC<PositionForecastDrawerProps> = ({
             {onExecuteTrade && (
               <button
                 onClick={handleQuickExecute}
-                className={`px-3.5 py-1.5 rounded-lg text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow transition-colors ${
-                  direction === 'LONG' ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-rose-600 hover:bg-rose-500'
+                className={`px-3.5 py-1.5 rounded-lg text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors ${
+                  direction === 'LONG' ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-rose-600 hover:bg-rose-700'
                 }`}
               >
                 <Zap className="w-3.5 h-3.5" />

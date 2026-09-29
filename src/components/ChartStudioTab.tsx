@@ -40,12 +40,14 @@ export interface AvailableIndicator {
 }
 
 export const TECHNICAL_INDICATORS: AvailableIndicator[] = [
-  { id: 'IchimokuCloud@tv-basicstudies', label: 'Ichimoku Cloud (9, 26, 52, 26)', category: 'Trend', desc: 'Tenkan, Kijun, Senkou Span A/B multi-line cloud' },
-  { id: 'Stochastic@tv-basicstudies', label: 'Stochastic (14, 3, 3)', category: 'Oscillator', desc: 'Stochastic %K & %D cycle oscillator' },
-  { id: 'CCI@tv-basicstudies', label: 'CCI (40)', category: 'Oscillator', desc: 'Commodity Channel Index momentum (Period 40)' },
   { id: 'Volume@tv-basicstudies', label: 'Volume', category: 'Volume', desc: 'Trading volume bars' },
+  { id: 'IchimokuCloud@tv-basicstudies', label: 'Ichimoku Cloud (9, 26, 52, 26)', category: 'Trend', desc: 'Tenkan, Kijun, Senkou Span A/B multi-line cloud' },
+  { id: 'EMA20@tv-basicstudies', label: 'EMA (20)', category: 'MA', desc: '20-period Exponential Moving Average' },
+  { id: 'EMA50@tv-basicstudies', label: 'EMA (50)', category: 'MA', desc: '50-period Exponential Moving Average' },
+  { id: 'CCI@tv-basicstudies', label: 'CCI (40)', category: 'Oscillator', desc: 'Commodity Channel Index momentum (Period 40)' },
+  { id: 'Stochastic@tv-basicstudies', label: 'Stochastic (14, 3, 3)', category: 'Oscillator', desc: 'Stochastic %K & %D cycle oscillator' },
   { id: 'RSI@tv-basicstudies', label: 'RSI (14)', category: 'Oscillator', desc: 'Relative Strength Index momentum' },
-  { id: 'EMA@tv-basicstudies', label: 'EMA', category: 'MA', desc: 'Exponential Moving Average' },
+  { id: 'EMA@tv-basicstudies', label: 'EMA (Generic)', category: 'MA', desc: 'Exponential Moving Average' },
   { id: 'MASimple@tv-basicstudies', label: 'SMA', category: 'MA', desc: 'Simple Moving Average' },
   { id: 'MACD@tv-basicstudies', label: 'MACD', category: 'Oscillator', desc: 'Moving Average Convergence Divergence' },
   { id: 'BB@tv-basicstudies', label: 'Bollinger Bands', category: 'Volatility', desc: 'Volatility bands (20, 2)' },
@@ -57,11 +59,36 @@ export const TECHNICAL_INDICATORS: AvailableIndicator[] = [
 ];
 
 export const INDICATOR_PRESETS = [
-  { name: 'CCI (40) + Ichimoku Strategy (Active)', studies: ['Volume@tv-basicstudies', 'IchimokuCloud@tv-basicstudies', 'Stochastic@tv-basicstudies', 'CCI@tv-basicstudies'] },
-  { name: 'Standard (RSI + EMA + Vol)', studies: ['Volume@tv-basicstudies', 'RSI@tv-basicstudies', 'EMA@tv-basicstudies'] },
-  { name: 'Trend Master (EMA + SMA + Supertrend)', studies: ['Volume@tv-basicstudies', 'EMA@tv-basicstudies', 'MASimple@tv-basicstudies', 'Supertrend@tv-basicstudies'] },
-  { name: 'Momentum Scalp (VWAP + MACD + RSI)', studies: ['Volume@tv-basicstudies', 'VWAP@tv-basicstudies', 'MACD@tv-basicstudies', 'RSI@tv-basicstudies'] },
-  { name: 'Volatility Channel (BB + ATR + EMA)', studies: ['Volume@tv-basicstudies', 'BB@tv-basicstudies', 'ATR@tv-basicstudies', 'EMA@tv-basicstudies'] },
+  { 
+    name: 'EMA (20 & 50) + CCI + Ichimoku + Vol (Default)', 
+    studies: [
+      'Volume@tv-basicstudies',
+      'IchimokuCloud@tv-basicstudies',
+      'EMA20@tv-basicstudies',
+      'EMA50@tv-basicstudies',
+      'CCI@tv-basicstudies'
+    ] 
+  },
+  { 
+    name: 'Dual EMA Trend (EMA 20 & 50 + Volume)', 
+    studies: ['Volume@tv-basicstudies', 'EMA20@tv-basicstudies', 'EMA50@tv-basicstudies'] 
+  },
+  { 
+    name: 'Ichimoku Cloud + Volume', 
+    studies: ['Volume@tv-basicstudies', 'IchimokuCloud@tv-basicstudies'] 
+  },
+  { 
+    name: 'With Stochastic Oscillator', 
+    studies: [
+      'Volume@tv-basicstudies',
+      'IchimokuCloud@tv-basicstudies',
+      'EMA20@tv-basicstudies',
+      'EMA50@tv-basicstudies',
+      'CCI@tv-basicstudies',
+      'Stochastic@tv-basicstudies'
+    ] 
+  },
+  { name: 'Standard (RSI + EMA + Vol)', studies: ['Volume@tv-basicstudies', 'RSI@tv-basicstudies', 'EMA20@tv-basicstudies'] },
   { name: 'Pure Price Action (Volume Only)', studies: ['Volume@tv-basicstudies'] },
 ];
 
@@ -116,12 +143,24 @@ export const ChartStudioTab: React.FC<ChartStudioTabProps> = ({
   // Persistent strategy indicator settings across all stocks and sessions
   const [defaultStudies, setDefaultStudies] = usePersistedState<string[]>('tv_default_studies', DEFAULT_STRATEGY_STUDIES);
 
-  // Auto-migrate legacy CCI study ID from stored local state if present
+  // Auto-migrate to user-requested default indicators: EMA 20 & 50 + CCI + Ichimoku + Vol (remove Stochastic as default)
   useEffect(() => {
-    if (Array.isArray(defaultStudies) && defaultStudies.includes('CommodityChannelIndex@tv-basicstudies')) {
-      setDefaultStudies(prev => prev.map(id => id === 'CommodityChannelIndex@tv-basicstudies' ? 'CCI@tv-basicstudies' : id));
-    }
-  }, [defaultStudies, setDefaultStudies]);
+    setDefaultStudies(prev => {
+      const arr = Array.isArray(prev) ? prev : DEFAULT_STRATEGY_STUDIES;
+      const hasStoch = arr.includes('Stochastic@tv-basicstudies');
+      const lacksEMA20 = !arr.includes('EMA20@tv-basicstudies');
+      if (hasStoch || lacksEMA20) {
+        const cleaned = arr.filter(id => id !== 'Stochastic@tv-basicstudies' && id !== 'CommodityChannelIndex@tv-basicstudies');
+        if (!cleaned.includes('Volume@tv-basicstudies')) cleaned.unshift('Volume@tv-basicstudies');
+        if (!cleaned.includes('IchimokuCloud@tv-basicstudies')) cleaned.push('IchimokuCloud@tv-basicstudies');
+        if (!cleaned.includes('EMA20@tv-basicstudies')) cleaned.push('EMA20@tv-basicstudies');
+        if (!cleaned.includes('EMA50@tv-basicstudies')) cleaned.push('EMA50@tv-basicstudies');
+        if (!cleaned.includes('CCI@tv-basicstudies')) cleaned.push('CCI@tv-basicstudies');
+        return cleaned;
+      }
+      return arr;
+    });
+  }, [setDefaultStudies]);
 
   const toggleStudy = (studyId: string) => {
     setDefaultStudies(prev => {

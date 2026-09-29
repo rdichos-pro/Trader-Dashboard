@@ -95,6 +95,7 @@ export interface Candle {
   sma200?: number;
   ema9?: number;
   ema20?: number;
+  ema50?: number;
   rsi14?: number;
   highestHigh20?: number;
   avgVolume30?: number;
